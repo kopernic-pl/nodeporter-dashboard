@@ -39,30 +39,94 @@ const RetroError = styled.div`
 
 export default function Home() {
   const [services, setServices] = useState([]);
+  const [nodes, setNodes] = useState([]);
+  const [nodeSummary, setNodeSummary] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [nodesError, setNodesError] = useState(null);
+  const [fetchTime, setFetchTime] = useState(null);
 
-  const fetchServices = async () => {
+  const fetchKubernetesData = async () => {
     setLoading(true);
     setError(null);
-    try {
-      const response = await fetch('/api/services');
-      if (!response.ok) throw new Error('Failed to fetch services');
-      const data = await response.json();
-      setServices(data);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+    setNodesError(null);
+    setFetchTime(null);
+    const start = performance.now();
+    // Run both fetches in parallel
+    const servicesPromise = fetch('/api/services')
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to fetch services');
+        return response.json();
+      })
+      .then(setServices)
+      .catch(err => setError(err.message));
+
+    const nodesPromise = fetch('/api/nodes')
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to fetch nodes');
+        return response.json();
+      })
+      .then(nodesData => {
+        setNodes(nodesData);
+        // Calculate summary
+        const numNodes = nodesData.length;
+        let totalCPU = 0;
+        let totalMemory = 0;
+        nodesData.forEach(node => {
+          // CPU is in cores (as string, e.g. "4" or "2000m")
+          // Memory is in bytes (as string, e.g. "16383752Ki")
+          let cpuVal = node.capacity && node.capacity.cpu ? node.capacity.cpu : '0';
+          let memVal = node.capacity && node.capacity.memory ? node.capacity.memory : '0';
+          // Convert cpu to millicores
+          if (cpuVal.endsWith('m')) {
+            totalCPU += parseInt(cpuVal);
+          } else {
+            totalCPU += parseFloat(cpuVal) * 1000;
+          }
+          // Convert memory to MiB
+          if (memVal.endsWith('Ki')) {
+            totalMemory += parseInt(memVal) / 1024;
+          } else if (memVal.endsWith('Mi')) {
+            totalMemory += parseInt(memVal);
+          } else if (memVal.endsWith('Gi')) {
+            totalMemory += parseInt(memVal) * 1024;
+          } else {
+            totalMemory += parseInt(memVal) / (1024 * 1024); // assume bytes
+          }
+        });
+        setNodeSummary({
+          numNodes,
+          totalCPU: totalCPU / 1000, // show in cores
+          totalMemory: Math.round(totalMemory), // show in MiB
+        });
+      })
+      .catch(err => {
+        setNodes([]);
+        setNodeSummary(null);
+        setNodesError(err.message);
+      });
+
+    await Promise.all([servicesPromise, nodesPromise]);
+    const elapsed = performance.now() - start;
+    setFetchTime(elapsed);
+    setLoading(false);
   };
+
 
   return (
     <div className="retro-8bit-app">
       <h1 className="retro-title">K8s Service Table</h1>
-      <RetroButton onClick={fetchServices} disabled={loading}>
+      <RetroButton onClick={fetchKubernetesData} disabled={loading}>
         {loading ? 'Loading...' : 'Refresh'}
       </RetroButton>
+      {nodesError && <RetroError>Nodes error: {nodesError}</RetroError>}
+      {nodeSummary && (
+        <div style={{ marginBottom: '1rem', fontFamily: 'monospace', fontSize: '1rem', color: '#00fff7', textShadow: '1px 1px #222' }}>
+          <b>Cluster Summary:</b> {nodeSummary.numNodes} node{nodeSummary.numNodes === 1 ? '' : 's'},
+          total CPU: {Math.round(nodeSummary.totalCPU)} cores,
+          total Memory: {nodeSummary.totalMemory} MiB
+        </div>
+      )}
       {error && <RetroError>{error}</RetroError>}
       <div className="retro-table-container">
         <table className="retro-table">
@@ -100,6 +164,11 @@ export default function Home() {
           </tbody>
         </table>
       </div>
-    </div>
+    {fetchTime !== null && (
+      <div style={{ position: 'fixed', right: 0, bottom: 0, background: 'rgba(34,34,34,0.95)', color: '#00fff7', fontFamily: 'monospace', fontSize: '0.95rem', padding: '0.6rem 1.2rem', borderTopLeftRadius: '8px', zIndex: 1000, boxShadow: '0 0 8px #00fff7' }}>
+        Fetch time: {(fetchTime / 1000).toFixed(2)}s
+      </div>
+    )}
+  </div>
   );
 }
