@@ -4,6 +4,16 @@ body {
   box-sizing: border-box;
   background: repeating-linear-gradient(135deg, #222 0 10px, #333 10px 20px);
   padding-bottom: 64px; /* Space for sticky footer */
+
+  /* RetroButton dark theme variables */
+  --retro-btn-bg: #00fff7;
+  --retro-btn-color: #222;
+  --retro-btn-border: #ff00c8;
+  --retro-btn-shadow: #ff00c8;
+  --retro-btn-shadow2: #222;
+  --retro-btn-active-bg: #ff00c8;
+  --retro-btn-active-color: #00fff7;
+  --retro-btn-active-shadow: #00fff7;
 }
 
 /* 8-bit vertical scrollbar (dark theme) */
@@ -142,6 +152,18 @@ body::-webkit-scrollbar-corner, .retro-table-container::-webkit-scrollbar-corner
 
 /* 8-bit light mode */
 @media (prefers-color-scheme: light) {
+  body {
+    /* RetroButton light theme variables */
+    --retro-btn-bg: #e07a5f;
+    --retro-btn-color: #fff;
+    --retro-btn-border: #1d70a2;
+    --retro-btn-shadow: #1d70a2;
+    --retro-btn-shadow2: #a2d5c6;
+    --retro-btn-active-bg: #1d70a2;
+    --retro-btn-active-color: #fff200;
+    --retro-btn-active-shadow: #e07a5f;
+  }
+
   body, .retro-table-container {
     /* Firefox */
     scrollbar-color: #e07a5f #f7f7f2;

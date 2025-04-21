@@ -3,21 +3,21 @@ import styled from 'styled-components';
 
 const RetroButton = styled.button`
   font-family: 'Press Start 2P', 'VT323', monospace;
-  background: #00fff7;
-  color: #222;
-  border: 4px solid #ff00c8;
+  background: var(--retro-btn-bg, #00fff7);
+  color: var(--retro-btn-color, #222);
+  border: 4px solid var(--retro-btn-border, #ff00c8);
   border-radius: 0;
   padding: 0.7rem 2rem;
   font-size: 1rem;
   margin-bottom: 2rem;
   cursor: pointer;
-  box-shadow: 4px 4px 0 #ff00c8, 8px 8px 0 #222;
+  box-shadow: 4px 4px 0 var(--retro-btn-shadow, #ff00c8), 8px 8px 0 var(--retro-btn-shadow2, #222);
   transition: background 0.1s, color 0.1s;
 
   &:active {
-    background: #ff00c8;
-    color: #00fff7;
-    box-shadow: 2px 2px 0 #00fff7, 4px 4px 0 #222;
+    background: var(--retro-btn-active-bg, #ff00c8);
+    color: var(--retro-btn-active-color, #00fff7);
+    box-shadow: 2px 2px 0 var(--retro-btn-active-shadow, #00fff7), 4px 4px 0 var(--retro-btn-shadow2, #222);
   }
   &:disabled {
     opacity: 0.6;
