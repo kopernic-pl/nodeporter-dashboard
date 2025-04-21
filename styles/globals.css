@@ -3,6 +3,7 @@ body {
   min-height: 100vh;
   box-sizing: border-box;
   background: repeating-linear-gradient(135deg, #222 0 10px, #333 10px 20px);
+  padding-bottom: 64px; /* Space for sticky footer */
 }
 
 .retro-8bit-app {
@@ -84,6 +85,31 @@ body {
   box-shadow: 0 0 24px #ff00c8;
   padding: 2rem 1rem;
   border-radius: 0;
+}
+
+.retro-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  background: #111;
+  color: #00fff7;
+  font-family: 'Press Start 2P', 'VT323', monospace;
+  font-size: 1rem;
+  text-align: center;
+  padding: 1rem 0 0.7rem 0;
+  border-top: 4px double #ff00c8;
+  box-shadow: 0 -2px 12px #ff00c8;
+  z-index: 100;
+}
+.retro-footer a {
+  color: #ff00c8;
+  text-decoration: none;
+  font-weight: bold;
+}
+.retro-footer a:hover {
+  color: #fff200;
+  text-shadow: 1px 1px #ff00c8;
 }
 
 /* 8-bit light mode */
