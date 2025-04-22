@@ -1,4 +1,4 @@
-# Dockerfile for Windsurf Project (Next.js)
+# Dockerfile for NodePorter Project (Next.js)
 FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
