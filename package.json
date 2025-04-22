@@ -21,7 +21,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [
@@ -61,6 +62,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
     "jest-fetch-mock": "^3.0.3",
-    "pino-pretty": "^13.0.0"
+    "pino-pretty": "^13.0.0",
+    "prettier": "^3.5.3"
   }
 }

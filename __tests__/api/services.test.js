@@ -4,19 +4,18 @@ jest.mock('../../utils/logger', () => ({
   info: jest.fn(),
   warn: jest.fn(),
   debug: jest.fn(),
-  child: () => ({ error: jest.fn(), info: jest.fn(), warn: jest.fn(), debug: jest.fn() })
+  child: () => ({ error: jest.fn(), info: jest.fn(), warn: jest.fn(), debug: jest.fn() }),
 }));
-
 
 jest.mock('@kubernetes/client-node', () => ({
   KubeConfig: jest.fn().mockImplementation(() => ({
     loadFromCluster: jest.fn(),
     loadFromDefault: jest.fn(),
     makeApiClient: jest.fn(() => ({
-      listServiceForAllNamespaces: mockListServiceForAllNamespaces
-    }))
+      listServiceForAllNamespaces: mockListServiceForAllNamespaces,
+    })),
   })),
-  CoreV1Api: jest.fn()
+  CoreV1Api: jest.fn(),
 }));
 
 let mockListServiceForAllNamespaces;
@@ -29,13 +28,15 @@ describe('/api/services API', () => {
     req = {};
     res = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn()
+      json: jest.fn(),
     };
     mockListServiceForAllNamespaces = jest.fn();
   });
 
   it('should return services when the API returns items array', async () => {
-    mockListServiceForAllNamespaces.mockResolvedValue({ items: [{ name: 'svc1' }, { name: 'svc2' }] });
+    mockListServiceForAllNamespaces.mockResolvedValue({
+      items: [{ name: 'svc1' }, { name: 'svc2' }],
+    });
     await handler(req, res);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith([{ name: 'svc1' }, { name: 'svc2' }]);
@@ -45,14 +46,18 @@ describe('/api/services API', () => {
     mockListServiceForAllNamespaces.mockResolvedValue({});
     await handler(req, res);
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ error: 'Failed to fetch services' }));
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({ error: 'Failed to fetch services' })
+    );
   });
 
   it('should return 500 if k8sApi.listServiceForAllNamespaces throws', async () => {
     mockListServiceForAllNamespaces.mockRejectedValue(new Error('boom'));
     await handler(req, res);
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ error: 'Failed to fetch services', details: 'boom' }));
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({ error: 'Failed to fetch services', details: 'boom' })
+    );
   });
 
   function cleanupKubeEnvVars() {

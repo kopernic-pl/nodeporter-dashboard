@@ -5,7 +5,8 @@ import accessLog from '../../utils/accessLog';
 
 function getKubeConfig() {
   const kc = new KubeConfig();
-  const hasInClusterEnv = process.env.KUBERNETES_SERVICE_HOST && process.env.KUBERNETES_SERVICE_PORT;
+  const hasInClusterEnv =
+    process.env.KUBERNETES_SERVICE_HOST && process.env.KUBERNETES_SERVICE_PORT;
   if (hasInClusterEnv) {
     kc.loadFromCluster();
   } else {
@@ -29,13 +30,13 @@ export default async function handler(req, res) {
     const k8sApi = kc.makeApiClient(CoreV1Api);
     const nodesRaw = await k8sApi.listNode();
     const nodesArr = extractNodeItems(nodesRaw);
-    const nodes = nodesArr.map(node => ({
+    const nodes = nodesArr.map((node) => ({
       name: node.metadata.name,
-      status: node.status.conditions.find(c => c.type === 'Ready')?.status,
+      status: node.status.conditions.find((c) => c.type === 'Ready')?.status,
       addresses: node.status.addresses,
       capacity: node.status.capacity,
       allocatable: node.status.allocatable,
-      labels: node.metadata.labels
+      labels: node.metadata.labels,
     }));
     res.status(200).json(nodes);
   } catch (err) {

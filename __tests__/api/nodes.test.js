@@ -6,10 +6,10 @@ jest.mock('@kubernetes/client-node', () => ({
     loadFromCluster: jest.fn(),
     loadFromDefault: jest.fn(),
     makeApiClient: jest.fn(() => ({
-      listNode: mockListNode
-    }))
+      listNode: mockListNode,
+    })),
   })),
-  CoreV1Api: jest.fn()
+  CoreV1Api: jest.fn(),
 }));
 
 describe('/api/nodes API', () => {
@@ -20,7 +20,7 @@ describe('/api/nodes API', () => {
     req = {};
     res = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn()
+      json: jest.fn(),
     };
     mockListNode = jest.fn();
   });
@@ -39,8 +39,8 @@ describe('/api/nodes API', () => {
             conditions: [{ type: 'Ready', status: 'True' }],
             addresses: [{ type: 'InternalIP', address: '10.0.0.1' }],
             capacity: { cpu: '4', memory: '16Gi' },
-            allocatable: { cpu: '4', memory: '16Gi' }
-          }
+            allocatable: { cpu: '4', memory: '16Gi' },
+          },
         },
         {
           metadata: { name: 'node2', labels: { role: 'master' } },
@@ -48,10 +48,10 @@ describe('/api/nodes API', () => {
             conditions: [{ type: 'Ready', status: 'False' }],
             addresses: [{ type: 'InternalIP', address: '10.0.0.2' }],
             capacity: { cpu: '8', memory: '32Gi' },
-            allocatable: { cpu: '8', memory: '32Gi' }
-          }
-        }
-      ]
+            allocatable: { cpu: '8', memory: '32Gi' },
+          },
+        },
+      ],
     });
     await handler(req, res);
     expect(res.status).toHaveBeenCalledWith(200);
@@ -62,7 +62,7 @@ describe('/api/nodes API', () => {
         addresses: [{ type: 'InternalIP', address: '10.0.0.1' }],
         capacity: { cpu: '4', memory: '16Gi' },
         allocatable: { cpu: '4', memory: '16Gi' },
-        labels: { role: 'worker' }
+        labels: { role: 'worker' },
       },
       {
         name: 'node2',
@@ -70,8 +70,8 @@ describe('/api/nodes API', () => {
         addresses: [{ type: 'InternalIP', address: '10.0.0.2' }],
         capacity: { cpu: '8', memory: '32Gi' },
         allocatable: { cpu: '8', memory: '32Gi' },
-        labels: { role: 'master' }
-      }
+        labels: { role: 'master' },
+      },
     ]);
   });
 
@@ -79,14 +79,18 @@ describe('/api/nodes API', () => {
     mockListNode.mockResolvedValue({});
     await handler(req, res);
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ error: 'Failed to fetch nodes' }));
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({ error: 'Failed to fetch nodes' })
+    );
   });
 
   it('should return 500 if k8sApi.listNode throws', async () => {
     mockListNode.mockRejectedValue(new Error('boom'));
     await handler(req, res);
     expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ error: 'Failed to fetch nodes', details: 'boom' }));
+    expect(res.json).toHaveBeenCalledWith(
+      expect.objectContaining({ error: 'Failed to fetch nodes', details: 'boom' })
+    );
   });
 
   it('should use loadFromCluster if in-cluster env vars are set', async () => {

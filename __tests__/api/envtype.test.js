@@ -8,7 +8,7 @@ describe('/api/envtype API', () => {
     req = {};
     res = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn()
+      json: jest.fn(),
     };
   });
 

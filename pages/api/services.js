@@ -5,7 +5,8 @@ import accessLog from '../../utils/accessLog';
 
 function getKubeConfig() {
   const kc = new KubeConfig();
-  const hasInClusterEnv = process.env.KUBERNETES_SERVICE_HOST && process.env.KUBERNETES_SERVICE_PORT;
+  const hasInClusterEnv =
+    process.env.KUBERNETES_SERVICE_HOST && process.env.KUBERNETES_SERVICE_PORT;
   if (hasInClusterEnv) {
     kc.loadFromCluster();
   } else {

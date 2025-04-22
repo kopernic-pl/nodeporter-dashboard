@@ -12,19 +12,22 @@ export default function accessLog(req, res, next) {
     const { method, url, headers, socket } = req;
     const statusCode = res.statusCode;
     // Content-Length may not always be set
-    const contentLength = res.getHeader && res.getHeader('content-length') || 0;
+    const contentLength = (res.getHeader && res.getHeader('content-length')) || 0;
 
-    logger.info({
-      type: 'access',
-      remote_addr: socket?.remoteAddress,
-      method,
-      url,
-      status: statusCode,
-      bytes: contentLength,
-      referrer: headers['referer'] || headers['referrer'],
-      user_agent: headers['user-agent'],
-      duration_ms: durationMs.toFixed(2),
-    }, `${method} ${url} ${statusCode} ${contentLength}B`);
+    logger.info(
+      {
+        type: 'access',
+        remote_addr: socket?.remoteAddress,
+        method,
+        url,
+        status: statusCode,
+        bytes: contentLength,
+        referrer: headers['referer'] || headers['referrer'],
+        user_agent: headers['user-agent'],
+        duration_ms: durationMs.toFixed(2),
+      },
+      `${method} ${url} ${statusCode} ${contentLength}B`
+    );
   });
 
   if (next) next();

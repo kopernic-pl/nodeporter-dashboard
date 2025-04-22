@@ -17,30 +17,35 @@ body {
 }
 
 /* 8-bit vertical scrollbar (dark theme) */
-body, .retro-table-container {
+body,
+.retro-table-container {
   /* Firefox */
   scrollbar-color: #ff00c8 #111;
   scrollbar-width: auto; /* thicker for blocky retro look */
 }
 
-body::-webkit-scrollbar, .retro-table-container::-webkit-scrollbar {
+body::-webkit-scrollbar,
+.retro-table-container::-webkit-scrollbar {
   width: 18px;
   background: #111;
 }
 
-body::-webkit-scrollbar-thumb, .retro-table-container::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb,
+.retro-table-container::-webkit-scrollbar-thumb {
   background: repeating-linear-gradient(135deg, #ff00c8 0 8px, #00fff7 8px 16px);
   border: 4px solid #222;
   border-radius: 0;
   min-height: 32px;
   box-shadow: 2px 2px 0 #fff200;
 }
-body::-webkit-scrollbar-track, .retro-table-container::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track,
+.retro-table-container::-webkit-scrollbar-track {
   background: #111;
   border: 2px solid #00fff7;
   border-radius: 0;
 }
-body::-webkit-scrollbar-corner, .retro-table-container::-webkit-scrollbar-corner {
+body::-webkit-scrollbar-corner,
+.retro-table-container::-webkit-scrollbar-corner {
   background: #222;
 }
 
@@ -57,7 +62,9 @@ body::-webkit-scrollbar-corner, .retro-table-container::-webkit-scrollbar-corner
   font-size: 2rem;
   color: #00fff7;
   margin-bottom: 2rem;
-  text-shadow: 2px 2px 0 #ff00c8, 4px 4px 0 #222;
+  text-shadow:
+    2px 2px 0 #ff00c8,
+    4px 4px 0 #222;
   letter-spacing: 2px;
 }
 
@@ -105,13 +112,14 @@ body::-webkit-scrollbar-corner, .retro-table-container::-webkit-scrollbar-corner
   color: #000;
 }
 
-
 .retro-title {
   font-family: 'Press Start 2P', 'VT323', monospace;
   font-size: 2rem;
   color: #00fff7;
   margin-bottom: 2rem;
-  text-shadow: 2px 2px 0 #ff00c8, 4px 4px 0 #222;
+  text-shadow:
+    2px 2px 0 #ff00c8,
+    4px 4px 0 #222;
   letter-spacing: 2px;
 }
 
@@ -164,28 +172,33 @@ body::-webkit-scrollbar-corner, .retro-table-container::-webkit-scrollbar-corner
     --retro-btn-active-shadow: #e07a5f;
   }
 
-  body, .retro-table-container {
+  body,
+  .retro-table-container {
     /* Firefox */
     scrollbar-color: #e07a5f #f7f7f2;
     scrollbar-width: auto;
   }
-  body::-webkit-scrollbar, .retro-table-container::-webkit-scrollbar {
+  body::-webkit-scrollbar,
+  .retro-table-container::-webkit-scrollbar {
     width: 18px;
     background: #f7f7f2;
   }
-  body::-webkit-scrollbar-thumb, .retro-table-container::-webkit-scrollbar-thumb {
+  body::-webkit-scrollbar-thumb,
+  .retro-table-container::-webkit-scrollbar-thumb {
     background: repeating-linear-gradient(135deg, #e07a5f 0 8px, #1d70a2 8px 16px);
     border: 4px solid #a2d5c6;
     border-radius: 0;
     min-height: 32px;
     box-shadow: 2px 2px 0 #fff200;
   }
-  body::-webkit-scrollbar-track, .retro-table-container::-webkit-scrollbar-track {
+  body::-webkit-scrollbar-track,
+  .retro-table-container::-webkit-scrollbar-track {
     background: #f7f7f2;
     border: 2px solid #a2d5c6;
     border-radius: 0;
   }
-  body::-webkit-scrollbar-corner, .retro-table-container::-webkit-scrollbar-corner {
+  body::-webkit-scrollbar-corner,
+  .retro-table-container::-webkit-scrollbar-corner {
     background: #d3d3c7;
   }
 
@@ -197,7 +210,9 @@ body::-webkit-scrollbar-corner, .retro-table-container::-webkit-scrollbar-corner
   }
   .retro-title {
     color: #1d70a2;
-    text-shadow: 2px 2px 0 #e07a5f, 4px 4px 0 #e9e9e3;
+    text-shadow:
+      2px 2px 0 #e07a5f,
+      4px 4px 0 #e9e9e3;
   }
   .retro-table-container {
     background: #f7f7f2;

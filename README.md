@@ -28,21 +28,26 @@ NodePorter provides a user-friendly, retro-styled dashboard that discovers and d
 ## 🛠️ Getting Started
 
 ### Prerequisites
+
 - Node.js v18+ (tested on v22)
 - Access to a Kubernetes cluster (local or remote)
 
 ### Installation
+
 ```sh
 npm install
 ```
 
 ### Running the Dashboard
+
 ```sh
 npm run dev
 ```
+
 - Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Running Tests
+
 ```sh
 npm run test
 ```
@@ -50,6 +55,7 @@ npm run test
 ---
 
 ## 🏡 Home Lab Use Case
+
 - Deploy this dashboard to your local cluster (e.g., k3s, kind, minikube).
 - No need to edit `/etc/hosts` or run CoreDNS tweaks—just use the NodePort links provided.
 - Works great for small teams or home labs wanting simple service access and cluster visibility.
@@ -57,7 +63,9 @@ npm run test
 ---
 
 ## 🤖 GenAI Approach
+
 This project was iteratively built and improved using generative AI (Cascade, GPT-4, etc.), showcasing:
+
 - Rapid prototyping of UI and API features
 - Automated code refactoring and dependency management
 - AI-driven troubleshooting and test creation
@@ -65,6 +73,7 @@ This project was iteratively built and improved using generative AI (Cascade, GP
 ---
 
 ## 📦 Project Structure
+
 - `pages/` — Next.js pages and API routes
 - `public/` — Static assets and manifest
 - `__tests__/` — Jest tests
@@ -72,6 +81,7 @@ This project was iteratively built and improved using generative AI (Cascade, GP
 ---
 
 ## 🙏 Credits
+
 - [Next.js](https://nextjs.org/)
 - [@kubernetes/client-node](https://github.com/kubernetes-client/javascript)
 - [styled-components](https://styled-components.com/)
@@ -81,4 +91,5 @@ This project was iteratively built and improved using generative AI (Cascade, GP
 ---
 
 ## 📝 License
+
 MIT
