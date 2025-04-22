@@ -6,9 +6,7 @@
     "@fontsource/press-start-2p": "^5.2.5",
     "@fontsource/vt323": "^5.2.5",
     "@kubernetes/client-node": "^1.1.2",
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@next/bundle-analyzer": "^15.3.1",
     "fastify": "^5.3.2",
     "fastify-cors": "^6.0.3",
     "next": "^15.3.1",
@@ -53,10 +51,14 @@
   "devDependencies": {
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
+    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "babel-jest": "^29.7.0",
     "babel-plugin-styled-components": "^2.1.4",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "jest-fetch-mock": "^3.0.3"
   }
 }

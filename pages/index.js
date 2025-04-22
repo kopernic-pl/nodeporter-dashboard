@@ -45,6 +45,14 @@ export default function Home() {
   const [error, setError] = useState(null);
   const [nodesError, setNodesError] = useState(null);
   const [fetchTime, setFetchTime] = useState(null);
+  const [envType, setEnvType] = useState(null);
+
+  React.useEffect(() => {
+    fetch('/api/envtype')
+      .then(res => res.json())
+      .then(data => setEnvType(data.envType))
+      .catch(() => setEnvType('unknown'));
+  }, []);
 
   const fetchKubernetesData = async () => {
     setLoading(true);
@@ -115,6 +123,27 @@ export default function Home() {
 
   return (
     <div className="retro-8bit-app">
+      {envType && (
+        <div style={{
+          background: envType === 'in-cluster' ? '#00fff7' : '#ff00c8',
+          color: envType === 'in-cluster' ? '#111' : '#fff',
+          fontFamily: "'Press Start 2P', 'VT323', monospace",
+          fontSize: '1rem',
+          letterSpacing: '1px',
+          textAlign: 'center',
+          padding: '0.7rem 0',
+          borderBottom: envType === 'in-cluster' ? '4px solid #fff200' : '4px solid #fff200',
+          boxShadow: envType === 'in-cluster'
+            ? '0 2px 12px #00fff7'
+            : '0 2px 12px #ff00c8',
+          marginBottom: '1.5rem',
+          textShadow: envType === 'in-cluster' ? '1px 1px #fff200' : '1px 1px #222',
+        }}>
+          {envType === 'in-cluster' && 'Running in-cluster (production/Kubernetes)'}
+          {envType === 'local' && 'Running in local/dev mode'}
+          {envType === 'unknown' && 'Environment type: unknown'}
+        </div>
+      )}
       <h1 className="retro-title">K8s Service Table</h1>
       <RetroButton onClick={fetchKubernetesData} disabled={loading}>
         {loading ? 'Loading...' : 'Refresh'}
