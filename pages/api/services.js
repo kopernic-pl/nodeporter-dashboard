@@ -1,5 +1,6 @@
 // Next.js API route for /api/services
 import { KubeConfig, CoreV1Api } from '@kubernetes/client-node';
+import logger from '../../utils/logger';
 
 function getKubeConfig() {
   const kc = new KubeConfig();
@@ -22,7 +23,7 @@ export default async function handler(req, res) {
     }
     res.status(200).json(servicesRaw.items);
   } catch (err) {
-    console.error('Failed to fetch services:', err);
+    logger.error({ err }, 'Failed to fetch services');
     res.status(500).json({ error: 'Failed to fetch services', details: err.message });
   }
 }

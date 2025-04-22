@@ -7,3 +7,12 @@ global.TextDecoder = TextDecoder;
 
 // Enable fetch mocking for tests
 require('jest-fetch-mock').enableMocks();
+
+// Silence logger for all tests
+jest.mock('./utils/logger', () => ({
+  error: jest.fn(),
+  info: jest.fn(),
+  warn: jest.fn(),
+  debug: jest.fn(),
+  child: () => ({ error: jest.fn(), info: jest.fn(), warn: jest.fn(), debug: jest.fn() })
+}));
