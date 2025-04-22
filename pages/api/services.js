@@ -1,6 +1,7 @@
 // Next.js API route for /api/services
 import { KubeConfig, CoreV1Api } from '@kubernetes/client-node';
 import logger from '../../utils/logger';
+import accessLog from '../../utils/accessLog';
 
 function getKubeConfig() {
   const kc = new KubeConfig();
@@ -14,6 +15,7 @@ function getKubeConfig() {
 }
 
 export default async function handler(req, res) {
+  accessLog(req, res);
   try {
     const kc = getKubeConfig();
     const k8sApi = kc.makeApiClient(CoreV1Api);

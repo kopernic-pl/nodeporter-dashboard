@@ -60,6 +60,7 @@
     "babel-plugin-styled-components": "^2.1.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
-    "jest-fetch-mock": "^3.0.3"
+    "jest-fetch-mock": "^3.0.3",
+    "pino-pretty": "^13.0.0"
   }
 }
