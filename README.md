@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# NodePorter Kubernetes Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, GenAI-assisted dashboard for managing your local home lab Kubernetes cluster—**no hosts file editing or custom DNS required!**
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Project Background
 
-### `npm start`
+This project was conceived as an experiment to leverage generative AI (GenAI) for real-world software development, while also solving a common pain point for home lab Kubernetes users:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> **How can I access Kubernetes services from my laptop, without editing `/etc/hosts` or running my own DNS?**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+NodePorter provides a user-friendly, retro-styled dashboard that discovers and displays all your cluster services and node endpoints, making it easy to access NodePorts, monitor cluster health, and more—all with zero manual networking hacks.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## ✨ Features
 
-### `npm run build`
+- **Environment-aware banner:** Instantly see if you’re running in-cluster or local/dev mode.
+- **Kubernetes Service Table:** List all services, types, ports, and direct NodePort links.
+- **Cluster Node Summary:** See node count, total CPU, and memory at a glance.
+- **No hosts file or DNS hacks:** Access services using real node IPs—no manual setup required.
+- **Retro UI:** Styled with 8-bit fonts and vibrant colors for fun and clarity.
+- **GenAI-powered development:** Built and refactored using AI assistance for rapid iteration.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🛠️ Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
+- Node.js v18+ (tested on v22)
+- Access to a Kubernetes cluster (local or remote)
 
-### `npm run eject`
+### Installation
+```sh
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Running the Dashboard
+```sh
+npm run dev
+```
+- Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Running Tests
+```sh
+npm run test
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 🏡 Home Lab Use Case
+- Deploy this dashboard to your local cluster (e.g., k3s, kind, minikube).
+- No need to edit `/etc/hosts` or run CoreDNS tweaks—just use the NodePort links provided.
+- Works great for small teams or home labs wanting simple service access and cluster visibility.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🤖 GenAI Approach
+This project was iteratively built and improved using generative AI (Cascade, GPT-4, etc.), showcasing:
+- Rapid prototyping of UI and API features
+- Automated code refactoring and dependency management
+- AI-driven troubleshooting and test creation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 📦 Project Structure
+- `pages/` — Next.js pages and API routes
+- `public/` — Static assets and manifest
+- `__tests__/` — Jest tests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 🙏 Credits
+- [Next.js](https://nextjs.org/)
+- [@kubernetes/client-node](https://github.com/kubernetes-client/javascript)
+- [styled-components](https://styled-components.com/)
+- [@fontsource/press-start-2p](https://fontsource.org/fonts/press-start-2p)
+- GenAI for development support
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 📝 License
+MIT

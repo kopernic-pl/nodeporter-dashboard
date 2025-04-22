@@ -4,7 +4,7 @@
 
 set -e
 
-IMAGE_NAME="windsurf-project"
+IMAGE_NAME="nodeporter"
 TAG="${1:-latest}"
 
 # Go to project root

@@ -1,6 +1,6 @@
 {
-  "short_name": "Windsurf",
-  "name": "Windsurf Kubernetes Dashboard",
+  "short_name": "NodePorter",
+  "name": "NodePorter Kubernetes Dashboard",
   "icons": [
     {
       "src": "favicon.png",
