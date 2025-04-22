@@ -137,12 +137,13 @@ export default function Home() {
               <th>Type</th>
               <th>ClusterIP</th>
               <th>Ports</th>
+              <th>NodePort Link</th>
             </tr>
           </thead>
           <tbody>
             {services.length === 0 && !loading ? (
               <tr>
-                <td colSpan="5" style={{ textAlign: 'center' }}>No services loaded</td>
+                <td colSpan="6" style={{ textAlign: 'center' }}>No services loaded</td>
               </tr>
             ) : (
               services.map((svc, idx) => (
@@ -153,10 +154,32 @@ export default function Home() {
                   <td>{svc.spec.clusterIP}</td>
                   <td>
                     {svc.spec.ports.map((p, i) => (
-                      <span key={i}>
-                        {p.port}/{p.protocol}{p.nodePort ? ` (NodePort: ${p.nodePort})` : ''}{i < svc.spec.ports.length - 1 ? ', ' : ''}
-                      </span>
-                    ))}
+                    <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2em' }}>
+                      {p.port}/{p.protocol}{p.nodePort ? ` (NodePort: ${p.nodePort})` : ''}{i < svc.spec.ports.length - 1 ? ', ' : ''}
+                    </span>
+                  ))}
+                  </td>
+                  <td>
+                    {(() => {
+                      if (svc.spec.type === 'NodePort' && nodes && nodes.length > 0) {
+                        const node = nodes[0];
+                        const internalIP = node.addresses?.find(addr => addr.type === 'InternalIP')?.address;
+                        const nodePortObj = svc.spec.ports.find(p => p.nodePort);
+                        if (internalIP && nodePortObj && nodePortObj.nodePort) {
+                          const nodeUrl = `http://${internalIP}:${nodePortObj.nodePort}`;
+                          return (
+                            <a href={nodeUrl} target="_blank" rel="noopener noreferrer" title={`Open ${nodeUrl}`}
+                              style={{ marginLeft: 2, display: 'inline-flex', alignItems: 'center' }}>
+                              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 13L13 7M10 7H13V10" stroke="#00fff7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                <rect x="3" y="3" width="14" height="14" rx="3" stroke="#00fff7" strokeWidth="2"/>
+                              </svg>
+                            </a>
+                          );
+                        }
+                      }
+                      return null;
+                    })()}
                   </td>
                 </tr>
               ))

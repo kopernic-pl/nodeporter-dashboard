@@ -1,16 +1,28 @@
 // Next.js API route for /api/services
-export default function handler(req, res) {
-  const mockedServices = [
-    {
-      metadata: { name: 'service-1', namespace: 'default' },
-      spec: { type: 'ClusterIP', clusterIP: '10.0.0.1', ports: [{ port: 80, protocol: 'TCP' }] },
-      status: { loadBalancer: {} }
-    },
-    {
-      metadata: { name: 'service-2', namespace: 'default' },
-      spec: { type: 'NodePort', clusterIP: '10.0.0.2', ports: [{ port: 8080, protocol: 'TCP', nodePort: 30036 }] },
-      status: { loadBalancer: {} }
+import { KubeConfig, CoreV1Api } from '@kubernetes/client-node';
+
+function getKubeConfig() {
+  const kc = new KubeConfig();
+  const hasInClusterEnv = process.env.KUBERNETES_SERVICE_HOST && process.env.KUBERNETES_SERVICE_PORT;
+  if (hasInClusterEnv) {
+    kc.loadFromCluster();
+  } else {
+    kc.loadFromDefault();
+  }
+  return kc;
+}
+
+export default async function handler(req, res) {
+  try {
+    const kc = getKubeConfig();
+    const k8sApi = kc.makeApiClient(CoreV1Api);
+    const servicesRaw = await k8sApi.listServiceForAllNamespaces();
+    if (!servicesRaw.items || !Array.isArray(servicesRaw.items)) {
+      throw new Error('Unexpected response structure from k8sApi.listServiceForAllNamespaces');
     }
-  ];
-  res.status(200).json(mockedServices);
+    res.status(200).json(servicesRaw.items);
+  } catch (err) {
+    console.error('Failed to fetch services:', err);
+    res.status(500).json({ error: 'Failed to fetch services', details: err.message });
+  }
 }
