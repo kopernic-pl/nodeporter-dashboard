@@ -42,11 +42,3 @@ jobs:
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           docker push ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:${{ env.TAG }}
           docker push ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:latest
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: release/${{ env.TAG }}
-          name: Release ${{ env.TAG }}
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
