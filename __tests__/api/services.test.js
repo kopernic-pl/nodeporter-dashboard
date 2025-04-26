@@ -29,7 +29,9 @@ describe('/api/services API', () => {
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
+      on: jest.fn(), // mock for .on()
     };
+
     mockListServiceForAllNamespaces = jest.fn();
   });
 
