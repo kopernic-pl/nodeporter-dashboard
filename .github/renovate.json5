@@ -1,0 +1,87 @@
+// Renovate configuration for advanced dependency automation and dashboard
+{
+  // JSON schema for validation and IDE support
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+
+  // Extend recommended settings for JS/Node apps, semantic commits, and chore for all
+  extends: [
+    'config:js-app', // Preset for JS apps: smart grouping, PR limits, etc.
+    ':semanticCommits', // Use semantic commit messages
+    ':semanticCommitTypeAll(chore)', // Use 'chore' as the type for all commits
+  ],
+
+  // Customize the commit message action emoji
+  commitMessageAction: '🔗 update',
+
+  // Use strict checks for internal Renovate logic (required for stabilityDays)
+  internalChecksFilter: 'strict',
+
+  // Enable the Renovate Dependency Dashboard PR (interactive dashboard)
+  dependencyDashboard: true,
+  // Require manual approval for all updates by default (can override per-rule)
+  dependencyDashboardApproval: true,
+
+  // Pin dependencies: don't require approval and don't automerge
+  pin: {
+    dependencyDashboardApproval: false,
+    automerge: false,
+  },
+
+  // Separate PRs for minor/patch and major/minor updates
+  separateMinorPatch: true,
+  separateMajorMinor: true,
+
+  // Define custom rules for specific dependencies or groups
+  packageRules: [
+    {
+      // Automerge unit test packages (example: override for @faker-js/faker)
+      description: 'Automerge unit test packages',
+      extends: ['packages:jsUnitTest'], // Predefined group for JS unit test libs
+      automerge: false, // Set to false for safety, can set true if desired
+      matchPackageNames: ['@faker-js/faker'],
+      dependencyDashboardApproval: false, // Don't require approval for this rule
+    },
+    {
+      // Automerge linters (example: cspell, markdownlint-cli, prettier-package-json)
+      description: 'Automerge linters',
+      extends: ['packages:linters'],
+      automerge: false, // Set to false for safety, can set true if desired
+      matchPackageNames: ['cspell', 'markdownlint-cli', 'prettier-package-json'],
+      dependencyDashboardApproval: false, // Don't require approval for this rule
+    },
+    {
+      // Wait for stability before updating npm packages
+      matchDatasources: ['npm'],
+      stabilityDays: 3, // Only propose updates for packages published >3 days ago
+    },
+    {
+      // Disable updates for Prettier v3 (due to known incompatibility)
+      matchCurrentVersion: '2.8.8', // Only match Prettier v2.8.8
+      matchPackageNames: ['prettier'],
+      enabled: false, // Don't update Prettier past this version
+    },
+    {
+      // Group all @kubb packages together into a single PR
+      description: 'Group all `@kubb` packages together',
+      groupName: 'Kubb',
+      matchPackagePrefixes: ['@kubb/'],
+    },
+    {
+      // Default: Automerge devDependencies (test deps), wait 3 days before PR
+      description: 'Automatically upgrade test dependencies with separate PRs and automerge',
+      matchDepTypes: ['devDependencies'],
+      automerge: true,
+      automergeType: 'branch',
+      prPriority: 1,
+      addLabels: ['test-deps', 'automerge'],
+      postUpdateOptions: [
+        { waitDays: 3 }, // Wait 3 days after publish before proposing update
+      ],
+    },
+  ],
+
+  // Run pnpm dedupe after update PRs (if you use pnpm)
+  postUpdateOptions: [
+    'pnpmDedupe', // Run `pnpm dedupe` after updating dependencies
+  ],
+}
