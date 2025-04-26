@@ -74,9 +74,12 @@ This project was iteratively built and improved using generative AI (Cascade, GP
 
 ## 📦 Project Structure
 
-- `pages/` — Next.js pages and API routes
-- `public/` — Static assets and manifest
-- `__tests__/` — Jest tests
+- `pages/` — Next.js pages and API routes (including `api/` for backend endpoints)
+- `public/` — Static assets (icons, manifest, etc.)
+- `styles/` — Global and component CSS
+- `utils/` — Utility/helper functions (e.g., logging)
+- `__tests__/` — Jest tests for API and frontend
+- `ops/` — Deployment and Dockerization scripts
 
 ---
 
