@@ -27,15 +27,17 @@ jobs:
       - name: Extract tag version
         id: extract_tag
         run: echo "TAG=${GITHUB_REF#refs/tags/release/}" >> $GITHUB_ENV
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
       - name: Build and push Docker image (multi-platform)
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          platforms: linux/amd64,linux/arm64
-          tags: |
-            ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:${{ env.TAG }}
-            ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:latest
+        run: |
+          chmod +x ./ops/build_and_dockerize.sh
+          ./ops/build_and_dockerize.sh ${{ env.TAG }}
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker push ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:${{ env.TAG }}
+          docker push ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:latest
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
