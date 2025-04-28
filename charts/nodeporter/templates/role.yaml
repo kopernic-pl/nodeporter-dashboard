@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "nodeporter.fullname" . }}
+  labels:
+    {{- include "nodeporter.labels" . | nindent 4 }}
+  namespace: {{ .Release.Namespace }}
+rules:
+  # Allow read-only access to pods, services, and nodes (minimal for dashboard)
+  - apiGroups: [""]
+    resources: ["services", "nodes"]
+    verbs: ["get", "list", "watch"]
