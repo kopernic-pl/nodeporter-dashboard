@@ -1,6 +1,13 @@
-# NodePorter Kubernetes Dashboard
+# NodePorter
 
-A modern, GenAI-assisted dashboard for managing your local home lab Kubernetes cluster—**no hosts file editing or custom DNS required!**
+![App Screenshot](./app-screenshot.png)
+ Kubernetes Dashboard
+
+A modern dashboard for managing your local home lab Kubernetes cluster—**no hosts file editing or custom DNS required!**
+
+---
+
+> **Note:** This project was created and iteratively developed using AI assistance, enabling rapid prototyping and high-quality automation. The application itself does not use GenAI features at runtime.
 
 ---
 
@@ -21,7 +28,7 @@ NodePorter provides a user-friendly, retro-styled dashboard that discovers and d
 - **Cluster Node Summary:** See node count, total CPU, and memory at a glance.
 - **No hosts file or DNS hacks:** Access services using real node IPs—no manual setup required.
 - **Retro UI:** Styled with 8-bit fonts and vibrant colors for fun and clarity.
-- **GenAI-powered development:** Built and refactored using AI assistance for rapid iteration.
+- **AI-assisted development:** The codebase was built and refactored with the help of generative AI tools for rapid iteration.
 
 ---
 
