@@ -7,7 +7,7 @@ A modern dashboard for managing your local home lab Kubernetes cluster—**no ho
 
 ---
 
-> **Note:** This project was created and iteratively developed using AI assistance, enabling rapid prototyping and high-quality automation. The application itself does not use GenAI features at runtime.
+> **Note:** This project was created and iteratively developed using AI assistance, enabling rapid prototyping and high-quality automation.
 
 ---
 
