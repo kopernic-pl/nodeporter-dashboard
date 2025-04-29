@@ -54,34 +54,5 @@
       matchDatasources: ['npm'],
       stabilityDays: 3, // Only propose updates for packages published >3 days ago
     },
-    {
-      // Disable updates for Prettier v3 (due to known incompatibility)
-      matchCurrentVersion: '2.8.8', // Only match Prettier v2.8.8
-      matchPackageNames: ['prettier'],
-      enabled: false, // Don't update Prettier past this version
-    },
-    {
-      // Group all @kubb packages together into a single PR
-      description: 'Group all `@kubb` packages together',
-      groupName: 'Kubb',
-      matchPackagePrefixes: ['@kubb/'],
-    },
-    {
-      // Default: Automerge devDependencies (test deps), wait 3 days before PR
-      description: 'Automatically upgrade test dependencies with separate PRs and automerge',
-      matchDepTypes: ['devDependencies'],
-      automerge: true,
-      automergeType: 'branch',
-      prPriority: 1,
-      addLabels: ['test-deps', 'automerge'],
-      postUpdateOptions: [
-        { waitDays: 3 }, // Wait 3 days after publish before proposing update
-      ],
-    },
-  ],
-
-  // Run pnpm dedupe after update PRs (if you use pnpm)
-  postUpdateOptions: [
-    'pnpmDedupe', // Run `pnpm dedupe` after updating dependencies
-  ],
+  ]
 }
