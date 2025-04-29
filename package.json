@@ -14,7 +14,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "styled-components": "6.1.17",
-    "web-vitals": "2.1.4"
+    "web-vitals": "4.2.4"
   },
   "scripts": {
     "dev": "next dev",
