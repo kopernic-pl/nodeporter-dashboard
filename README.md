@@ -102,4 +102,6 @@ This project was iteratively built and improved using generative AI (Cascade, GP
 
 ## 📝 License
 
-MIT
+MIT—with a cookie twist! 🍪
+
+You are free to use, modify, and distribute this software under the terms of the MIT License. If you find it useful, consider sending a virtual cookie or enjoying one yourself while coding!
