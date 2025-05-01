@@ -8,13 +8,13 @@
     "@kubernetes/client-node": "1.1.2",
     "@next/bundle-analyzer": "15.3.1",
     "fastify": "5.3.2",
-    "fastify-cors": "^6.1.0",
+    "@fastify/cors": "^8.4.0",
     "next": "15.3.1",
     "pino": "9.6.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "styled-components": "6.1.17",
-    "web-vitals": "2.1.4"
+    "web-vitals": "4.2.4"
   },
   "scripts": {
     "dev": "next dev",
@@ -51,8 +51,8 @@
     "node": "22.x"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.26.9",
-    "@babel/preset-react": "7.26.3",
+    "@babel/preset-env": "7.27.1",
+    "@babel/preset-react": "7.27.1",
     "@testing-library/dom": "10.4.0",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",
@@ -61,7 +61,7 @@
     "babel-plugin-styled-components": "2.1.4",
     "identity-obj-proxy": "3.0.0",
     "jest": "29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
+    "jest-environment-jsdom": "29.7.0",
     "jest-fetch-mock": "3.0.3",
     "pino-pretty": "13.0.0",
     "prettier": "3.5.3"
