@@ -14,6 +14,7 @@ spec:
       labels:
         {{- include "nodeporter.selectorLabels" . | nindent 8 }}
     spec:
+      serviceAccountName: {{ include "nodeporter.fullname" . }}
       containers:
         - name: nodeporter
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
