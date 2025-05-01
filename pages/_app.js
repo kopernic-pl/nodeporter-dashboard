@@ -22,3 +22,13 @@ export default function MyApp({ Component, pageProps }) {
     </>
   );
 }
+
+// Next.js will call this function with Web Vitals metrics
+export function reportWebVitals(metric) {
+  // You can send metrics to an analytics endpoint here
+  // For now, just log them to the console
+  if (typeof window !== 'undefined') {
+    // Only log in the browser
+    console.log('[Web Vitals]', metric);
+  }
+}
