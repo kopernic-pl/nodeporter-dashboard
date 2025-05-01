@@ -8,13 +8,13 @@
     "@kubernetes/client-node": "1.1.2",
     "@next/bundle-analyzer": "15.3.1",
     "fastify": "5.3.2",
-    "@fastify/cors": "8.5.0",
+    "@fastify/cors": "8.4.0",
     "next": "15.3.1",
     "pino": "9.6.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "styled-components": "6.1.17",
-    "web-vitals": "4.2.4"
+    "web-vitals": "^4.2.4"
   },
   "scripts": {
     "dev": "next dev",
