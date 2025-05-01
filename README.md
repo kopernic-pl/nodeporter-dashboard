@@ -39,25 +39,26 @@ NodePorter provides a user-friendly, retro≥-styled dashboard that discovers an
 - Node.js v18+ (tested on v22)
 - Access to a Kubernetes cluster (local or remote)
 
-### Installation
+### Running locally
 
 ```sh
 npm install
-```
-
-### Running the Dashboard
-
-```sh
 npm run dev
 ```
 
 - Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Running Tests
+### Running container
 
 ```sh
-npm run test
+docker run -d -p 3000:3000 ghcr.io/kopernic-pl/nodeporter-dashboard
 ```
+
+- Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Running with Helm
+
+tbd...
 
 ---
 
@@ -65,7 +66,7 @@ npm run test
 
 - Deploy this dashboard to your local cluster (e.g., k3s, kind, minikube).
 - No need to edit `/etc/hosts` or run CoreDNS tweaks—just use the NodePort links provided.
-- Works great for small teams or home labs wanting simple service access and cluster visibility.
+- Works great for small teams or home labs wanting simple services and cluster size overview.
 
 ---
 
