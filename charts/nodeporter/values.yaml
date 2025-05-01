@@ -1,0 +1,30 @@
+# Default values for nodeporter Helm chart.
+
+## Number of pod replicas to deploy
+replicaCount: 1
+
+image:
+  ## Container image repository
+  repository: ghcr.io/kopernic-pl/nodeporter-dashboard
+  ## Container image tag
+  tag: "0.0.1.beta.4"
+  ## Image pull policy
+  pullPolicy: IfNotPresent
+
+service:
+  ## Kubernetes service type (ClusterIP, NodePort)
+  type: ClusterIP
+  ## Service port to expose
+  port: 80
+  ## Node port to use if service type is NodePort (set to null to auto-assign)
+  nodePort: null
+
+## Resource requests and limits for the pod
+resources: {}
+
+## Node selector for pod assignment
+nodeSelector: {}
+## Tolerations for pod assignment
+tolerations: []
+## Affinity rules for pod assignment
+affinity: {}

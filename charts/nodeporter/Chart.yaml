@@ -1,0 +1,16 @@
+apiVersion: v2
+name: nodeporter
+version: 0.0.2
+appVersion: "0.0.1.beta.4"
+description: A Helm chart for deploying the NodePorter Docker image (Next.js app)
+type: application
+keywords:
+  - nextjs
+  - nodeporter
+  - dashboard
+home: https://github.com/kopernic-pl/nodeporter
+sources:
+  - https://github.com/kopernic-pl/nodeporter
+maintainers:
+  - name: kopernic-pl
+    email: <your-email>
