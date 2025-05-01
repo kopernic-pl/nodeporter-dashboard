@@ -1,9 +1,9 @@
 # NodePorter
 
 ![App Screenshot](./app-screenshot.png)
- Kubernetes Dashboard
+ Kubernetes Services Dashboard
 
-A modern dashboard for managing your local home lab Kubernetes cluster—**no hosts file editing or custom DNS required!**
+A dashboard for viewing your local home lab Kubernetes cluster networking—**no hosts file editing or custom DNS required!**
 
 ---
 
@@ -15,9 +15,9 @@ A modern dashboard for managing your local home lab Kubernetes cluster—**no ho
 
 This project was conceived as an experiment to leverage generative AI (GenAI) for real-world software development, while also solving a common pain point for home lab Kubernetes users:
 
-> **How can I access Kubernetes services from my laptop, without editing `/etc/hosts` or running my own DNS?**
+> **How can I remember Kubernetes services nodeports, without editing `/etc/hosts` or running my own DNS for ingress?**
 
-NodePorter provides a user-friendly, retro-styled dashboard that discovers and displays all your cluster services and node endpoints, making it easy to access NodePorts, monitor cluster health, and more—all with zero manual networking hacks.
+NodePorter provides a user-friendly, retro≥-styled dashboard that discovers and displays all your cluster services (and some nodes data), making it easy to remember and access NodePorts, and more—all with zero manual networking hacks.
 
 ---
 
