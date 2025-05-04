@@ -1,58 +1,42 @@
-// Renovate configuration for advanced dependency automation and dashboard
 {
-  // JSON schema for validation and IDE support
-  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-
-  // Extend recommended settings for JS/Node apps, semantic commits, and chore for all
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    'config:js-app', // Preset for JS apps: smart grouping, PR limits, etc.
-    ':semanticCommits', // Use semantic commit messages
-    ':semanticCommitTypeAll(chore)', // Use 'chore' as the type for all commits
+    "config:js-app",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)",
   ],
-
-  // Customize the commit message action emoji
-  commitMessageAction: '🔗 update',
-
-  // Use strict checks for internal Renovate logic (required for stabilityDays)
-  internalChecksFilter: 'strict',
-
-  // Enable the Renovate Dependency Dashboard PR (interactive dashboard)
+  commitMessageAction: "🔗 update",
+  internalChecksFilter: "strict",
   dependencyDashboard: true,
-  // Require manual approval for all updates by default (can override per-rule)
   dependencyDashboardApproval: true,
-
-  // Pin dependencies: don't require approval and don't automerge
   pin: {
     dependencyDashboardApproval: false,
     automerge: false,
   },
-
-  // Separate PRs for minor/patch and major/minor updates
   separateMinorPatch: true,
   separateMajorMinor: true,
-
-  // Define custom rules for specific dependencies or groups
   packageRules: [
     {
-      // Automerge unit test packages (example: override for @faker-js/faker)
-      description: 'Automerge unit test packages',
-      extends: ['packages:jsUnitTest'], // Predefined group for JS unit test libs
-      automerge: false, // Set to false for safety, can set true if desired
-      matchPackageNames: ['@faker-js/faker'],
-      dependencyDashboardApproval: false, // Don't require approval for this rule
+      description: "Automerge unit test packages",
+      extends: ["packages:jsUnitTest"],
+      automerge: false,
+      matchPackageNames: ["@faker-js/faker"],
+      dependencyDashboardApproval: false,
     },
     {
-      // Automerge linters (example: cspell, markdownlint-cli, prettier-package-json)
-      description: 'Automerge linters',
-      extends: ['packages:linters'],
-      automerge: false, // Set to false for safety, can set true if desired
-      matchPackageNames: ['cspell', 'markdownlint-cli', 'prettier-package-json'],
-      dependencyDashboardApproval: false, // Don't require approval for this rule
+      description: "Automerge linters",
+      extends: ["packages:linters"],
+      automerge: false,
+      matchPackageNames: [
+        "cspell",
+        "markdownlint-cli",
+        "prettier-package-json",
+      ],
+      dependencyDashboardApproval: false,
     },
     {
-      // Wait for stability before updating npm packages
-      matchDatasources: ['npm'],
-      stabilityDays: 3, // Only propose updates for packages published >3 days ago
+      matchDatasources: ["npm"],
+      minimumReleaseAge: "3 days",
     },
-  ]
+  ],
 }
