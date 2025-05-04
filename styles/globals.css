@@ -1,52 +1,67 @@
+:root {
+  --retro-cyan: #00fff7;
+  --retro-magenta: #ff00c8;
+  --retro-yellow: #fff200;
+  --retro-dark: #222;
+  --retro-darker: #111;
+  --retro-white: #fff;
+  --retro-black: #000;
+  --retro-table-bg: #111;
+  --retro-table-border: #00fff7;
+  --retro-table-shadow: #ff00c8;
+  --retro-title-shadow1: #ff00c8;
+  --retro-title-shadow2: #222;
+  /* RetroButton dark theme variables */
+  --retro-btn-bg: var(--retro-cyan);
+  --retro-btn-color: var(--retro-dark);
+  --retro-btn-border: var(--retro-magenta);
+  --retro-btn-shadow: var(--retro-magenta);
+  --retro-btn-shadow2: var(--retro-dark);
+  --retro-btn-active-bg: var(--retro-magenta);
+  --retro-btn-active-color: var(--retro-cyan);
+  --retro-btn-active-shadow: var(--retro-cyan);
+}
+
+
 /* 8-bit dark mode (default) */
 body {
   min-height: 100vh;
   box-sizing: border-box;
-  background: repeating-linear-gradient(135deg, #222 0 10px, #333 10px 20px);
+  background: repeating-linear-gradient(135deg, var(--retro-dark) 0 10px, #333 10px 20px);
   padding-bottom: 64px; /* Space for sticky footer */
-
-  /* RetroButton dark theme variables */
-  --retro-btn-bg: #00fff7;
-  --retro-btn-color: #222;
-  --retro-btn-border: #ff00c8;
-  --retro-btn-shadow: #ff00c8;
-  --retro-btn-shadow2: #222;
-  --retro-btn-active-bg: #ff00c8;
-  --retro-btn-active-color: #00fff7;
-  --retro-btn-active-shadow: #00fff7;
 }
 
 /* 8-bit vertical scrollbar (dark theme) */
 body,
 .retro-table-container {
   /* Firefox */
-  scrollbar-color: #ff00c8 #111;
+  scrollbar-color: var(--retro-magenta) var(--retro-darker);
   scrollbar-width: auto; /* thicker for blocky retro look */
 }
 
 body::-webkit-scrollbar,
 .retro-table-container::-webkit-scrollbar {
   width: 18px;
-  background: #111;
+  background: var(--retro-darker);
 }
 
 body::-webkit-scrollbar-thumb,
 .retro-table-container::-webkit-scrollbar-thumb {
-  background: repeating-linear-gradient(135deg, #ff00c8 0 8px, #00fff7 8px 16px);
-  border: 4px solid #222;
+  background: repeating-linear-gradient(135deg, var(--retro-magenta) 0 8px, var(--retro-cyan) 8px 16px);
+  border: 4px solid var(--retro-dark);
   border-radius: 0;
   min-height: 32px;
-  box-shadow: 2px 2px 0 #fff200;
+  box-shadow: 2px 2px 0 var(--retro-yellow);
 }
 body::-webkit-scrollbar-track,
 .retro-table-container::-webkit-scrollbar-track {
-  background: #111;
-  border: 2px solid #00fff7;
+  background: var(--retro-darker);
+  border: 2px solid var(--retro-cyan);
   border-radius: 0;
 }
 body::-webkit-scrollbar-corner,
 .retro-table-container::-webkit-scrollbar-corner {
-  background: #222;
+  background: var(--retro-dark);
 }
 
 .retro-8bit-app {
@@ -60,20 +75,20 @@ body::-webkit-scrollbar-corner,
 .retro-title {
   font-family: 'Press Start 2P', 'VT323', monospace;
   font-size: 2rem;
-  color: #00fff7;
+  color: var(--retro-cyan);
   margin-bottom: 2rem;
   text-shadow:
-    2px 2px 0 #ff00c8,
-    4px 4px 0 #222;
+    2px 2px 0 var(--retro-magenta),
+    4px 4px 0 var(--retro-dark);
   letter-spacing: 2px;
 }
 
 .retro-table-container {
   width: 100%;
   max-width: 700px;
-  background: #111;
-  border: 6px double #00fff7;
-  box-shadow: 0 0 24px #ff00c8;
+  background: var(--retro-darker);
+  border: 6px double var(--retro-cyan);
+  box-shadow: 0 0 24px var(--retro-magenta);
   padding: 2rem 1rem;
   border-radius: 0;
 }
@@ -83,18 +98,18 @@ body::-webkit-scrollbar-corner,
   border-collapse: collapse;
   font-family: 'VT323', monospace;
   font-size: 1.1rem;
-  background: #222;
+  background: var(--retro-dark);
 }
 .retro-table th {
-  border: 3px solid #00fff7;
+  border: 3px solid var(--retro-cyan);
   padding: 0.6rem 0.8rem;
   text-align: left;
-  background: #ff00c8;
+  background: var(--retro-magenta);
   color: #fff;
-  text-shadow: 1px 1px #222;
+  text-shadow: 1px 1px var(--retro-dark);
 }
 .retro-table td {
-  border: 3px solid #00fff7;
+  border: 3px solid var(--retro-cyan);
   padding: 0.6rem 0.8rem;
   text-align: left;
 }
@@ -105,30 +120,30 @@ body::-webkit-scrollbar-corner,
   background: #333333;
 }
 .retro-table tr:hover {
-  background: #00fff7;
+  background: var(--retro-cyan);
 }
 .retro-table tr:hover td,
 .retro-table tr:hover span {
-  color: #000;
+  color: var(--retro-black);
 }
 
 .retro-title {
   font-family: 'Press Start 2P', 'VT323', monospace;
   font-size: 2rem;
-  color: #00fff7;
+  color: var(--retro-cyan);
   margin-bottom: 2rem;
   text-shadow:
-    2px 2px 0 #ff00c8,
-    4px 4px 0 #222;
+    2px 2px 0 var(--retro-magenta),
+    4px 4px 0 var(--retro-dark);
   letter-spacing: 2px;
 }
 
 .retro-table-container {
   width: 100%;
   max-width: 700px;
-  background: #111;
-  border: 6px double #00fff7;
-  box-shadow: 0 0 24px #ff00c8;
+  background: var(--retro-darker);
+  border: 6px double var(--retro-cyan);
+  box-shadow: 0 0 24px var(--retro-magenta);
   padding: 2rem 1rem;
   border-radius: 0;
 }
@@ -138,24 +153,24 @@ body::-webkit-scrollbar-corner,
   left: 0;
   bottom: 0;
   width: 100vw;
-  background: #111;
-  color: #00fff7;
+  background: var(--retro-darker);
+  color: var(--retro-cyan);
   font-family: 'Press Start 2P', 'VT323', monospace;
   font-size: 1rem;
   text-align: center;
   padding: 1rem 0 0.7rem 0;
-  border-top: 4px double #ff00c8;
-  box-shadow: 0 -2px 12px #ff00c8;
+  border-top: 4px double var(--retro-magenta);
+  box-shadow: 0 -2px 12px var(--retro-magenta);
   z-index: 100;
 }
 .retro-footer a {
-  color: #ff00c8;
+  color: var(--retro-magenta);
   text-decoration: none;
   font-weight: bold;
 }
 .retro-footer a:hover {
-  color: #fff200;
-  text-shadow: 1px 1px #ff00c8;
+  color: var(--retro-yellow);
+  text-shadow: 1px 1px var(--retro-magenta);
 }
 
 /* 8-bit light mode */
@@ -168,7 +183,7 @@ body::-webkit-scrollbar-corner,
     --retro-btn-shadow: #1d70a2;
     --retro-btn-shadow2: #a2d5c6;
     --retro-btn-active-bg: #1d70a2;
-    --retro-btn-active-color: #fff200;
+    --retro-btn-active-color: var(--retro-yellow);
     --retro-btn-active-shadow: #e07a5f;
   }
 
@@ -189,7 +204,7 @@ body::-webkit-scrollbar-corner,
     border: 4px solid #a2d5c6;
     border-radius: 0;
     min-height: 32px;
-    box-shadow: 2px 2px 0 #fff200;
+    box-shadow: 2px 2px 0 var(--retro-yellow);
   }
   body::-webkit-scrollbar-track,
   .retro-table-container::-webkit-scrollbar-track {
