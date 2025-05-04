@@ -8,7 +8,7 @@ function Footer() {
   return (
     <footer className="retro-footer">
       <span>NodePorter&nbsp;|&nbsp;</span>
-      <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
+      <a href="https://github.com/kopernic-pl/nodeporter-dashboard" target="_blank" rel="noopener noreferrer">
         GitHub
       </a>
     </footer>
