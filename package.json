@@ -18,10 +18,9 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run spellcheck && npm run lint:md",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "npm run spellcheck && npm run lint:md && next lint",
     "test": "jest",
     "format": "prettier --write .",
     "spellcheck": "cspell --exclude node_modules '**/*.{js,jsx,ts,tsx,md}'",
