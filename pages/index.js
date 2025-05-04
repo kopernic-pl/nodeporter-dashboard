@@ -54,6 +54,7 @@ export default function Home() {
   const [nodesError, setNodesError] = useState(null);
   const [fetchTime, setFetchTime] = useState(null);
   const [envType, setEnvType] = useState(null);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   React.useEffect(() => {
     fetch('/api/envtype')
@@ -152,8 +153,14 @@ export default function Home() {
         </div>
       )}
       <h1 className="retro-title">K8s Service Table</h1>
-      <RetroButton onClick={fetchKubernetesData} disabled={loading}>
-        {loading ? 'Loading...' : 'Refresh'}
+      <RetroButton
+        onClick={() => {
+          setHasLoaded(true);
+          fetchKubernetesData();
+        }}
+        disabled={loading}
+      >
+        {loading ? 'Loading...' : hasLoaded ? 'Refresh' : 'Load'}
       </RetroButton>
       {nodesError && <RetroError>Nodes error: {nodesError}</RetroError>}
       {nodeSummary && (

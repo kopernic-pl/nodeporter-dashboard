@@ -33,7 +33,19 @@ describe('Home page', () => {
   it('shows an error message if the fetch fails', async () => {
     fetch.mockRejectOnce(new Error('API is down'));
     render(<Home />);
-    await userEvent.click(screen.getByText(/refresh/i));
+    // Click the "Load" button (initial state)
+    await userEvent.click(screen.getByRole('button', { name: /load/i }));
     expect(await screen.findByText(/failed|error|unable|problem/i)).toBeInTheDocument();
+  });
+
+  it('changes button text from Load to Refresh after first click', async () => {
+    render(<Home />);
+    // Button should initially say "Load"
+    const loadButton = screen.getByRole('button', { name: /load/i });
+    expect(loadButton).toBeInTheDocument();
+    // Click the button
+    await userEvent.click(loadButton);
+    // After click, should say "Refresh"
+    expect(screen.getByRole('button', { name: /refresh/i })).toBeInTheDocument();
   });
 });
