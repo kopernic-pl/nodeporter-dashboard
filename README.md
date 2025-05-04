@@ -32,12 +32,7 @@ NodePorter provides a user-friendly, retro≥-styled dashboard that discovers an
 
 ---
 
-## 🛠️ Getting Started
-
-### Prerequisites
-
-- Node.js v18+ (tested on v22)
-- Access to a Kubernetes cluster (local or remote)
+## 🚦 How to Run/Use
 
 ### Running locally
 
@@ -58,7 +53,64 @@ docker run -d -p 3000:3000 ghcr.io/kopernic-pl/nodeporter-dashboard
 
 ### Running with Helm
 
-tbd...
+You can deploy NodePorter to your Kubernetes cluster using the published Helm chart from the GitHub Container Registry (GHCR).
+
+#### Prerequisites
+- Helm 3.x installed ([installation guide](https://helm.sh/docs/intro/install/))
+- Access to a Kubernetes cluster (e.g., minikube, kind, k3s, or remote)
+
+#### 1. Add the OCI Registry (one time)
+
+```sh
+helm registry login ghcr.io
+```
+
+#### 2. Install the Chart
+
+Check for the latest version on [GHCR NodePorter Helm Chart](https://github.com/orgs/kopernic-pl/packages/container/package/charts%2Fnodeporter).
+
+```sh
+helm install nodeporter oci://ghcr.io/kopernic-pl/charts/nodeporter \
+  --version <latest-version> \
+  --set service.type=NodePort \
+  --set service.nodePort=30080 # Optional: set a specific NodePort
+```
+
+- By default, the app will be available on the assigned NodePort of your cluster nodes.
+- You can override any value from the chart using `--set key=value` or by providing a custom `values.yaml` with `-f values.yaml`.
+
+#### 3. Upgrade
+
+To upgrade to a new version:
+
+```sh
+helm upgrade nodeporter oci://ghcr.io/kopernic-pl/charts/nodeporter \
+  --version <latest-version>
+```
+
+#### 4. Uninstall
+
+To remove the deployment:
+
+```sh
+helm uninstall nodeporter
+```
+
+#### 5. Customization
+
+- See the chart's default values ([values.yaml](https://github.com/kopernic-pl/nodeporter/blob/main/charts/nodeporter/values.yaml)) for configuration options (replica count, resources, etc).
+- Example: Change service type to `ClusterIP` or set resource limits.
+
+For more, see the [Helm documentation](https://helm.sh/docs/).
+
+---
+
+## 🧑‍💻 Getting Started with Dev
+
+### Prerequisites
+
+- Node.js v18+ (tested on v22)
+- Access to a Kubernetes cluster (local or remote)
 
 ---
 
