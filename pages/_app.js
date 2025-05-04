@@ -17,7 +17,8 @@ function Footer() {
 
 export default function MyApp({ Component, pageProps }) {
   useReportWebVitals((metric) => {
-    reportWebVitals(metric);});
+    reportWebVitals(metric);
+  });
   return (
     <>
       <Component {...pageProps} />
