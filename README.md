@@ -56,6 +56,7 @@ docker run -d -p 3000:3000 ghcr.io/kopernic-pl/nodeporter-dashboard
 You can deploy NodePorter to your Kubernetes cluster using the published Helm chart from the GitHub Container Registry (GHCR).
 
 #### Prerequisites
+
 - Helm 3.x installed ([installation guide](https://helm.sh/docs/intro/install/))
 - Access to a Kubernetes cluster (e.g., minikube, kind, k3s, or remote)
 
@@ -107,7 +108,7 @@ For more, see the [Helm documentation](https://helm.sh/docs/).
 
 ## 🧑‍💻 Getting Started with Dev
 
-### Prerequisites
+### Dev prerequisites
 
 - Node.js v18+ (tested on v22)
 - Access to a Kubernetes cluster (local or remote)
@@ -141,7 +142,6 @@ This project was iteratively built and improved using generative AI (Cascade, GP
 - `styles/` — Global and component CSS
 - `utils/` — Utility/helper functions (e.g., logging)
 - `__tests__/` — Jest tests for API and frontend
-
 
 ---
 

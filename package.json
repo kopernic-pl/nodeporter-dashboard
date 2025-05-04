@@ -18,19 +18,14 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run spellcheck",
+    "prebuild": "npm run spellcheck && npm run lint:md",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
     "format": "prettier --write .",
-    "spellcheck": "cspell '**/*.{js,jsx,ts,tsx,md}'"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "spellcheck": "cspell --exclude node_modules '**/*.{js,jsx,ts,tsx,md}'",
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules --disable MD013"
   },
   "browserslist": {
     "production": [
@@ -61,13 +56,14 @@
     "@testing-library/user-event": "14.6.1",
     "babel-jest": "29.7.0",
     "babel-plugin-styled-components": "2.1.4",
-    "cspell": "^7.2.2",
+    "cspell": "8.19.4",
     "eslint": "9.25.1",
+    "eslint-config-next": "15.3.1",
     "identity-obj-proxy": "3.0.0",
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "jest-fetch-mock": "3.0.3",
-    "markdownlint-cli": "^0.39.0",
+    "markdownlint-cli": "0.39.0",
     "pino-pretty": "13.0.0",
     "prettier": "3.5.3"
   }
