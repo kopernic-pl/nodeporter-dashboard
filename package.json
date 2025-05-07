@@ -6,7 +6,7 @@
     "@fastify/cors": "11.0.1",
     "@fontsource/press-start-2p": "5.2.5",
     "@fontsource/vt323": "5.2.5",
-    "@kubernetes/client-node": "1.1.2",
+    "@kubernetes/client-node": "1.2.0",
     "@next/bundle-analyzer": "15.3.1",
     "fastify": "5.3.2",
     "next": "15.3.1",
