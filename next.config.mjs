@@ -10,7 +10,7 @@ const nextConfig = {
     styledComponents: true,
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
 };
 

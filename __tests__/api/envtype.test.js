@@ -1,5 +1,3 @@
-import { createMocks } from 'node-mocks-http';
-import { faker } from '@faker-js/faker';
 import handler from '../../pages/api/envtype';
 
 describe('/api/envtype API', () => {
