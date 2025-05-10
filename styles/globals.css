@@ -85,21 +85,55 @@ body::-webkit-scrollbar-corner,
 
 .retro-table-container {
   width: 100%;
-  max-width: 700px;
+  max-width: 100%;
   background: var(--retro-darker);
   border: 6px double var(--retro-cyan);
   box-shadow: 0 0 24px var(--retro-magenta);
-  padding: 2rem 1rem;
+  padding: 1rem;
   border-radius: 0;
+  /*overflow-x: auto; /* Enable horizontal scrolling */
+  /*-webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 .retro-table {
   width: 100%;
+  min-width: 100%; /* Ensure full width on small screens */
   border-collapse: collapse;
   font-family: 'VT323', monospace;
   font-size: 1.1rem;
   background: var(--retro-dark);
 }
+
+/* Responsive table styles for mobile view */
+@media (max-width: 768px) {
+  .retro-table-container {
+    padding: 0.5rem;
+    border: 4px double var(--retro-cyan);
+  }
+  .retro-table {
+    min-width: 100%;
+    font-size: 0.9rem;
+  }
+  .retro-table th, .retro-table td {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .retro-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .retro-table {
+    min-width: 600px; /* Force horizontal scroll */
+  }
+  .retro-table th, .retro-table td {
+    padding: 0.2rem;
+    font-size: 0.8rem;
+  }
+}
+
 .retro-table th {
   border: 3px solid var(--retro-cyan);
   padding: 0.6rem 0.8rem;
