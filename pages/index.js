@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import FetchTime from '../components/FetchTime';
 
 const RetroButton = styled.button`
   font-family: 'Press Start 2P', 'VT323', monospace;
@@ -276,25 +277,7 @@ export default function Home() {
           </tbody>
         </table>
       </div>
-      {fetchTime !== null && (
-        <div
-          style={{
-            position: 'fixed',
-            right: 0,
-            bottom: 0,
-            background: 'rgba(34,34,34,0.95)',
-            color: '#00fff7',
-            fontFamily: 'monospace',
-            fontSize: '0.95rem',
-            padding: '0.6rem 1.2rem',
-            borderTopLeftRadius: '8px',
-            zIndex: 1000,
-            boxShadow: '0 0 8px #00fff7',
-          }}
-        >
-          Fetch time: {(fetchTime / 1000).toFixed(2)}s
-        </div>
-      )}
+      <FetchTime fetchTime={fetchTime} />
     </div>
   );
 }
