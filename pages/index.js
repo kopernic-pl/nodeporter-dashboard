@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import FetchTime from '../components/FetchTime';
+import EnvironmentBanner from '../components/EnvironmentBanner'; // <-- Added import
 
 const RetroButton = styled.button`
   font-family: 'Press Start 2P', 'VT323', monospace;
@@ -132,27 +133,8 @@ export default function Home() {
 
   return (
     <div className="retro-8bit-app">
-      {envType && (
-        <div
-          style={{
-            background: envType === 'in-cluster' ? '#00fff7' : '#ff00c8',
-            color: envType === 'in-cluster' ? '#111' : '#fff',
-            fontFamily: "'Press Start 2P', 'VT323', monospace",
-            fontSize: '1rem',
-            letterSpacing: '1px',
-            textAlign: 'center',
-            padding: '0.7rem 0',
-            borderBottom: envType === 'in-cluster' ? '4px solid #fff200' : '4px solid #fff200',
-            boxShadow: envType === 'in-cluster' ? '0 2px 12px #00fff7' : '0 2px 12px #ff00c8',
-            marginBottom: '1.5rem',
-            textShadow: envType === 'in-cluster' ? '1px 1px #fff200' : '1px 1px #222',
-          }}
-        >
-          {envType === 'in-cluster' && 'Running in-cluster (production/Kubernetes)'}
-          {envType === 'local' && 'Running in local/dev mode'}
-          {envType === 'unknown' && 'Environment type: unknown'}
-        </div>
-      )}
+      {/* Environment Banner */}
+      <EnvironmentBanner envType={envType} />
       <h1 className="retro-title">K8s Service Table</h1>
       <RetroButton
         onClick={() => {
