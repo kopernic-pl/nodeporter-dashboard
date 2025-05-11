@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { palette } from '../styles/palette';
 
@@ -24,7 +24,22 @@ const StyledFetchTime = styled.div`
 
 
 export default function FetchTime({ fetchTime }) {
-  if (fetchTime === null) return null;
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (fetchTime !== null) {
+      setVisible(true);
+      const timer = setTimeout(() => {
+        setVisible(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    } else {
+      setVisible(false);
+    }
+  }, [fetchTime]);
+
+  if (!visible) return null;
+
   return (
     <StyledFetchTime>
       Fetch time: {(fetchTime / 1000).toFixed(2)}s

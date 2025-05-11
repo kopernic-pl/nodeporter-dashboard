@@ -9,19 +9,31 @@ describe('FetchTime', () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it('renders fetch time in seconds when fetchTime is a number', () => {
+  it('renders fetch time in seconds when fetchTime is a number', async () => {
     const ms = faker.number.int({ min: 1000, max: 9999 });
     render(<FetchTime fetchTime={ms} />);
-    expect(screen.getByText(/fetch time:/i)).toHaveTextContent(
-      `Fetch time: ${(ms / 1000).toFixed(2)}s`
-    );
+    const expectedValueString = (ms / 1000).toFixed(2);
+    const textMatcher = (content, element) => {
+      const normalizedActual = content.replace(/\s+/g, '');
+      const baseExpectedPattern = `Fetch time: ${expectedValueString}s`;
+      const normalizedExpected = baseExpectedPattern.replace(/\s+/g, '');
+      return normalizedActual.toLowerCase() === normalizedExpected.toLowerCase();
+    };
+    const element = await screen.findByText(textMatcher);
+    expect(element).toBeInTheDocument();
   });
 
-  it('rounds fetch time to two decimals', () => {
+  it('rounds fetch time to two decimals', async () => {
     const ms = faker.number.int({ min: 1000, max: 9999 });
     render(<FetchTime fetchTime={ms} />);
-    expect(screen.getByText(/fetch time:/i)).toHaveTextContent(
-      `Fetch time: ${(ms / 1000).toFixed(2)}s`
-    );
+    const expectedValueString = (ms / 1000).toFixed(2);
+    const textMatcher = (content, element) => {
+      const normalizedActual = content.replace(/\s+/g, '');
+      const baseExpectedPattern = `Fetch time: ${expectedValueString}s`;
+      const normalizedExpected = baseExpectedPattern.replace(/\s+/g, '');
+      return normalizedActual.toLowerCase() === normalizedExpected.toLowerCase();
+    };
+    const element = await screen.findByText(textMatcher);
+    expect(element).toBeInTheDocument();
   });
 });
