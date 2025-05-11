@@ -202,7 +202,7 @@ export default function Home() {
             ) : (
               services.map((svc, idx) => (
                 <tr key={svc.metadata.name + idx}>
-                  <td>{svc.metadata.name}</td>
+                  <td>{svc.metadata.labels?.['app.kubernetes.io/name'] || svc.metadata.name}</td>
                   <td>{svc.metadata.namespace}</td>
                   <td>{svc.spec.type}</td>
                   <td>{svc.spec.clusterIP}</td>
