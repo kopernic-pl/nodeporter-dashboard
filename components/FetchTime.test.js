@@ -13,7 +13,7 @@ describe('FetchTime', () => {
     const ms = faker.number.int({ min: 1000, max: 9999 });
     render(<FetchTime fetchTime={ms} />);
     const expectedValueString = (ms / 1000).toFixed(2);
-    const textMatcher = (content, element) => {
+    const textMatcher = (content) => {
       const normalizedActual = content.replace(/\s+/g, '');
       const baseExpectedPattern = `Fetch time: ${expectedValueString}s`;
       const normalizedExpected = baseExpectedPattern.replace(/\s+/g, '');
@@ -27,7 +27,7 @@ describe('FetchTime', () => {
     const ms = faker.number.int({ min: 1000, max: 9999 });
     render(<FetchTime fetchTime={ms} />);
     const expectedValueString = (ms / 1000).toFixed(2);
-    const textMatcher = (content, element) => {
+    const textMatcher = (content) => {
       const normalizedActual = content.replace(/\s+/g, '');
       const baseExpectedPattern = `Fetch time: ${expectedValueString}s`;
       const normalizedExpected = baseExpectedPattern.replace(/\s+/g, '');
