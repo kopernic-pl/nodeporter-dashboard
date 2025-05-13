@@ -31,6 +31,7 @@ RUN chmod -R g=u /app
 
 ARG PORT=3000
 ENV NODE_ENV=production
+ENV VERSION=$VERSION
 ENV PORT=${PORT}
 EXPOSE ${PORT}
 CMD ["npm", "start"]
