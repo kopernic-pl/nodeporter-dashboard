@@ -48,7 +48,7 @@
   "devDependencies": {
     "@babel/preset-env": "7.27.2",
     "@babel/preset-react": "7.27.1",
-    "@faker-js/faker": "9.7.0",
+    "@faker-js/faker": "9.8.0",
     "@next/bundle-analyzer": "15.3.2",
     "@testing-library/dom": "10.4.0",
     "@testing-library/jest-dom": "6.6.3",
