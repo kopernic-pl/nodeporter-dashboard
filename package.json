@@ -9,7 +9,7 @@
     "@kubernetes/client-node": "1.2.0",
     "fastify": "5.3.3",
     "next": "15.3.2",
-    "pino": "9.6.0",
+    "pino": "9.7.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "styled-components": "6.1.18",
