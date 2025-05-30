@@ -1,5 +1,5 @@
 # Dockerfile for NodePorter Project (Next.js)
-FROM node:22.15.1-alpine AS builder
+FROM node:22.16.0-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # Production image
-FROM node:22.15.1-alpine
+FROM node:22.16.0-alpine
 WORKDIR /app
 COPY --from=builder /app .
 
