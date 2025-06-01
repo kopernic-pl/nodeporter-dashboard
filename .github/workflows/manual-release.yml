@@ -97,6 +97,13 @@ jobs:
           name: "Release v${{ env.VERSION }}"
           body: |
             Automated release of version v${{ env.VERSION }}.
+
+            **Container Image:**
+            [ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:${{ env.VERSION }}](https://github.com/users/${{ github.repository_owner }}/packages/container/nodeporter-dashboard/${{ env.VERSION }})
+
+            **Helm Chart:**
+            [ghcr.io/${{ github.repository_owner }}/charts/nodeporter:${{ env.VERSION }}](https://github.com/${{ github.repository }}/packages?repo_name=nodeporter-dashboard)
+
             - Chart version: ${{ env.VERSION }}
             - App version: ${{ env.VERSION }}
         env:
@@ -123,10 +130,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            VERSION=${{ env.VERSION }}
-            VCS_REF=${{ steps.commit_sha.outputs.sha }}
-            BUILD_DATE=${{ steps.meta.outputs.created }}
 
       - name: Push version update commit
         run: |
