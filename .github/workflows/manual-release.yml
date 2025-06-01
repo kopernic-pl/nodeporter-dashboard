@@ -62,7 +62,14 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git add package.json charts/nodeporter/Chart.yaml charts/nodeporter/values.yaml
-          git commit -m "chore(release): v${{ env.VERSION }}" || echo "No changes to commit"
+          if ! git commit -m "chore(release): v${{ env.VERSION }}"; then
+            if git diff --cached --quiet; then
+              echo "No changes to commit"
+            else
+              echo "Error: Failed to commit changes" >&2
+              exit 1
+            fi
+          fi
           git tag -a "v${{ env.VERSION }}" -m "Release v${{ env.VERSION }}"
 
       - name: Get commit SHA
