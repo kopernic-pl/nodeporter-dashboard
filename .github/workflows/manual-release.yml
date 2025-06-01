@@ -57,6 +57,26 @@ jobs:
           rm charts/nodeporter/Chart.yaml.bak
           sed -i'' -e 's/tag: ".*"/tag: "${{ env.VERSION }}"/' charts/nodeporter/values.yaml
 
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
+            type=semver,pattern={{version}}
+            type=sha,format=long,prefix=,suffix=,enable=${{ github.event_name == 'push' }}
+          labels: |
+            org.opencontainers.image.title=nodeporter-dashboard
+            org.opencontainers.image.description=A Next.js dashboard, see README for details.
+            org.opencontainers.image.url=https://github.com/${{ github.repository }}
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.version=${{ env.VERSION }}
+            org.opencontainers.image.created=${{ github.event.repository.pushed_at }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.authors=github.com/mateuszwronski
+            org.opencontainers.image.licenses=MIT
+
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
@@ -83,7 +103,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image (multi-platform)
-        run: |
+        run: |  
           chmod +x ./ops/build_and_dockerize.sh
           ./ops/build_and_dockerize.sh ${{ env.VERSION }}
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
