@@ -113,6 +113,7 @@ jobs:
 
             - Chart version: ${{ env.VERSION }}
             - App version: ${{ env.VERSION }}
+          files: sbom.spdx.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -137,6 +138,34 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Generate SBOM (Syft)
+        uses: anchore/syft-action@v0.15.0
+        with:
+          image: ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:${{ env.VERSION }}
+          output: spdx-json
+          file: sbom.spdx.json
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v${{ env.VERSION }}"
+          name: "Release v${{ env.VERSION }}"
+          prerelease: ${{ github.event.inputs.release_type == 'pre-release' }}
+          body: |
+            Automated release of version v${{ env.VERSION }}.
+
+            **Container Image:**
+            [ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:${{ env.VERSION }}](https://github.com/users/${{ github.repository_owner }}/packages/container/nodeporter-dashboard/${{ env.VERSION }})
+
+            **Helm Chart:**
+            [ghcr.io/${{ github.repository_owner }}/charts/nodeporter:${{ env.VERSION }}](https://github.com/${{ github.repository }}/packages?repo_name=nodeporter-dashboard)
+
+            - Chart version: ${{ env.VERSION }}
+            - App version: ${{ env.VERSION }}
+          files: sbom.spdx.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push version update commit
         run: |
