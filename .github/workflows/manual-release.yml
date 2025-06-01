@@ -103,7 +103,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image (multi-platform)
-        run: |  
+        run: |
           chmod +x ./ops/build_and_dockerize.sh
           ./ops/build_and_dockerize.sh ${{ env.VERSION }}
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
