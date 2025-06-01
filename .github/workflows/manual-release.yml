@@ -95,6 +95,7 @@ jobs:
         with:
           tag_name: "v${{ env.VERSION }}"
           name: "Release v${{ env.VERSION }}"
+          prerelease: ${{ github.event.inputs.release_type == 'pre-release' }}
           body: |
             Automated release of version v${{ env.VERSION }}.
 
