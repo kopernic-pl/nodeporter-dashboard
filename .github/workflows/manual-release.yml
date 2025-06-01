@@ -117,6 +117,8 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VERSION=${{ env.VERSION }}
 
       - name: Generate SBOM (Anchore)
         uses: anchore/sbom-action@v0

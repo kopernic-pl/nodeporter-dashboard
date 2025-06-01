@@ -1,5 +1,6 @@
 # Dockerfile for NodePorter Project (Next.js)
 FROM node:22.16.0-alpine AS builder
+ARG VERSION
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
