@@ -139,12 +139,12 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Generate SBOM (Syft)
-        uses: anchore/syft-action@v0.15.0
+      - name: Generate SBOM (Anchore)
+        uses: anchore/sbom-action@v0
         with:
           image: ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:${{ env.VERSION }}
-          output: spdx-json
-          file: sbom.spdx.json
+          format: spdx-json
+          output-file: sbom.spdx.json
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
