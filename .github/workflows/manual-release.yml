@@ -57,6 +57,19 @@ jobs:
           rm charts/nodeporter/Chart.yaml.bak
           sed -i'' -e 's/tag: ".*"/tag: "${{ env.VERSION }}"/' charts/nodeporter/values.yaml
 
+      - name: Commit and tag version bump
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add package.json charts/nodeporter/Chart.yaml charts/nodeporter/values.yaml
+          git commit -m "chore(release): v${{ env.VERSION }}" || echo "No changes to commit"
+          git tag -a "v${{ env.VERSION }}" -m "Release v${{ env.VERSION }}"
+
+      - name: Get commit SHA
+        id: commit_sha
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
@@ -73,7 +86,7 @@ jobs:
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.version=${{ env.VERSION }}
             org.opencontainers.image.created=${{ github.event.repository.pushed_at }}
-            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.revision=${{ steps.commit_sha.outputs.sha }}
             org.opencontainers.image.authors=github.com/kopernic-pl
             org.opencontainers.image.licenses=MIT
 
@@ -102,27 +115,28 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push Docker image (multi-platform)
-        run: |
-          chmod +x ./ops/build_and_dockerize.sh
-          ./ops/build_and_dockerize.sh ${{ env.VERSION }}
-          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker push ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:${{ env.VERSION }}
-          docker push ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:latest
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./ops/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VERSION=${{ env.VERSION }}
+            VCS_REF=${{ steps.commit_sha.outputs.sha }}
+            BUILD_DATE=${{ steps.meta.outputs.created }}
 
-      - name: Commit and push version bump and values.yaml
+      - name: Push version update commit
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git add package.json charts/nodeporter/Chart.yaml charts/nodeporter/values.yaml
-          git commit -m "chore(release): v${{ env.VERSION }} (values.yaml, Chart.yaml, package.json)" || echo "No changes to commit"
-          git tag "v${{ env.VERSION }}"
+          # Push any remaining changes (if any)
           git push --follow-tags
 
       - name: Set up Helm
         uses: azure/setup-helm@v4
         with:
-          version: v3.17.3
+          version: v3.18.1
 
       - name: Push Helm chart to GHCR
         run: |
