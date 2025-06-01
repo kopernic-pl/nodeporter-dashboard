@@ -7,10 +7,17 @@ import '@fontsource/vt323';
 function Footer() {
   return (
     <footer className="retro-footer">
-        <span>NodePorter {process.env.VERSION ? `v${process.env.VERSION}` : 'dev'}&nbsp;|&nbsp;</span>
-        <a href="https://github.com/kopernic-pl/nodeporter-dashboard" target="_blank" rel="noopener noreferrer">
-          GitHub
-        </a>
+      <span>
+        NodePorter {process.env.NEXT_PUBLIC_VERSION ? `v${process.env.NEXT_PUBLIC_VERSION}` : 'dev'}
+        &nbsp;|&nbsp;
+      </span>
+      <a
+        href="https://github.com/kopernic-pl/nodeporter-dashboard"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        GitHub
+      </a>
     </footer>
   );
 }

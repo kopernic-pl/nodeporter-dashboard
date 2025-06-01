@@ -22,7 +22,6 @@ const StyledFetchTime = styled.div`
   box-shadow: 0 0 8px ${palette.cyan};
 `;
 
-
 export default function FetchTime({ fetchTime }) {
   const [visible, setVisible] = useState(false);
 
@@ -40,9 +39,5 @@ export default function FetchTime({ fetchTime }) {
 
   if (!visible) return null;
 
-  return (
-    <StyledFetchTime>
-      Fetch time: {(fetchTime / 1000).toFixed(2)}s
-    </StyledFetchTime>
-  );
+  return <StyledFetchTime>Fetch time: {(fetchTime / 1000).toFixed(2)}s</StyledFetchTime>;
 }

@@ -53,11 +53,7 @@ const EnvironmentBanner = ({ envType }) => {
     textShadow: `1px 1px ${textShadowColor}`,
   };
 
-  return (
-    <div style={bannerStyle}>
-      {message}
-    </div>
-  );
+  return <div style={bannerStyle}>{message}</div>;
 };
 
 export default EnvironmentBanner;
