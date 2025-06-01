@@ -127,6 +127,9 @@ jobs:
           format: spdx-json
           output-file: sbom.spdx.json
 
+      - name: Gzip SBOM
+        run: gzip -f sbom.spdx.json
+
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
@@ -144,7 +147,7 @@ jobs:
 
             - Chart version: ${{ env.VERSION }}
             - App version: ${{ env.VERSION }}
-          files: sbom.spdx.json
+          files: sbom.spdx.json.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
