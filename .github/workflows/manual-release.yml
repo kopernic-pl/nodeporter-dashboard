@@ -96,27 +96,6 @@ jobs:
             org.opencontainers.image.authors=github.com/kopernic-pl
             org.opencontainers.image.licenses=MIT
 
-      - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: "v${{ env.VERSION }}"
-          name: "Release v${{ env.VERSION }}"
-          prerelease: ${{ github.event.inputs.release_type == 'pre-release' }}
-          body: |
-            Automated release of version v${{ env.VERSION }}.
-
-            **Container Image:**
-            [ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:${{ env.VERSION }}](https://github.com/users/${{ github.repository_owner }}/packages/container/nodeporter-dashboard/${{ env.VERSION }})
-
-            **Helm Chart:**
-            [ghcr.io/${{ github.repository_owner }}/charts/nodeporter:${{ env.VERSION }}](https://github.com/${{ github.repository }}/packages?repo_name=nodeporter-dashboard)
-
-            - Chart version: ${{ env.VERSION }}
-            - App version: ${{ env.VERSION }}
-          files: sbom.spdx.json
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         
