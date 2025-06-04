@@ -12,10 +12,12 @@ FROM node:22.16.0-alpine
 WORKDIR /app
 COPY --from=builder /app .
 
-# OpenShift compatibility: do NOT set USER, make /app writable by any user
-RUN chmod -R g=u /app
+# OpenShift compatibility: do NOT set USER, make only necessary dirs writable
+RUN mkdir -p /app/.next && chmod -R g=u /app/.next \
+    && chmod -R g=u /tmp || true
 # End OpenShift section
 
+ARG VERSION
 ARG PORT=3000
 ENV NODE_ENV=production
 ENV VERSION=$VERSION
