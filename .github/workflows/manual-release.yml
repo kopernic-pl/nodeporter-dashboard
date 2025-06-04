@@ -119,6 +119,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             VERSION=${{ env.VERSION }}
+          platforms: linux/amd64,linux/arm64
 
       - name: Generate SBOM (Anchore)
         uses: anchore/sbom-action@v0
