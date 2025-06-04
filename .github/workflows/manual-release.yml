@@ -114,22 +114,14 @@ jobs:
         with:
           context: .
           file: ./ops/Dockerfile
-          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             VERSION=${{ env.VERSION }}
           platforms: linux/amd64,linux/arm64
-
-      - name: Generate SBOM (Anchore)
-        uses: anchore/sbom-action@v0
-        with:
-          image: ghcr.io/${{ github.repository_owner }}/nodeporter-dashboard:${{ env.VERSION }}
-          format: spdx-json
-          output-file: sbom.spdx.json
-
-      - name: Gzip SBOM
-        run: gzip -f sbom.spdx.json
+          provenance: mode=max
+          sbom: true
+          push: true
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
@@ -148,7 +140,6 @@ jobs:
 
             - Chart version: ${{ env.VERSION }}
             - App version: ${{ env.VERSION }}
-          files: sbom.spdx.json.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -160,7 +151,7 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v4
         with:
-          version: v3.18.1
+          version: v3.18.2
 
       - name: Push Helm chart to GHCR
         run: |
