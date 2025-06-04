@@ -5,6 +5,11 @@
     ":semanticCommits",
     ":semanticCommitTypeAll(chore)",
   ],
+  enabledManagers: [
+    "dockerfile",
+    "github-actions",
+    "npm"
+  ],
   commitMessageAction: "🔗 update",
   internalChecksFilter: "strict",
   dependencyDashboard: true,
