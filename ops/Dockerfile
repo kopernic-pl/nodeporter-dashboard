@@ -5,6 +5,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
+ENV VERSION=$VERSION
+ENV NEXT_PUBLIC_VERSION=$VERSION
 RUN npm run build
 
 # Production image
@@ -20,8 +22,7 @@ RUN mkdir -p /app/.next && chmod -R g=u /app/.next \
 ARG VERSION
 ARG PORT=3000
 ENV NODE_ENV=production
-ENV VERSION=$VERSION
-ENV NEXT_PUBLIC_VERSION=$VERSION
+ENV VERSION=${VERSION}
 ENV PORT=${PORT}
 EXPOSE ${PORT}
 CMD ["npm", "start"]
