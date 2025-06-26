@@ -62,7 +62,7 @@
     "eslint-config-prettier": "10.1.5",
     "eslint-plugin-import": "2.32.0",
     "identity-obj-proxy": "3.0.0",
-    "jest": "30.0.2",
+    "jest": "30.0.3",
     "jest-environment-jsdom": "30.0.2",
     "jest-fetch-mock": "3.0.3",
     "markdownlint-cli": "0.45.0",
