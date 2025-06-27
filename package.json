@@ -1,6 +1,6 @@
 {
   "name": "nodeporter",
-  "version": "0.2.20",
+  "version": "0.2.21",
   "private": true,
   "dependencies": {
     "@fastify/cors": "11.0.1",
