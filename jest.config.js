@@ -7,4 +7,7 @@ module.exports = {
   transform: {
     '^.+\\.[jt]sx?$': ['babel-jest', { configFile: './babel.config.jest.js' }],
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(.*@faker-js/faker/.*|@faker-js/faker))',
+  ],
 };
