@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@fastify/cors": "11.1.0",
-    "@fontsource/press-start-2p": "5.2.6",
-    "@fontsource/vt323": "5.2.6",
+    "@fontsource/press-start-2p": "5.2.7",
+    "@fontsource/vt323": "5.2.7",
     "@kubernetes/client-node": "1.3.0",
     "fastify": "5.6.0",
     "next": "15.5.3",
