@@ -19,11 +19,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "npm run spellcheck && npm run lint:md && eslint .",
+    "lint": "npm run spellcheck && npm run lint:md && eslint . && npm run lint:helm && npm run format:check",
+    "lint:helm": "command -v helm >/dev/null 2>&1 && helm lint ./charts/nodeporter || echo 'Helm not installed, skipping helm lint' && exit 0",
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules --disable MD013",
     "test": "jest",
     "format": "prettier --write .",
-    "spellcheck": "cspell --exclude node_modules '**/*.{js,jsx,ts,tsx,md}'",
-    "lint:md": "markdownlint '**/*.md' --ignore node_modules --disable MD013"
+    "format:check": "prettier --check .",
+    "spellcheck": "cspell --exclude node_modules '**/*.{js,jsx,ts,tsx,md}'"
   },
   "browserslist": {
     "production": [
