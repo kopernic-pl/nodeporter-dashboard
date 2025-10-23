@@ -2,14 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "nodeporter.fullname" . }}
-  labels: {{ - include "nodeporter.labels" . | nindent 4 }}
+  labels: {{- include "nodeporter.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
-    matchLabels: {{ - include "nodeporter.selectorLabels" . | nindent 6 }}
+    matchLabels: {{- include "nodeporter.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      labels: {{ - include "nodeporter.selectorLabels" . | nindent 8 }}
+      labels: {{- include "nodeporter.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "nodeporter.fullname" . }}
       containers:
@@ -18,4 +18,4 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 3000
-          resources: {{ - toYaml .Values.resources | nindent 12 }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}

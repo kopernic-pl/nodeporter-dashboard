@@ -13,4 +13,8 @@ sources:
   - https://github.com/kopernic-pl/nodeporter
 maintainers:
   - name: kopernic-pl
-    email: <your-email>
+    email: info@kopernic.pl
+    url: https://kopernic.pl
+
+# Chart icon (recommended)
+icon: https://raw.githubusercontent.com/kopernic-pl/nodeporter/main/icon.png

@@ -2,7 +2,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: {{ include "nodeporter.fullname" . }}
-  labels: {{ - include "nodeporter.labels" . | nindent 4 }}
+  labels: {{- include "nodeporter.labels" . | nindent 4 }}
 subjects:
   - kind: ServiceAccount
     name: {{ include "nodeporter.fullname" . }}
