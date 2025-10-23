@@ -1,17 +1,9 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: [
-    "config:js-app",
-    ":semanticCommits",
-    ":semanticCommitTypeAll(chore)",
-  ],
-  enabledManagers: [
-    "dockerfile",
-    "github-actions",
-    "npm"
-  ],
-  commitMessageAction: "🔗 update",
-  internalChecksFilter: "strict",
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['config:js-app', ':semanticCommits', ':semanticCommitTypeAll(chore)'],
+  enabledManagers: ['dockerfile', 'github-actions', 'npm'],
+  commitMessageAction: '🔗 update',
+  internalChecksFilter: 'strict',
   dependencyDashboard: true,
   dependencyDashboardApproval: true,
   pin: {
@@ -22,26 +14,22 @@
   separateMajorMinor: true,
   packageRules: [
     {
-      description: "Automerge unit test packages",
-      extends: ["packages:jsUnitTest"],
+      description: 'Automerge unit test packages',
+      extends: ['packages:jsUnitTest'],
       automerge: false,
-      matchPackageNames: ["@faker-js/faker"],
+      matchPackageNames: ['@faker-js/faker'],
       dependencyDashboardApproval: false,
     },
     {
-      description: "Automerge linters",
-      extends: ["packages:linters"],
+      description: 'Automerge linters',
+      extends: ['packages:linters'],
       automerge: false,
-      matchPackageNames: [
-        "cspell",
-        "markdownlint-cli",
-        "prettier-package-json",
-      ],
+      matchPackageNames: ['cspell', 'markdownlint-cli', 'prettier-package-json'],
       dependencyDashboardApproval: false,
     },
     {
-      matchDatasources: ["npm"],
-      minimumReleaseAge: "3 days",
+      matchDatasources: ['npm'],
+      minimumReleaseAge: '3 days',
     },
   ],
 }

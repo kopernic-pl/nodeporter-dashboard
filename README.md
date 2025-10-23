@@ -1,7 +1,7 @@
 # NodePorter
 
 ![App Screenshot](./app-screenshot.png)
- Kubernetes Services Dashboard
+Kubernetes Services Dashboard
 
 A dashboard for viewing your local home lab Kubernetes cluster networking—**no hosts file editing or custom DNS required!**
 

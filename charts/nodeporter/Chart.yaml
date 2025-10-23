@@ -1,7 +1,7 @@
 apiVersion: v2
 name: nodeporter
 version: 0.3.1
-appVersion: "0.3.1"
+appVersion: '0.3.1'
 description: A Helm chart for deploying the NodePorter Docker image (Next.js app)
 type: application
 keywords:
