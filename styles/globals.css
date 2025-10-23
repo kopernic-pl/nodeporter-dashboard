@@ -11,6 +11,7 @@
   --retro-table-shadow: #ff00c8;
   --retro-title-shadow1: #ff00c8;
   --retro-title-shadow2: #222;
+  --retro-table-hover-bg: #311A3D;
   /* RetroButton dark theme variables */
   --retro-btn-bg: var(--retro-cyan);
   --retro-btn-color: var(--retro-dark);
@@ -144,7 +145,7 @@ body::-webkit-scrollbar-corner,
   padding: 0.6rem 0.8rem;
   text-align: left;
   background: var(--retro-magenta);
-  color: #fff;
+  color: var(--retro-white);
   text-shadow: 1px 1px var(--retro-dark);
 }
 .retro-table td {
@@ -153,17 +154,15 @@ body::-webkit-scrollbar-corner,
   text-align: left;
 }
 .retro-table tr {
-  color: #fff;
+  color: var(--retro-white);
 }
 .retro-table tr:nth-child(even) {
   background: #333333;
 }
+
 .retro-table tr:hover {
-  background: var(--retro-cyan);
-}
-.retro-table tr:hover td,
-.retro-table tr:hover span {
-  color: var(--retro-black);
+  background: var(--retro-table-hover-bg);
+  transition: background-color 0.2s ease-in-out;
 }
 
 .retro-title {
