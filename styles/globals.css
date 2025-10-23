@@ -22,7 +22,6 @@
   --retro-btn-active-shadow: var(--retro-cyan);
 }
 
-
 /* 8-bit dark mode (default) */
 body {
   min-height: 100vh;
@@ -47,7 +46,11 @@ body::-webkit-scrollbar,
 
 body::-webkit-scrollbar-thumb,
 .retro-table-container::-webkit-scrollbar-thumb {
-  background: repeating-linear-gradient(135deg, var(--retro-magenta) 0 8px, var(--retro-cyan) 8px 16px);
+  background: repeating-linear-gradient(
+    135deg,
+    var(--retro-magenta) 0 8px,
+    var(--retro-cyan) 8px 16px
+  );
   border: 4px solid var(--retro-dark);
   border-radius: 0;
   min-height: 32px;
@@ -114,7 +117,8 @@ body::-webkit-scrollbar-corner,
     min-width: 100%;
     font-size: 0.9rem;
   }
-  .retro-table th, .retro-table td {
+  .retro-table th,
+  .retro-table td {
     padding: 0.3rem 0.5rem;
     font-size: 0.9rem;
   }
@@ -128,7 +132,8 @@ body::-webkit-scrollbar-corner,
   .retro-table {
     min-width: 600px; /* Force horizontal scroll */
   }
-  .retro-table th, .retro-table td {
+  .retro-table th,
+  .retro-table td {
     padding: 0.2rem;
     font-size: 0.8rem;
   }

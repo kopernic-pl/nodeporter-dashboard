@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       release_type:
-        description: "Type of release"
+        description: 'Type of release'
         required: true
-        default: "patch"
+        default: 'patch'
         type: choice
         options:
           - major
@@ -14,9 +14,9 @@ on:
           - patch
           - pre-release
       preid:
-        description: "Pre-release identifier (e.g., beta, rc)"
+        description: 'Pre-release identifier (e.g., beta, rc)'
         required: false
-        default: "beta"
+        default: 'beta'
 
 jobs:
   release:
@@ -98,7 +98,7 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-        
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -126,8 +126,8 @@ jobs:
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "v${{ env.VERSION }}"
-          name: "Release v${{ env.VERSION }}"
+          tag_name: 'v${{ env.VERSION }}'
+          name: 'Release v${{ env.VERSION }}'
           prerelease: ${{ github.event.inputs.release_type == 'pre-release' }}
           body: |
             Automated release of version v${{ env.VERSION }}.

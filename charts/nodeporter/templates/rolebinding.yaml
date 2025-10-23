@@ -1,14 +1,13 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{ include "nodeporter.fullname" . }}
-  labels:
-    {{- include "nodeporter.labels" . | nindent 4 }}
+  name: { { include "nodeporter.fullname" . } }
+  labels: { { - include "nodeporter.labels" . | nindent 4 } }
 subjects:
   - kind: ServiceAccount
-    name: {{ include "nodeporter.fullname" . }}
-    namespace: {{ .Release.Namespace }}
+    name: { { include "nodeporter.fullname" . } }
+    namespace: { { .Release.Namespace } }
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ include "nodeporter.fullname" . }}
+  name: { { include "nodeporter.fullname" . } }

@@ -1,12 +1,12 @@
-import { FlatCompat } from '@eslint/eslintrc'
-import globals from 'globals'
+import { FlatCompat } from '@eslint/eslintrc';
+import globals from 'globals';
 import importPlugin from 'eslint-plugin-import';
 import js from '@eslint/js';
 
 const compat = new FlatCompat({
   // import.meta.dirname is available after Node.js v20.11.0
   baseDirectory: import.meta.dirname,
-})
+});
 
 const eslintConfig = [
   ...compat.config({
@@ -48,11 +48,10 @@ const eslintConfig = [
       ),
     },
   },
-]
+];
 
-export default eslintConfig.concat([{
-  ignores: [
-    '**/node_modules/**',
-    '**/.next/**',
-  ],
-}])
+export default eslintConfig.concat([
+  {
+    ignores: ['**/node_modules/**', '**/.next/**'],
+  },
+]);
