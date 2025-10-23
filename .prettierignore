@@ -4,3 +4,13 @@ out
 coverage
 dist
 build
+
+# Helm charts
+**/charts/**/templates/*.yaml
+**/charts/**/templates/*.yml
+**/charts/**/templates/*.tpl
+**/charts/**/charts/**/*.yaml
+**/charts/**/charts/**/*.yml
+**/templates/*.yaml
+**/templates/*.yml
+**/templates/*.tpl
