@@ -43,7 +43,7 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": "22.x"
+    "node": "24.x"
   },
   "devDependencies": {
     "@babel/preset-env": "7.28.5",
