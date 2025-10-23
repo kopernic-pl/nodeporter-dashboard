@@ -12,6 +12,8 @@
       "millicores",
       "Dockerization",
       "nextjs",
-      "nodeports"
+      "nodeports",
+      "oras",
+      "SLSA"
     ]
   }
