@@ -163,9 +163,11 @@ A Software Bill of Materials (SBOM) is automatically generated as part of the CI
 - **How to access:**
   - The SBOM can be viewed in the "Provenance" or "SBOM" tab of the container image on GitHub, or programmatically using tools like `cosign` or `oras`.
   - Example to download SBOM using `cosign`:
+
     ```sh
     cosign download sbom ghcr.io/kopernic-pl/nodeporter-dashboard:latest
     ```
+
   - Older releases may also have the SBOM attached as a GitHub Release asset (as `sbom.spdx.json`).
 
 ## 🛡️ Container Provenance & Attestation
@@ -175,11 +177,13 @@ Every container image published to GHCR by our CI/CD pipeline includes a signed 
 - **How to verify provenance:**
   - In the GitHub UI: Open the container image page in GHCR and look for the "Provenance" tab.
   - Using `cosign` CLI:
+
     ```sh
     cosign verify-attestation ghcr.io/kopernic-pl/nodeporter-dashboard:latest \
       --certificate-identity-regexp 'github.com/kopernic-pl/nodeporter-dashboard/.github/workflows/manual-release.yml@refs/heads/main' \
       --certificate-oidc-issuer 'https://token.actions.githubusercontent.com'
     ```
+
   - See [GitHub's documentation on container provenance](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry/about-container-image-signing-and-provenance) for more details.
 
 These features help ensure the security and transparency of our supply chain for all users and integrators.
