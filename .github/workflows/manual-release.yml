@@ -69,7 +69,7 @@ jobs:
           sed -i.bak 's/^version: .*/version: ${{ env.VERSION }}/' charts/nodeporter/Chart.yaml
           sed -i.bak "s/^appVersion: '.*'/appVersion: '${{ env.VERSION }}'/" charts/nodeporter/Chart.yaml
           rm charts/nodeporter/Chart.yaml.bak
-          sed -i'' -e 's/tag: ".*"/tag: "${{ env.VERSION }}"/' charts/nodeporter/values.yaml
+          sed -i'' -e 's/tag: '.*'/tag: '${{ env.VERSION }}'/' charts/nodeporter/values.yaml
 
       - name: Commit and tag version bump
         run: |
