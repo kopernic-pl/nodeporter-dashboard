@@ -1,0 +1,8 @@
+name: Lint
+description: Run repository linting (no setup)
+runs:
+  using: composite
+  steps:
+    - name: Lint
+      shell: bash
+      run: npm run lint
