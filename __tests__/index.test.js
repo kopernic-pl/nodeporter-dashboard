@@ -32,13 +32,13 @@ describe('Home page', () => {
   });
 
   it('shows an error message if the fetch fails', async () => {
-    const errorMsg = faker.lorem.sentence();
+    const errorMsg = `Test error: ${faker.lorem.words(3)}`;
     fetch.mockRejectOnce(new Error(errorMsg));
     render(<Home />);
     // Click the "Load" button (initial state)
     await userEvent.click(screen.getByRole('button', { name: /load/i }));
-    // Since the UI matches error by regex, we set errorMsg to include 'error'
-    expect(await screen.findByText(/failed|error|unable|problem/i)).toBeInTheDocument();
+    // Look for the exact error message we set
+    expect(await screen.findByText(errorMsg, { exact: false })).toBeInTheDocument();
   });
 
   it('changes button text from Load to Refresh after first click', async () => {
