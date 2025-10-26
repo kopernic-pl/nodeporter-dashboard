@@ -12,7 +12,41 @@
   },
   separateMinorPatch: true,
   separateMajorMinor: true,
+  
+  // GitHub Actions configuration
+  'github-actions': {
+    fileMatch: ['^\.github/workflows/[^/]+\.ya?ml$'],
+    pinDigests: true,
+  },
+  
   packageRules: [
+    // Node.js version updates
+    {
+      matchManagers: ['github-actions'],
+      matchPackageNames: ['actions/setup-node'],
+      groupName: 'Node.js setup',
+      allowedVersions: '>=24.10.0',
+    },
+    
+    // Helm setup updates
+    {
+      matchManagers: ['github-actions'],
+      matchPackageNames: ['azure/setup-helm'],
+      groupName: 'Helm setup',
+      allowedVersions: '>=3.18.6',
+    },
+    
+    // GitHub Actions updates
+    {
+      matchManagers: ['github-actions'],
+      matchUpdateTypes: ['patch', 'minor'],
+      groupName: 'GitHub Actions',
+      addLabels: ['dependencies', 'github-actions'],
+      automerge: true,
+      automergeType: 'branch',
+    },
+    
+    // Unit test packages
     {
       description: 'Automerge unit test packages',
       extends: ['packages:jsUnitTest'],
@@ -20,6 +54,8 @@
       matchPackageNames: ['@faker-js/faker'],
       dependencyDashboardApproval: false,
     },
+    
+    // Linters
     {
       description: 'Automerge linters',
       extends: ['packages:linters'],
@@ -27,6 +63,8 @@
       matchPackageNames: ['cspell', 'markdownlint-cli', 'prettier-package-json'],
       dependencyDashboardApproval: false,
     },
+    
+    // Default npm package rules
     {
       matchDatasources: ['npm'],
       minimumReleaseAge: '3 days',
