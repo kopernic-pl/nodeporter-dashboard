@@ -22,22 +22,26 @@ const StyledFetchTime = styled.div`
   box-shadow: 0 0 8px ${palette.cyan};
 `;
 
-export default function FetchTime({ fetchTime }) {
-  const [visible, setVisible] = useState(false);
+function AutoHide({ children }) {
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    if (fetchTime !== null) {
-      setVisible(true);
-      const timer = setTimeout(() => {
-        setVisible(false);
-      }, 5000);
-      return () => clearTimeout(timer);
-    } else {
+    const timer = setTimeout(() => {
       setVisible(false);
-    }
-  }, [fetchTime]);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (!visible) return null;
+  return children;
+}
 
-  return <StyledFetchTime>Fetch time: {(fetchTime / 1000).toFixed(2)}s</StyledFetchTime>;
+export default function FetchTime({ fetchTime }) {
+  if (fetchTime === null) return null;
+
+  return (
+    <AutoHide key={fetchTime}>
+      <StyledFetchTime>Fetch time: {(fetchTime / 1000).toFixed(2)}s</StyledFetchTime>
+    </AutoHide>
+  );
 }

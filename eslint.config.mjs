@@ -2,6 +2,7 @@ import { FlatCompat } from '@eslint/eslintrc';
 import globals from 'globals';
 import importPlugin from 'eslint-plugin-import';
 import js from '@eslint/js';
+import next from 'eslint-config-next';
 
 const compat = new FlatCompat({
   // import.meta.dirname is available after Node.js v20.11.0
@@ -10,10 +11,11 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.config({
-    extends: ['next', 'prettier'],
+    extends: ['prettier'],
     plugins: ['import'],
   }),
   js.configs.recommended,
+  ...next,
   {
     files: ['**/*.{js,mjs,cjs}'],
     languageOptions: {

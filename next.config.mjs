@@ -9,9 +9,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
 };
 
 export default withBundleAnalyzer(nextConfig);
