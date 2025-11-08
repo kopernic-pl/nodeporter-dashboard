@@ -29,6 +29,23 @@ const Button = styled.button`
     opacity: 0.6;
     cursor: not-allowed;
   }
+  
+  /* Light mode */
+  @media (prefers-color-scheme: light) {
+    background: var(--retro-accent1);
+    border: 4px solid var(--retro-accent2);
+    box-shadow:
+      4px 4px 0 var(--retro-accent2),
+      8px 8px 0 var(--retro-border);
+
+    &:active {
+      background: var(--retro-accent2);
+      color: var(--retro-touch);
+      box-shadow:
+        2px 2px 0 var(--retro-accent1),
+        4px 4px 0 var(--retro-border);
+    }
+  }
 `;
 
 export default Button;

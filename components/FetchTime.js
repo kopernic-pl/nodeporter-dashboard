@@ -19,6 +19,10 @@ const StyledFetchTime = styled.div`
   border-top-left-radius: 8px;
   z-index: 1000;
   box-shadow: 0 0 8px var(--retro-accent2);
+
+  /* Light mode */
+  @media (prefers-color-scheme: light) {
+  }
 `;
 
 function AutoHide({ children }) {

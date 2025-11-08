@@ -12,6 +12,10 @@ const Error = styled.div`
   box-shadow:
     2px 2px 0 var(--retro-touch),
     4px 4px 0 var(--retro-bg1);
+
+  /* Light mode */
+  @media (prefers-color-scheme: light) {
+  }
 `;
 
 export default Error;

@@ -24,6 +24,12 @@ const EnvironmentBanner = ({ envType }) => {
         border-bottom: 4px solid var(--retro-touch);
         box-shadow: 0 2px 12px var(--retro-border);
         text-shadow: 1px 1px var(--retro-touch);
+
+        /* Light mode */
+        @media (prefers-color-scheme: light) {
+          background: var(--retro-accent2);
+          box-shadow: 0 2px 12px var(--retro-accent2);
+        }
       `;
       message = 'Running in-cluster (production/Kubernetes)';
       break;
@@ -34,6 +40,10 @@ const EnvironmentBanner = ({ envType }) => {
         border-bottom: 4px solid var(--retro-touch);
         box-shadow: 0 2px 12px var(--retro-accent1);
         text-shadow: 1px 1px var(--retro-bg1);
+
+        /* Light mode */
+        @media (prefers-color-scheme: light) {
+        }
       `;
       message = 'Running in local/dev mode';
       break;
@@ -44,6 +54,10 @@ const EnvironmentBanner = ({ envType }) => {
         border-bottom: 4px solid #555;
         box-shadow: 0 2px 12px #888;
         text-shadow: 1px 1px #333;
+
+        /* Light mode */
+        @media (prefers-color-scheme: light) {
+        }
       `;
       message = 'Environment type: unknown';
       break;
