@@ -33,6 +33,7 @@ const Button = styled.button`
   /* Light mode */
   @media (prefers-color-scheme: light) {
     background: var(--retro-accent1);
+    color: var(--retro-surface);
     border: 4px solid var(--retro-accent2);
     box-shadow:
       4px 4px 0 var(--retro-accent2),
