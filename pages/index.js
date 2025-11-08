@@ -1,51 +1,10 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import FetchTime from '../components/FetchTime';
-import EnvironmentBanner from '../components/EnvironmentBanner'; // <-- Added import
+import EnvironmentBanner from '../components/EnvironmentBanner';
+import Button from '../components/Button';
+import Error from '../components/Error';
+import ClusterSummary from '../components/ClusterSummary';
 
-const RetroButton = styled.button`
-  font-family: 'Press Start 2P', 'VT323', monospace;
-  background: var(--retro-btn-bg, #00fff7);
-  color: var(--retro-btn-color, #222);
-  border: 4px solid var(--retro-btn-border, #ff00c8);
-  border-radius: 0;
-  padding: 0.7rem 2rem;
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  cursor: pointer;
-  box-shadow:
-    4px 4px 0 var(--retro-btn-shadow, #ff00c8),
-    8px 8px 0 var(--retro-btn-shadow2, #222);
-  transition:
-    background 0.1s,
-    color 0.1s;
-
-  &:active {
-    background: var(--retro-btn-active-bg, #ff00c8);
-    color: var(--retro-btn-active-color, #00fff7);
-    box-shadow:
-      2px 2px 0 var(--retro-btn-active-shadow, #00fff7),
-      4px 4px 0 var(--retro-btn-shadow2, #222);
-  }
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-`;
-
-const RetroError = styled.div`
-  color: #fff;
-  background: #ff003c;
-  border: 3px solid #fff200;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
-  font-family: 'Press Start 2P', 'VT323', monospace;
-  font-size: 0.9rem;
-  text-shadow: 1px 1px #222;
-  box-shadow:
-    2px 2px 0 #fff200,
-    4px 4px 0 #222;
-`;
 
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -136,7 +95,7 @@ export default function Home() {
       {/* Environment Banner */}
       <EnvironmentBanner envType={envType} />
       <h1 className="retro-title">K8s Service Table</h1>
-      <RetroButton
+      <Button
         onClick={() => {
           setHasLoaded(true);
           fetchKubernetesData();
@@ -144,24 +103,16 @@ export default function Home() {
         disabled={loading}
       >
         {loading ? 'Loading...' : hasLoaded ? 'Refresh' : 'Load'}
-      </RetroButton>
-      {nodesError && <RetroError>Nodes error: {nodesError}</RetroError>}
+      </Button>
+      {nodesError && <Error>Nodes error: {nodesError}</Error>}
       {nodeSummary && (
-        <div
-          style={{
-            marginBottom: '1rem',
-            fontFamily: 'monospace',
-            fontSize: '1rem',
-            color: '#00fff7',
-            textShadow: '1px 1px #222',
-          }}
-        >
+        <ClusterSummary>
           <b>Cluster Summary:</b> {nodeSummary.numNodes} node{nodeSummary.numNodes === 1 ? '' : 's'}
           , total CPU: {Math.round(nodeSummary.totalCPU)} cores, total Memory:{' '}
           {nodeSummary.totalMemory} MiB
-        </div>
+        </ClusterSummary>
       )}
-      {error && <RetroError>{error}</RetroError>}
+      {error && <Error>{error}</Error>}
       <div className="retro-table-container">
         <table className="retro-table">
           <thead>
@@ -222,7 +173,7 @@ export default function Home() {
                                 alignItems: 'center',
                               }}
                             >
-                              <svg
+                              <svg className="retro-nodeport-icon"
                                 width="20"
                                 height="20"
                                 viewBox="0 0 20 20"
@@ -231,7 +182,6 @@ export default function Home() {
                               >
                                 <path
                                   d="M7 13L13 7M10 7H13V10"
-                                  stroke="#00fff7"
                                   strokeWidth="2"
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
@@ -242,7 +192,6 @@ export default function Home() {
                                   width="14"
                                   height="14"
                                   rx="3"
-                                  stroke="#00fff7"
                                   strokeWidth="2"
                                 />
                               </svg>

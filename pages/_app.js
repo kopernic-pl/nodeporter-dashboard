@@ -1,6 +1,7 @@
 import React from 'react';
 import { useReportWebVitals } from 'next/web-vitals';
 import '../styles/globals.css';
+import '../styles/palette.css';
 import '@fontsource/press-start-2p';
 import '@fontsource/vt323';
 

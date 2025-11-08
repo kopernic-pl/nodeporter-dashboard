@@ -1,71 +1,53 @@
-:root {
-  --retro-cyan: #00fff7;
-  --retro-magenta: #ff00c8;
-  --retro-yellow: #fff200;
-  --retro-dark: #222;
-  --retro-darker: #111;
-  --retro-white: #fff;
-  --retro-black: #000;
-  --retro-table-bg: #111;
-  --retro-table-border: #00fff7;
-  --retro-table-shadow: #ff00c8;
-  --retro-title-shadow1: #ff00c8;
-  --retro-title-shadow2: #222;
-  --retro-table-hover-bg: #311a3d;
-  /* RetroButton dark theme variables */
-  --retro-btn-bg: var(--retro-cyan);
-  --retro-btn-color: var(--retro-dark);
-  --retro-btn-border: var(--retro-magenta);
-  --retro-btn-shadow: var(--retro-magenta);
-  --retro-btn-shadow2: var(--retro-dark);
-  --retro-btn-active-bg: var(--retro-magenta);
-  --retro-btn-active-color: var(--retro-cyan);
-  --retro-btn-active-shadow: var(--retro-cyan);
-}
+@import url('./palette.css');
 
-/* 8-bit dark mode (default) */
 body {
   min-height: 100vh;
   box-sizing: border-box;
-  background: repeating-linear-gradient(135deg, var(--retro-dark) 0 10px, #333 10px 20px);
+  background: repeating-linear-gradient(
+    135deg,
+    var(--retro-bg1) 0 10px,
+    var(--retro-bg2) 10px 20px);
   padding-bottom: 64px; /* Space for sticky footer */
 }
 
-/* 8-bit vertical scrollbar (dark theme) */
 body,
 .retro-table-container {
   /* Firefox */
-  scrollbar-color: var(--retro-magenta) var(--retro-darker);
-  scrollbar-width: auto; /* thicker for blocky retro look */
+  scrollbar-color:
+    var(--retro-accent1)
+    var(--retro-surface);
+  scrollbar-width: auto; /* Thicker for blocky retro look */
 }
 
 body::-webkit-scrollbar,
 .retro-table-container::-webkit-scrollbar {
   width: 18px;
-  background: var(--retro-darker);
+  background: var(--retro-surface);
 }
 
 body::-webkit-scrollbar-thumb,
 .retro-table-container::-webkit-scrollbar-thumb {
   background: repeating-linear-gradient(
     135deg,
-    var(--retro-magenta) 0 8px,
-    var(--retro-cyan) 8px 16px
+    var(--retro-accent1) 0 8px,
+    var(--retro-accent2) 8px 16px
   );
-  border: 4px solid var(--retro-dark);
+  border: 4px solid var(--retro-bg1);
   border-radius: 0;
   min-height: 32px;
-  box-shadow: 2px 2px 0 var(--retro-yellow);
+  box-shadow: 2px 2px 0 var(--retro-touch);
 }
+
 body::-webkit-scrollbar-track,
 .retro-table-container::-webkit-scrollbar-track {
-  background: var(--retro-darker);
-  border: 2px solid var(--retro-cyan);
+  background: var(--retro-surface);
+  border: 2px solid var(--retro-accent2);
   border-radius: 0;
 }
+
 body::-webkit-scrollbar-corner,
 .retro-table-container::-webkit-scrollbar-corner {
-  background: var(--retro-dark);
+  background: var(--retro-bg1);
 }
 
 .retro-8bit-app {
@@ -79,21 +61,21 @@ body::-webkit-scrollbar-corner,
 .retro-title {
   font-family: 'Press Start 2P', 'VT323', monospace;
   font-size: 2rem;
-  color: var(--retro-cyan);
+  color: var(--retro-accent2);
   margin-bottom: 2rem;
   text-shadow:
-    2px 2px 0 var(--retro-magenta),
-    4px 4px 0 var(--retro-dark);
+    2px 2px 0 var(--retro-shadow1),
+    4px 4px 0 var(--retro-shadow2);
   letter-spacing: 2px;
 }
 
 .retro-table-container {
   width: 100%;
-  max-width: 100%;
-  background: var(--retro-darker);
-  border: 6px double var(--retro-cyan);
-  box-shadow: 0 0 24px var(--retro-magenta);
-  padding: 1rem;
+  max-width: 700px;
+  background: var(--retro-surface);
+  border: 6px double var(--retro-border);
+  box-shadow: 0 0 24px var(--retro-shadow1);
+  padding: 2rem 1rem;
   border-radius: 0;
   /*overflow-x: auto; /* Enable horizontal scrolling */
   /*-webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
@@ -105,19 +87,21 @@ body::-webkit-scrollbar-corner,
   border-collapse: collapse;
   font-family: 'VT323', monospace;
   font-size: 1.1rem;
-  background: var(--retro-dark);
+  background: var(--retro-bg1);
 }
 
 /* Responsive table styles for mobile view */
 @media (max-width: 768px) {
   .retro-table-container {
     padding: 0.5rem;
-    border: 4px double var(--retro-cyan);
+    border: 4px double var(--retro-border);
   }
+
   .retro-table {
     min-width: 100%;
     font-size: 0.9rem;
   }
+
   .retro-table th,
   .retro-table td {
     padding: 0.3rem 0.5rem;
@@ -130,9 +114,11 @@ body::-webkit-scrollbar-corner,
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
+
   .retro-table {
     min-width: 600px; /* Force horizontal scroll */
   }
+
   .retro-table th,
   .retro-table td {
     padding: 0.2rem;
@@ -141,49 +127,31 @@ body::-webkit-scrollbar-corner,
 }
 
 .retro-table th {
-  border: 3px solid var(--retro-cyan);
+  border: 3px solid var(--retro-border);
   padding: 0.6rem 0.8rem;
   text-align: left;
-  background: var(--retro-magenta);
-  color: var(--retro-white);
-  text-shadow: 1px 1px var(--retro-dark);
+  background: var(--retro-accent1);
+  color: var(--retro-text);
+  text-shadow: 1px 1px var(--retro-bg1);
 }
+
 .retro-table td {
-  border: 3px solid var(--retro-cyan);
+  border: 3px solid var(--retro-border);
   padding: 0.6rem 0.8rem;
   text-align: left;
 }
+
 .retro-table tr {
-  color: var(--retro-white);
+  color: var(--retro-text);
 }
+
 .retro-table tr:nth-child(even) {
-  background: #333333;
+  background: var(--retro-bg2);
 }
 
 .retro-table tr:hover {
-  background: var(--retro-table-hover-bg);
+  background: var(--retro-hover);
   transition: background-color 0.2s ease-in-out;
-}
-
-.retro-title {
-  font-family: 'Press Start 2P', 'VT323', monospace;
-  font-size: 2rem;
-  color: var(--retro-cyan);
-  margin-bottom: 2rem;
-  text-shadow:
-    2px 2px 0 var(--retro-magenta),
-    4px 4px 0 var(--retro-dark);
-  letter-spacing: 2px;
-}
-
-.retro-table-container {
-  width: 100%;
-  max-width: 700px;
-  background: var(--retro-darker);
-  border: 6px double var(--retro-cyan);
-  box-shadow: 0 0 24px var(--retro-magenta);
-  padding: 2rem 1rem;
-  border-radius: 0;
 }
 
 .retro-footer {
@@ -191,110 +159,125 @@ body::-webkit-scrollbar-corner,
   left: 0;
   bottom: 0;
   width: 100vw;
-  background: var(--retro-darker);
-  color: var(--retro-cyan);
+  background: var(--retro-surface);
+  color: var(--retro-accent2);
   font-family: 'Press Start 2P', 'VT323', monospace;
   font-size: 1rem;
   text-align: center;
   padding: 1rem 0 0.7rem 0;
-  border-top: 4px double var(--retro-magenta);
-  box-shadow: 0 -2px 12px var(--retro-magenta);
+  border-top: 4px double var(--retro-accent1);
+  box-shadow: 0 -2px 12px var(--retro-accent1);
   z-index: 100;
 }
+
 .retro-footer a {
-  color: var(--retro-magenta);
+  color: var(--retro-accent1);
   text-decoration: none;
   font-weight: bold;
 }
+
 .retro-footer a:hover {
-  color: var(--retro-yellow);
-  text-shadow: 1px 1px var(--retro-magenta);
+  color: var(--retro-touch);
+  text-shadow: 1px 1px var(--retro-accent1);
 }
 
-/* 8-bit light mode */
+.retro-nodeport-icon path,
+.retro-nodeport-icon rect {
+  stroke: var(--retro-accent2);
+}
+
+/* Light mode */
 @media (prefers-color-scheme: light) {
-  body {
-    /* RetroButton light theme variables */
-    --retro-btn-bg: #e07a5f;
-    --retro-btn-color: #fff;
-    --retro-btn-border: #1d70a2;
-    --retro-btn-shadow: #1d70a2;
-    --retro-btn-shadow2: #a2d5c6;
-    --retro-btn-active-bg: #1d70a2;
-    --retro-btn-active-color: var(--retro-yellow);
-    --retro-btn-active-shadow: #e07a5f;
-  }
 
   body,
   .retro-table-container {
     /* Firefox */
-    scrollbar-color: #e07a5f #f7f7f2;
+    scrollbar-color:
+      var(--retro-accent1)
+      var(--retro-surface);
     scrollbar-width: auto;
   }
+
   body::-webkit-scrollbar,
   .retro-table-container::-webkit-scrollbar {
     width: 18px;
-    background: #f7f7f2;
+    background: var(--retro-surface);
   }
+
   body::-webkit-scrollbar-thumb,
   .retro-table-container::-webkit-scrollbar-thumb {
-    background: repeating-linear-gradient(135deg, #e07a5f 0 8px, #1d70a2 8px 16px);
-    border: 4px solid #a2d5c6;
+    background: repeating-linear-gradient(
+      135deg,
+      var(--retro-accent1) 0 8px,
+      var(--retro-accent2) 8px 16px
+    );
+    border: 4px solid var(--retro-border);
     border-radius: 0;
     min-height: 32px;
-    box-shadow: 2px 2px 0 var(--retro-yellow);
+    box-shadow: 2px 2px 0 var(--retro-touch);
   }
+
   body::-webkit-scrollbar-track,
   .retro-table-container::-webkit-scrollbar-track {
-    background: #f7f7f2;
-    border: 2px solid #a2d5c6;
+    background: var(--retro-surface);
+    border: 2px solid var(--retro-border);
     border-radius: 0;
   }
+
   body::-webkit-scrollbar-corner,
   .retro-table-container::-webkit-scrollbar-corner {
-    background: #d3d3c7;
+    background: var(--retro-bg2);
   }
 
   body {
-    background: repeating-linear-gradient(135deg, #e9e9e3 0 10px, #d3d3c7 10px 20px);
+    background: repeating-linear-gradient(
+      135deg,
+      var(--retro-bg1) 0 10px,
+      var(--retro-bg2) 10px 20px
+    );
   }
+
   .retro-8bit-app {
     background: none;
   }
+
   .retro-title {
-    color: #1d70a2;
+    color: var(--retro-accent2);
     text-shadow:
-      2px 2px 0 #e07a5f,
-      4px 4px 0 #e9e9e3;
+      2px 2px 0 var(--retro-shadow1),
+      4px 4px 0 var(--retro-shadow2);
   }
+
   .retro-table-container {
-    background: #f7f7f2;
-    border: 6px double #a2d5c6;
-    box-shadow: 0 0 24px #e07a5f;
+    background: var(--retro-surface);
+    border: 6px double var(--retro-border);
+    box-shadow: 0 0 24px var(--retro-accent1);
   }
+
   .retro-table {
-    background: #e9e9e3;
+    background: var(--retro-bg1);
   }
+
   .retro-table th {
-    background: #e07a5f;
-    color: #2d2d2d;
-    text-shadow: 1px 1px #f7f7f2;
-    border: 3px solid #a2d5c6;
+    background: var(--retro-accent1);
+    color: var(--retro-text);
+    text-shadow: 1px 1px var(--retro-surface);
+    border: 3px solid var(--retro-border);
   }
+
   .retro-table td {
-    border: 3px solid #a2d5c6;
+    border: 3px solid var(--retro-border);
   }
+
   .retro-table tr {
-    color: #2d2d2d;
+    color: var(--retro-text);
   }
+
   .retro-table tr:nth-child(even) {
-    background: #d3d3c7;
+    background: var(--retro-bg2);
   }
+
   .retro-table tr:hover {
-    background: #a2d5c6;
-  }
-  .retro-table tr:hover td,
-  .retro-table tr:hover span {
-    color: #1d1d1d;
+    background: var(--retro-hover);
   }
 }

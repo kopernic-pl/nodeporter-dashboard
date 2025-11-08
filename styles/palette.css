@@ -1,0 +1,33 @@
+/* Dark mode (default) theme */
+:root {
+  --retro-bg1: #222;
+  --retro-bg2: #333;
+  --retro-bg-transparent: rgba(34, 34, 34, 0.95);
+  --retro-surface: #111;
+  --retro-border: #00fff7;
+  --retro-accent1: #ff00c8;
+  --retro-accent2: #00fff7;
+  --retro-hover: #311a3d;
+  --retro-text: #fff;
+  --retro-touch: #fff200;
+  --retro-shadow1: #ff00c8;
+  --retro-shadow2: #222;
+}
+
+/* Light mode theme */
+@media (prefers-color-scheme: light) {
+  :root {
+    --retro-bg1: #e9e6e3;
+    --retro-bg2: #d3d3c7;
+    --retro-bg-transparent: rgba(255, 255, 255, 0.95);
+    --retro-surface: #f7f7f2;
+    --retro-border: #a2d5c6;
+    --retro-accent1: #e07a5f;
+    --retro-accent2: #1d70a2;
+    --retro-hover: #a2d5c6;
+    --retro-text: #2d2d2d;
+    --retro-touch: #cb66c7;
+    --retro-shadow1: #e07a5f;
+    --retro-shadow2: #f7f7f2;
+  }
+}
