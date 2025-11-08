@@ -17,7 +17,7 @@
 /* Light mode theme */
 @media (prefers-color-scheme: light) {
   :root {
-    --retro-bg1: #e9e6e3;
+    --retro-bg1: #e9e9e3;
     --retro-bg2: #d3d3c7;
     --retro-bg-transparent: rgba(255, 255, 255, 0.95);
     --retro-surface: #f7f7f2;

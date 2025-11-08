@@ -229,6 +229,13 @@ body::-webkit-scrollbar-corner,
     background: var(--retro-bg2);
   }
 
+  body {
+    background: repeating-linear-gradient(
+      135deg,
+      var(--retro-bg1) 0 10px,
+      var(--retro-bg2) 10px 20px);
+  }
+
   .retro-8bit-app {
     background: none;
   }
