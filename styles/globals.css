@@ -1,4 +1,5 @@
-@import url('./palette.css');
+@import url('./palettes/dark.css');
+@import url('./palettes/light.css') (prefers-color-scheme: light);
 
 body {
   min-height: 100vh;
