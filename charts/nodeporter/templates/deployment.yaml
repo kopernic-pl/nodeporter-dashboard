@@ -12,10 +12,11 @@ spec:
       labels: {{- include "nodeporter.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "nodeporter.fullname" . }}
+      automountServiceAccountToken: true
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        fsGroup: 2000
+        # runAsNonRoot: true
+        # runAsUser: 1000
+        # fsGroup: 2000
         seccompProfile:
           type: RuntimeDefault
       containers:
