@@ -7,7 +7,7 @@
     "@fontsource/press-start-2p": "5.2.7",
     "@fontsource/vt323": "5.2.7",
     "@kubernetes/client-node": "1.4.0",
-    "fastify": "5.6.1",
+    "fastify": "5.6.2",
     "next": "16.0.1",
     "pino": "10.1.0",
     "react": "19.2.0",
