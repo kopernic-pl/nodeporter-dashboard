@@ -12,10 +12,28 @@ spec:
       labels: {{- include "nodeporter.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "nodeporter.fullname" . }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: nodeporter
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            # runAsNonRoot: true
+            # runAsUser: 1000
+            capabilities:
+              drop:
+                - ALL
           image: '{{ .Values.image.repository }}:{{ .Values.image.tag }}'
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 3000
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+              # TargetPort is optional and defaults to containerPort if not specified
+              # targetPort: 3000
           resources: {{- toYaml .Values.resources | nindent 12 }}
