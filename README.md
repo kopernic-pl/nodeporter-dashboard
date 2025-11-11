@@ -126,6 +126,7 @@ For more, see the [Helm documentation](https://helm.sh/docs/).
 ## 🎨 Custom app colors
 
 You can customize colors used within the app to your own imagination by editing 2 files inside `/styles/palettes` directory:
+
 - `dark.css` for the dark-themed colors
 - `light.css` for the light-themed colors
 
