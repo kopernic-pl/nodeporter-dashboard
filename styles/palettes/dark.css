@@ -1,0 +1,14 @@
+:root {
+  --retro-bg1: #222;
+  --retro-bg2: #333;
+  --retro-bg-transparent: rgba(34, 34, 34, 0.95);
+  --retro-surface: #111;
+  --retro-border: #00fff7;
+  --retro-accent1: #ff00c8;
+  --retro-accent2: #00fff7;
+  --retro-hover: #311a3d;
+  --retro-text: #fff;
+  --retro-touch: #fff200;
+  --retro-shadow1: #ff00c8;
+  --retro-shadow2: #222;
+}

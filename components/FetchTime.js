@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { palette } from '../styles/palette';
 
 /**
  * FetchTime displays the fetch duration in seconds, styled as a floating widget.
@@ -11,15 +10,19 @@ const StyledFetchTime = styled.div`
   position: fixed;
   right: 0;
   bottom: 0;
-  background: rgba(34, 34, 34, 0.95); /* fallback for old browsers */
-  background: rgba(34, 34, 34, 0.95);
-  color: ${palette.cyan};
+  background: var(--retro-bg1); /* fallback for old browsers */
+  background: var(--retro-bg-transparent);
+  color: var(--retro-accent2);
   font-family: 'Press Start 2P', 'VT323', monospace;
   font-size: 0.95rem;
   padding: 0.6rem 1.2rem;
   border-top-left-radius: 8px;
   z-index: 1000;
-  box-shadow: 0 0 8px ${palette.cyan};
+  box-shadow: 0 0 8px var(--retro-accent2);
+
+  /* Light mode */
+  @media (prefers-color-scheme: light) {
+  }
 `;
 
 function AutoHide({ children }) {
