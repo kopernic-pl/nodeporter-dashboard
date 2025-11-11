@@ -5,7 +5,6 @@ import Button from '../components/Button';
 import Error from '../components/Error';
 import ClusterSummary from '../components/ClusterSummary';
 
-
 export default function Home() {
   const [services, setServices] = useState([]);
   const [nodes, setNodes] = useState([]);
@@ -173,7 +172,8 @@ export default function Home() {
                                 alignItems: 'center',
                               }}
                             >
-                              <svg className="retro-nodeport-icon"
+                              <svg
+                                className="retro-nodeport-icon"
                                 width="20"
                                 height="20"
                                 viewBox="0 0 20 20"
@@ -186,14 +186,7 @@ export default function Home() {
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
                                 />
-                                <rect
-                                  x="3"
-                                  y="3"
-                                  width="14"
-                                  height="14"
-                                  rx="3"
-                                  strokeWidth="2"
-                                />
+                                <rect x="3" y="3" width="14" height="14" rx="3" strokeWidth="2" />
                               </svg>
                             </a>
                           );

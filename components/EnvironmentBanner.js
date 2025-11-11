@@ -39,7 +39,6 @@ const UnknownBanner = styled(BaseBanner)`
   text-shadow: 1px 1px #333;
 `;
 
-
 const EnvironmentBanner = ({ envType }) => {
   if (!envType) {
     return null;

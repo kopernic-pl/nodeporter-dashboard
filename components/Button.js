@@ -29,7 +29,7 @@ const Button = styled.button`
     opacity: 0.6;
     cursor: not-allowed;
   }
-  
+
   /* Light mode */
   @media (prefers-color-scheme: light) {
     background: var(--retro-accent1);

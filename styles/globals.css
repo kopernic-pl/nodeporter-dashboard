@@ -7,16 +7,15 @@ body {
   background: repeating-linear-gradient(
     135deg,
     var(--retro-bg1) 0 10px,
-    var(--retro-bg2) 10px 20px);
+    var(--retro-bg2) 10px 20px
+  );
   padding-bottom: 64px; /* Space for sticky footer */
 }
 
 body,
 .retro-table-container {
   /* Firefox */
-  scrollbar-color:
-    var(--retro-accent1)
-    var(--retro-surface);
+  scrollbar-color: var(--retro-accent1) var(--retro-surface);
   scrollbar-width: auto; /* Thicker for blocky retro look */
 }
 
@@ -189,13 +188,10 @@ body::-webkit-scrollbar-corner,
 
 /* Light mode */
 @media (prefers-color-scheme: light) {
-
   body,
   .retro-table-container {
     /* Firefox */
-    scrollbar-color:
-      var(--retro-accent1)
-      var(--retro-surface);
+    scrollbar-color: var(--retro-accent1) var(--retro-surface);
     scrollbar-width: auto;
   }
 
@@ -234,7 +230,8 @@ body::-webkit-scrollbar-corner,
     background: repeating-linear-gradient(
       135deg,
       var(--retro-bg1) 0 10px,
-      var(--retro-bg2) 10px 20px);
+      var(--retro-bg2) 10px 20px
+    );
   }
 
   .retro-8bit-app {
