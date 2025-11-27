@@ -7,7 +7,7 @@ image:
   ## Container image repository
   repository: ghcr.io/kopernic-pl/nodeporter-dashboard
   ## Container image tag
-  tag: 0.5.2
+  tag: 0.5.3
   ## Image pull policy
   pullPolicy: IfNotPresent
 
