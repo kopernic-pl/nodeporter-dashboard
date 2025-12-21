@@ -153,7 +153,10 @@ export default function Home() {
                   <td>
                     {(() => {
                       // Handle LoadBalancer type
-                      if (svc.spec.type === 'LoadBalancer' && svc.status?.loadBalancer?.ingress?.[0]?.ip) {
+                      if (
+                        svc.spec.type === 'LoadBalancer' &&
+                        svc.status?.loadBalancer?.ingress?.[0]?.ip
+                      ) {
                         const lbIp = svc.status.loadBalancer.ingress[0].ip;
                         const port = svc.spec.ports[0]?.port;
                         const lbUrl = `http://${lbIp}${port ? ':' + port : ''}`;
@@ -184,12 +187,20 @@ export default function Home() {
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                               />
-                              <rect x="3" y="3" width="14" height="14" rx="3" stroke="currentColor" strokeWidth="2" />
+                              <rect
+                                x="3"
+                                y="3"
+                                width="14"
+                                height="14"
+                                rx="3"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                              />
                             </svg>
                           </a>
                         );
                       }
-                      
+
                       // Handle NodePort type
                       if (svc.spec.type === 'NodePort' && nodes?.length > 0) {
                         const node = nodes[0];
@@ -197,7 +208,7 @@ export default function Home() {
                           (addr) => addr.type === 'InternalIP'
                         )?.address;
                         const nodePortObj = svc.spec.ports.find((p) => p.nodePort);
-                        
+
                         if (internalIP && nodePortObj?.nodePort) {
                           const nodeUrl = `http://${internalIP}:${nodePortObj.nodePort}`;
                           return (
@@ -212,7 +223,9 @@ export default function Home() {
                                 gap: '4px',
                               }}
                             >
-                              <span>Node: {internalIP}:{nodePortObj.nodePort}</span>
+                              <span>
+                                Node: {internalIP}:{nodePortObj.nodePort}
+                              </span>
                               <svg
                                 width="16"
                                 height="16"
@@ -227,13 +240,21 @@ export default function Home() {
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
                                 />
-                                <rect x="3" y="3" width="14" height="14" rx="3" stroke="currentColor" strokeWidth="2" />
+                                <rect
+                                  x="3"
+                                  y="3"
+                                  width="14"
+                                  height="14"
+                                  rx="3"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                />
                               </svg>
                             </a>
                           );
                         }
                       }
-                      
+
                       return null;
                     })()}
                   </td>
