@@ -158,7 +158,9 @@ export default function Home() {
                         svc.status?.loadBalancer?.ingress?.[0]?.ip
                       ) {
                         const lbIp = svc.status.loadBalancer.ingress[0].ip;
-                        const port = svc.spec.ports[0]?.port;
+                        // Use nodePort if available, otherwise fall back to targetPort or port
+                        const portObj = svc.spec.ports?.[0];
+                        const port = portObj?.nodePort || portObj?.targetPort || portObj?.port;
                         const lbUrl = `http://${lbIp}${port ? ':' + port : ''}`;
                         return (
                           <a
