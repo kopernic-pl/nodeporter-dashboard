@@ -121,7 +121,7 @@ export default function Home() {
               <th>Type</th>
               <th>ClusterIP</th>
               <th>Ports</th>
-              <th>NodePort Link</th>
+              <th>Link</th>
             </tr>
           </thead>
           <tbody>
@@ -152,46 +152,111 @@ export default function Home() {
                   </td>
                   <td>
                     {(() => {
-                      if (svc.spec.type === 'NodePort' && nodes && nodes.length > 0) {
+                      // Handle LoadBalancer type
+                      if (
+                        svc.spec.type === 'LoadBalancer' &&
+                        svc.status?.loadBalancer?.ingress?.[0]?.ip
+                      ) {
+                        const lbIp = svc.status.loadBalancer.ingress[0].ip;
+                        // Use nodePort if available, otherwise fall back to targetPort or port
+                        const portObj = svc.spec.ports?.[0];
+                        const port = portObj?.nodePort || portObj?.targetPort || portObj?.port;
+                        const lbUrl = `http://${lbIp}${port ? ':' + port : ''}`;
+                        return (
+                          <a
+                            href={lbUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={`Open LoadBalancer: ${lbUrl}`}
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '4px',
+                            }}
+                          >
+                            <span>LB: {lbIp}</span>
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M7 13L13 7M10 7H13V10"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <rect
+                                x="3"
+                                y="3"
+                                width="14"
+                                height="14"
+                                rx="3"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                              />
+                            </svg>
+                          </a>
+                        );
+                      }
+
+                      // Handle NodePort type
+                      if (svc.spec.type === 'NodePort' && nodes?.length > 0) {
                         const node = nodes[0];
                         const internalIP = node.addresses?.find(
                           (addr) => addr.type === 'InternalIP'
                         )?.address;
                         const nodePortObj = svc.spec.ports.find((p) => p.nodePort);
-                        if (internalIP && nodePortObj && nodePortObj.nodePort) {
+
+                        if (internalIP && nodePortObj?.nodePort) {
                           const nodeUrl = `http://${internalIP}:${nodePortObj.nodePort}`;
                           return (
                             <a
                               href={nodeUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              title={`Open ${nodeUrl}`}
+                              title={`Open NodePort: ${nodeUrl}`}
                               style={{
-                                marginLeft: 2,
                                 display: 'inline-flex',
                                 alignItems: 'center',
+                                gap: '4px',
                               }}
                             >
+                              <span>
+                                Node: {internalIP}:{nodePortObj.nodePort}
+                              </span>
                               <svg
-                                className="retro-nodeport-icon"
-                                width="20"
-                                height="20"
+                                width="16"
+                                height="16"
                                 viewBox="0 0 20 20"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
                                   d="M7 13L13 7M10 7H13V10"
+                                  stroke="currentColor"
                                   strokeWidth="2"
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
                                 />
-                                <rect x="3" y="3" width="14" height="14" rx="3" strokeWidth="2" />
+                                <rect
+                                  x="3"
+                                  y="3"
+                                  width="14"
+                                  height="14"
+                                  rx="3"
+                                  stroke="currentColor"
+                                  strokeWidth="2"
+                                />
                               </svg>
                             </a>
                           );
                         }
                       }
+
                       return null;
                     })()}
                   </td>
