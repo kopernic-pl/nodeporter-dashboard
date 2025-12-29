@@ -9,7 +9,7 @@ const ExternalLinkIcon = ({ size = 16 }) => (
     xmlns="http://www.w3.org/2000/svg"
     style={{
       '--icon-stroke': 'var(--retro-text)',
-      '--icon-hover': 'var(--retro-accent1)'
+      '--icon-hover': 'var(--retro-accent1)',
     }}
     className="external-link-icon"
   >
@@ -26,20 +26,8 @@ const ExternalLinkIcon = ({ size = 16 }) => (
         stroke: var(--icon-hover);
       }
     `}</style>
-    <path
-      d="M7 13L13 7M10 7H13V10"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <rect
-      x="3"
-      y="3"
-      width="14"
-      height="14"
-      rx="3"
-      strokeWidth="2"
-    />
+    <path d="M7 13L13 7M10 7H13V10" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <rect x="3" y="3" width="14" height="14" rx="3" strokeWidth="2" />
   </svg>
 );
 
