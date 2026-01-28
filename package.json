@@ -10,8 +10,8 @@
     "fastify": "5.7.1",
     "next": "16.1.4",
     "pino": "10.3.0",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
     "styled-components": "6.3.8",
     "web-vitals": "5.1.0"
   },
