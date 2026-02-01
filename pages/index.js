@@ -24,6 +24,12 @@ export default function Home() {
       .catch(() => setEnvType('unknown'));
   }, []);
 
+  React.useEffect(() => {
+    // Auto-load data on component mount
+    fetchKubernetesData();
+    setHasLoaded(true);
+  }, []);
+
   const fetchKubernetesData = async () => {
     setLoading(true);
     setError(null);
@@ -95,15 +101,14 @@ export default function Home() {
       {/* Environment Banner */}
       <EnvironmentBanner envType={envType} />
       <h1 className="retro-title">K8s Service Table</h1>
-      <Button
-        onClick={() => {
-          setHasLoaded(true);
-          fetchKubernetesData();
-        }}
-        disabled={loading}
-      >
-        {loading ? 'Loading...' : hasLoaded ? 'Refresh' : 'Load'}
-      </Button>
+      {hasLoaded && (
+        <Button
+          onClick={fetchKubernetesData}
+          disabled={loading}
+        >
+          {loading ? 'Loading...' : 'Refresh'}
+        </Button>
+      )}
       {nodesError && <Error>Nodes error: {nodesError}</Error>}
       {nodeSummary && (
         <ClusterSummary>

@@ -35,20 +35,13 @@ describe('Home page', () => {
     const errorMsg = `Test error: ${faker.lorem.words(3)}`;
     fetch.mockRejectOnce(new Error(errorMsg));
     render(<Home />);
-    // Click the "Load" button (initial state)
-    await userEvent.click(screen.getByRole('button', { name: /load/i }));
-    // Look for the exact error message we set
+    // Since data loads automatically, just wait for the error message
     expect(await screen.findByText(errorMsg, { exact: false })).toBeInTheDocument();
   });
 
-  it('changes button text from Load to Refresh after first click', async () => {
+  it('shows Refresh button after auto-load completes', async () => {
     render(<Home />);
-    // Button should initially say "Load"
-    const loadButton = screen.getByRole('button', { name: /load/i });
-    expect(loadButton).toBeInTheDocument();
-    // Click the button
-    await userEvent.click(loadButton);
-    // After click, should say "Refresh"
-    expect(screen.getByRole('button', { name: /refresh/i })).toBeInTheDocument();
+    // Wait for the Refresh button to appear after auto-load
+    expect(await screen.findByRole('button', { name: /refresh/i })).toBeInTheDocument();
   });
 });
