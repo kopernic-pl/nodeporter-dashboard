@@ -12,7 +12,7 @@
     "pino": "10.3.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "styled-components": "6.3.8",
+    "styled-components": "6.3.9",
     "web-vitals": "5.1.0"
   },
   "scripts": {
