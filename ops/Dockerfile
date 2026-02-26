@@ -1,5 +1,5 @@
 # Dockerfile for NodePorter Project (Next.js)
-FROM node:24.13.1-alpine AS builder
+FROM node:24.14.0-alpine AS builder
 ARG VERSION
 WORKDIR /app
 COPY package*.json ./
@@ -10,7 +10,7 @@ ENV NEXT_PUBLIC_VERSION=$VERSION
 RUN npm run build
 
 # Production image
-FROM node:24.13.1-alpine
+FROM node:24.14.0-alpine
 WORKDIR /app
 COPY --from=builder /app .
 
