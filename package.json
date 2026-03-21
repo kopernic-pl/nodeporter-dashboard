@@ -48,7 +48,7 @@
     "node": "24.x"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.29.0",
+    "@babel/preset-env": "7.29.2",
     "@babel/preset-react": "7.28.5",
     "@faker-js/faker": "10.3.0",
     "@next/bundle-analyzer": "16.1.7",
