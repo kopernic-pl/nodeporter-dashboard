@@ -3,14 +3,14 @@ FROM node:24.14.0-alpine AS builder
 ARG VERSION
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --ignore-scripts
 COPY . .
 ENV VERSION=$VERSION
 ENV NEXT_PUBLIC_VERSION=$VERSION
 RUN npm run build
 
 # Production image
-FROM node:24.14.0-alpine
+FROM node:24.14.1-alpine
 WORKDIR /app
 COPY --from=builder /app .
 
