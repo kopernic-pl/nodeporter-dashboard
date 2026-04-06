@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { faker } from '@faker-js/faker';
-import FetchTime from './FetchTime';
+import FetchTime from '../../components/FetchTime';
 
 describe('FetchTime', () => {
   it('renders nothing if fetchTime is null', () => {
