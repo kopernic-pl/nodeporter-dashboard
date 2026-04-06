@@ -5,6 +5,8 @@ import Button from '../components/Button';
 import Error from '../components/Error';
 import ClusterSummary from '../components/ClusterSummary';
 import ServiceLink from '../components/ServiceLink';
+import ServiceFilter from '../components/ServiceFilter';
+import { useServiceFilters } from '../hooks/useServiceFilters';
 
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -16,6 +18,7 @@ export default function Home() {
   const [fetchTime, setFetchTime] = useState(null);
   const [envType, setEnvType] = useState(null);
   const [hasLoaded, setHasLoaded] = useState(false);
+  const { filterServices } = useServiceFilters();
 
   React.useEffect(() => {
     fetch('/api/envtype')
@@ -115,6 +118,7 @@ export default function Home() {
         </ClusterSummary>
       )}
       {error && <Error>{error}</Error>}
+      <ServiceFilter />
       <div className="retro-table-container">
         <table className="retro-table">
           <thead>
@@ -128,30 +132,30 @@ export default function Home() {
             </tr>
           </thead>
           <tbody>
-            {services.length === 0 && !loading ? (
+            {filterServices(services).length === 0 && !loading ? (
               <tr>
                 <td colSpan="6" style={{ textAlign: 'center' }}>
                   No services loaded
                 </td>
               </tr>
             ) : (
-              services.map((svc, idx) => (
+              filterServices(services).map((svc, idx) => (
                 <tr key={svc.metadata.name + idx}>
                   <td>{svc.metadata.labels?.['app.kubernetes.io/name'] || svc.metadata.name}</td>
                   <td>{svc.metadata.namespace}</td>
                   <td>{svc.spec.type}</td>
                   <td>{svc.spec.clusterIP}</td>
                   <td>
-                    {svc.spec.ports.map((p, i) => (
+                    {svc.spec.ports?.map((p, i) => (
                       <span
                         key={i}
                         style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2em' }}
                       >
                         {p.port}/{p.protocol}
                         {p.nodePort ? ` (NodePort: ${p.nodePort})` : ''}
-                        {i < svc.spec.ports.length - 1 ? ', ' : ''}
+                        {i < (svc.spec.ports?.length || 0) - 1 ? ', ' : ''}
                       </span>
-                    ))}
+                    )) || 'No ports'}
                   </td>
                   <td>
                     <ServiceLink service={svc} nodes={nodes} />

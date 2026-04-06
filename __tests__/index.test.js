@@ -79,8 +79,20 @@ describe('Home page', () => {
 
   it('filters ClusterIP services by default', async () => {
     const mockServices = [
-      { metadata: { name: 'clusterip-svc' }, spec: { type: 'ClusterIP' } },
-      { metadata: { name: 'nodeport-svc' }, spec: { type: 'NodePort' } },
+      { 
+        metadata: { name: 'clusterip-svc' }, 
+        spec: { 
+          type: 'ClusterIP',
+          ports: [{ port: 80, protocol: 'TCP' }]
+        } 
+      },
+      { 
+        metadata: { name: 'nodeport-svc' }, 
+        spec: { 
+          type: 'NodePort',
+          ports: [{ port: 80, protocol: 'TCP', nodePort: 30080 }]
+        } 
+      },
     ];
     
     fetch.resetMocks();

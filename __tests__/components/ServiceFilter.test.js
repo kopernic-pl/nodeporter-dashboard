@@ -4,7 +4,6 @@
 
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { faker } from '@faker-js/faker';
 import ServiceFilter from '../../components/ServiceFilter';
 import * as filterHooks from '../../hooks/useServiceFilters';
 

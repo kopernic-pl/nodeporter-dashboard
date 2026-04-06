@@ -98,20 +98,6 @@ const StyledCheckbox = styled.input.attrs({ type: 'checkbox' })`
   }
 `;
 
-// Checkbox label
-const CheckboxLabel = styled.label`
-  font-size: 0.9rem;
-  color: var(--retro-text);
-  cursor: pointer;
-  user-select: none;
-  text-shadow: 1px 1px var(--retro-bg1);
-
-  /* Light mode */
-  @media (prefers-color-scheme: light) {
-    text-shadow: 1px 1px var(--retro-surface);
-  }
-`;
-
 // Reset button
 const ResetButton = styled.button.attrs({ type: 'button' })`
   font-family: 'Press Start 2P', 'VT323', monospace;
@@ -204,7 +190,7 @@ export default function ServiceFilter() {
   };
 
   return (
-    <FilterContainer>
+    <FilterContainer data-testid="service-filter">
       <FilterTitle>Filter Services</FilterTitle>
       <CheckboxGroup>
         {SERVICE_TYPES.map(({ key, label }) => (
