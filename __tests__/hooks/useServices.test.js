@@ -2,12 +2,9 @@ import { renderHook, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { useServices } from '../../hooks/useServices';
 
-// Mock fetch globally
-global.fetch = jest.fn();
-
 describe('useServices', () => {
   beforeEach(() => {
-    fetch.mockClear();
+    fetch.resetMocks();
   });
 
   it('should initialize with default values', () => {
@@ -27,16 +24,16 @@ describe('useServices', () => {
       },
     ];
 
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockServices,
+    fetch.mockResponseOnce(JSON.stringify(mockServices), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
 
     const { result } = renderHook(() => useServices());
 
     // Call refetch within act
     await act(async () => {
-      result.current.refetch();
+      await result.current.refetch();
     });
 
     expect(result.current.loading).toBe(false);
@@ -47,16 +44,16 @@ describe('useServices', () => {
 
   it('should handle fetch error', async () => {
     const errorMessage = 'Failed to fetch services';
-    fetch.mockResolvedValueOnce({
-      ok: false,
+    fetch.mockResponseOnce('', {
       status: 500,
+      headers: { 'Content-Type': 'application/json' },
     });
 
     const { result } = renderHook(() => useServices());
 
     // Call refetch within act
     await act(async () => {
-      result.current.refetch();
+      await result.current.refetch();
     });
 
     expect(result.current.loading).toBe(false);
@@ -66,13 +63,13 @@ describe('useServices', () => {
 
   it('should handle network error', async () => {
     const errorMessage = 'Network error';
-    fetch.mockRejectedValueOnce(new Error(errorMessage));
+    fetch.mockRejectOnce(new Error(errorMessage));
 
     const { result } = renderHook(() => useServices());
 
     // Call refetch within act
     await act(async () => {
-      result.current.refetch();
+      await result.current.refetch();
     });
 
     expect(result.current.loading).toBe(false);
@@ -81,23 +78,21 @@ describe('useServices', () => {
   });
 
   it('should handle JSON parsing error', async () => {
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => {
-        throw new Error('Invalid JSON');
-      },
+    fetch.mockResponseOnce('invalid json', {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
 
     const { result } = renderHook(() => useServices());
 
     // Call refetch within act
     await act(async () => {
-      result.current.refetch();
+      await result.current.refetch();
     });
 
     expect(result.current.loading).toBe(false);
     expect(result.current.services).toEqual([]);
-    expect(result.current.error).toBe('Invalid JSON');
+    expect(result.current.error).toContain('invalid json response body');
   });
 
   it('should reset error state on successful fetch after previous error', async () => {
@@ -109,29 +104,29 @@ describe('useServices', () => {
     ];
 
     // First call fails
-    fetch.mockResolvedValueOnce({
-      ok: false,
+    fetch.mockResponseOnce('', {
       status: 500,
+      headers: { 'Content-Type': 'application/json' },
     });
 
     const { result } = renderHook(() => useServices());
 
     // First refetch - should fail
     await act(async () => {
-      result.current.refetch();
+      await result.current.refetch();
     });
 
     expect(result.current.error).toBe('Failed to fetch services');
 
     // Second call succeeds
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => mockServices,
+    fetch.mockResponseOnce(JSON.stringify(mockServices), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
 
     // Second refetch - should succeed
     await act(async () => {
-      result.current.refetch();
+      await result.current.refetch();
     });
 
     expect(result.current.services).toEqual(mockServices);
@@ -139,15 +134,15 @@ describe('useServices', () => {
   });
 
   it('should handle empty services array', async () => {
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => [],
+    fetch.mockResponseOnce(JSON.stringify([]), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
 
     const { result } = renderHook(() => useServices());
 
     await act(async () => {
-      result.current.refetch();
+      await result.current.refetch();
     });
 
     expect(result.current.services).toEqual([]);
@@ -155,9 +150,9 @@ describe('useServices', () => {
   });
 
   it('should not auto-fetch on initial render', () => {
-    fetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => [],
+    fetch.mockResponseOnce(JSON.stringify([]), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
 
     const { result } = renderHook(() => useServices());

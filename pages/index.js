@@ -15,6 +15,7 @@ export default function Home() {
   const [fetchTime, setFetchTime] = useState(null);
   const [envType, setEnvType] = useState(null);
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   React.useEffect(() => {
     fetch('/api/envtype')
@@ -24,6 +25,7 @@ export default function Home() {
   }, []);
 
   const fetchKubernetesData = useCallback(async () => {
+    setRefreshing(true);
     setNodesError(null);
     setFetchTime(null);
     const start = performance.now();
@@ -77,9 +79,13 @@ export default function Home() {
     // Fetch services data using the hook's refetch function
     const servicesPromise = refetchServices();
 
-    await Promise.all([nodesPromise, servicesPromise]);
-    const elapsed = performance.now() - start;
-    setFetchTime(elapsed);
+    try {
+      await Promise.all([nodesPromise, servicesPromise]);
+      const elapsed = performance.now() - start;
+      setFetchTime(elapsed);
+    } finally {
+      setRefreshing(false);
+    }
   }, [refetchServices]);
 
   React.useEffect(() => {
@@ -94,8 +100,8 @@ export default function Home() {
       <EnvironmentBanner envType={envType} />
       <h1 className="retro-title">K8s Service Table</h1>
       {hasLoaded && (
-        <Button onClick={fetchKubernetesData} disabled={loading}>
-          {loading ? 'Loading...' : 'Refresh'}
+        <Button onClick={fetchKubernetesData} disabled={refreshing}>
+          {refreshing ? 'Loading...' : 'Refresh'}
         </Button>
       )}
       {nodesError && <Error>Nodes error: {nodesError}</Error>}
