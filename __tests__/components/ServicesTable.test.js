@@ -115,14 +115,14 @@ describe('ServicesTable', () => {
 
     // Should show the app label instead of the service name in the table
     expect(screen.getByText('Test App 1')).toBeInTheDocument();
-    
+
     // Verify the table cell shows the label, not the service name
     const tableRows = screen.getAllByRole('row');
-    const firstServiceRow = tableRows.find(row => 
-      row.textContent.includes('Test App 1') && row.textContent.includes('default')
+    const firstServiceRow = tableRows.find(
+      (row) => row.textContent.includes('Test App 1') && row.textContent.includes('default')
     );
     expect(firstServiceRow).toBeInTheDocument();
-    
+
     // Verify the name column shows the label, not the service name
     const nameCell = firstServiceRow.querySelector('td:first-child');
     expect(nameCell).toHaveTextContent('Test App 1');
@@ -135,11 +135,11 @@ describe('ServicesTable', () => {
     // Should show the service name in the table when no app label is present
     // Check the table cell specifically, not the ServiceLink
     const tableRows = screen.getAllByRole('row');
-    const secondServiceRow = tableRows.find(row => 
-      row.textContent.includes('test-service-2') && row.textContent.includes('kube-system')
+    const secondServiceRow = tableRows.find(
+      (row) => row.textContent.includes('test-service-2') && row.textContent.includes('kube-system')
     );
     expect(secondServiceRow).toBeInTheDocument();
-    
+
     // Verify the service name appears in the name column (first td after potential header)
     const nameCell = secondServiceRow.querySelector('td:first-child');
     expect(nameCell).toHaveTextContent('test-service-2');
