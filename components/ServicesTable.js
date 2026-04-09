@@ -23,8 +23,8 @@ const ServicesTable = ({ services, nodes, loading }) => {
               </td>
             </tr>
           ) : (
-            services.map((svc, idx) => (
-              <tr key={svc.metadata.name + idx}>
+            services.map((svc) => (
+              <tr key={svc.metadata.uid || `${svc.metadata.namespace}/${svc.metadata.name}`}>
                 <td>{svc.metadata.labels?.['app.kubernetes.io/name'] || svc.metadata.name}</td>
                 <td>{svc.metadata.namespace}</td>
                 <td>{svc.spec.type}</td>
