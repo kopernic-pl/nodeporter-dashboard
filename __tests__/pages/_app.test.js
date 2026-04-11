@@ -43,7 +43,7 @@ describe('MyApp', () => {
 
     render(<MyApp Component={mockComponent} pageProps={mockPageProps} />);
 
-    const footer = screen.getByRole('contentinfo');
+    const footer = screen.getByText(/NodePorter/).closest('footer');
     expect(footer).toBeInTheDocument();
     expect(footer).toHaveClass('retro-footer');
 
