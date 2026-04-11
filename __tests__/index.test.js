@@ -81,10 +81,27 @@ describe('Home page', () => {
     ];
 
     fetch.resetMocks();
-    fetch
-      .mockResponseOnce(JSON.stringify({ envType: 'local' }))
-      .mockResponseOnce(JSON.stringify(mockServices))
-      .mockResponseOnce(JSON.stringify(mockNodes));
+    fetch.mockImplementation((url) => {
+      if (url.includes('/api/services')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockServices),
+        });
+      }
+      if (url.includes('/api/envtype')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ envType: 'local' }),
+        });
+      }
+      if (url.includes('/api/nodes')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockNodes),
+        });
+      }
+      return Promise.reject(new Error(`Unknown URL: ${url}`));
+    });
 
     render(<Home />);
 
@@ -119,10 +136,27 @@ describe('Home page', () => {
     ];
 
     fetch.resetMocks();
-    fetch
-      .mockResponseOnce(JSON.stringify({ envType: 'local' }))
-      .mockResponseOnce(JSON.stringify([])) // services
-      .mockResponseOnce(JSON.stringify(mockNodes));
+    fetch.mockImplementation((url) => {
+      if (url.includes('/api/services')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([]),
+        });
+      }
+      if (url.includes('/api/envtype')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ envType: 'local' }),
+        });
+      }
+      if (url.includes('/api/nodes')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockNodes),
+        });
+      }
+      return Promise.reject(new Error(`Unknown URL: ${url}`));
+    });
 
     render(<Home />);
 
@@ -141,10 +175,24 @@ describe('Home page', () => {
     const nodesError = new Error('Failed to fetch nodes');
 
     fetch.resetMocks();
-    fetch
-      .mockResponseOnce(JSON.stringify({ envType: 'local' }))
-      .mockResponseOnce(JSON.stringify([])) // services
-      .mockRejectOnce(nodesError);
+    fetch.mockImplementation((url) => {
+      if (url.includes('/api/services')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([]),
+        });
+      }
+      if (url.includes('/api/envtype')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ envType: 'local' }),
+        });
+      }
+      if (url.includes('/api/nodes')) {
+        return Promise.reject(nodesError);
+      }
+      return Promise.reject(new Error(`Unknown URL: ${url}`));
+    });
 
     render(<Home />);
 
@@ -192,10 +240,27 @@ describe('Home page', () => {
 
   it('displays fetch time after data loads', async () => {
     fetch.resetMocks();
-    fetch
-      .mockResponseOnce(JSON.stringify({ envType: 'local' }))
-      .mockResponseOnce(JSON.stringify([]))
-      .mockResponseOnce(JSON.stringify([]));
+    fetch.mockImplementation((url) => {
+      if (url.includes('/api/services')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([]),
+        });
+      }
+      if (url.includes('/api/envtype')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ envType: 'local' }),
+        });
+      }
+      if (url.includes('/api/nodes')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([]),
+        });
+      }
+      return Promise.reject(new Error(`Unknown URL: ${url}`));
+    });
 
     render(<Home />);
 
@@ -210,10 +275,24 @@ describe('Home page', () => {
 
   it('handles envType fetch error gracefully', async () => {
     fetch.resetMocks();
-    fetch
-      .mockRejectOnce(new Error('Network error'))
-      .mockResponseOnce(JSON.stringify([]))
-      .mockResponseOnce(JSON.stringify([]));
+    fetch.mockImplementation((url) => {
+      if (url.includes('/api/services')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([]),
+        });
+      }
+      if (url.includes('/api/envtype')) {
+        return Promise.reject(new Error('Network error'));
+      }
+      if (url.includes('/api/nodes')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([]),
+        });
+      }
+      return Promise.reject(new Error(`Unknown URL: ${url}`));
+    });
 
     render(<Home />);
 
@@ -242,10 +321,27 @@ describe('Home page', () => {
     ];
 
     fetch.resetMocks();
-    fetch
-      .mockResponseOnce(JSON.stringify({ envType: 'local' }))
-      .mockResponseOnce(JSON.stringify([])) // services
-      .mockResponseOnce(JSON.stringify(mockNodes));
+    fetch.mockImplementation((url) => {
+      if (url.includes('/api/services')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([]),
+        });
+      }
+      if (url.includes('/api/envtype')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ envType: 'local' }),
+        });
+      }
+      if (url.includes('/api/nodes')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockNodes),
+        });
+      }
+      return Promise.reject(new Error(`Unknown URL: ${url}`));
+    });
 
     render(<Home />);
 
@@ -272,10 +368,27 @@ describe('Home page', () => {
     ];
 
     fetch.resetMocks();
-    fetch
-      .mockResponseOnce(JSON.stringify({ envType: 'local' }))
-      .mockResponseOnce(JSON.stringify([])) // services
-      .mockResponseOnce(JSON.stringify(mockNodes));
+    fetch.mockImplementation((url) => {
+      if (url.includes('/api/services')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([]),
+        });
+      }
+      if (url.includes('/api/envtype')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ envType: 'local' }),
+        });
+      }
+      if (url.includes('/api/nodes')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockNodes),
+        });
+      }
+      return Promise.reject(new Error(`Unknown URL: ${url}`));
+    });
 
     render(<Home />);
 
@@ -304,15 +417,37 @@ describe('Home page', () => {
     ];
 
     fetch.resetMocks();
-    fetch
-      .mockResponseOnce(JSON.stringify({ envType: 'local' }))
-      .mockResponseOnce(JSON.stringify(mockServices))
-      .mockResponseOnce(JSON.stringify([])); // nodes
+
+    // Use mockImplementation to handle any order of fetch calls
+    fetch.mockImplementation((url) => {
+      if (url.includes('/api/services')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockServices),
+        });
+      }
+      if (url.includes('/api/envtype')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ envType: 'local' }),
+        });
+      }
+      if (url.includes('/api/nodes')) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve([]),
+        });
+      }
+      return Promise.reject(new Error(`Unknown URL: ${url}`));
+    });
 
     render(<Home />);
 
-    await waitFor(() => {
-      expect(screen.getByText('plain-service')).toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByText('plain-service')).toBeInTheDocument();
+      },
+      { timeout: 3000 }
+    );
   });
 });

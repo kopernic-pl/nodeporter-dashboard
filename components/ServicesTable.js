@@ -16,10 +16,10 @@ const ServicesTable = ({ services, nodes, loading }) => {
           </tr>
         </thead>
         <tbody>
-          {services.length === 0 && !loading ? (
+          {services.length === 0 ? (
             <tr>
               <td colSpan="6" style={{ textAlign: 'center' }}>
-                No services loaded
+                {loading ? 'Loading...' : 'No services loaded'}
               </td>
             </tr>
           ) : (
