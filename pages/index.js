@@ -1,21 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import FetchTime from '../components/FetchTime';
 import EnvironmentBanner from '../components/EnvironmentBanner';
 import Button from '../components/Button';
 import Error from '../components/Error';
 import ClusterSummary from '../components/ClusterSummary';
-import ServiceLink from '../components/ServiceLink';
+import ServicesTable from '../components/ServicesTable';
+import ServiceFilters from '../components/ServiceFilters';
+import FilterButton from '../components/FilterButton';
+import { useServices } from '../hooks/useServices';
+import { useServiceFilters } from '../hooks/useServiceFilters';
 
 export default function Home() {
-  const [services, setServices] = useState([]);
+  const { services, loading, error, refetch: refetchServices } = useServices();
+  const {
+    filteredServices,
+    availableNamespaces,
+    availableTypes,
+    filters,
+    setFilter,
+    clearFilters,
+    getFilterStats,
+  } = useServiceFilters(services);
   const [nodes, setNodes] = useState([]);
   const [nodeSummary, setNodeSummary] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [nodesError, setNodesError] = useState(null);
   const [fetchTime, setFetchTime] = useState(null);
   const [envType, setEnvType] = useState(null);
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
 
   React.useEffect(() => {
     fetch('/api/envtype')
@@ -24,21 +37,13 @@ export default function Home() {
       .catch(() => setEnvType('unknown'));
   }, []);
 
-  const fetchKubernetesData = async () => {
-    setLoading(true);
-    setError(null);
+  const fetchKubernetesData = useCallback(async () => {
+    setRefreshing(true);
     setNodesError(null);
     setFetchTime(null);
     const start = performance.now();
-    // Run both fetches in parallel
-    const servicesPromise = fetch('/api/services')
-      .then((response) => {
-        if (!response.ok) throw new Error('Failed to fetch services');
-        return response.json();
-      })
-      .then(setServices)
-      .catch((err) => setError(err.message));
 
+    // Fetch nodes data only (services are handled by useServices hook)
     const nodesPromise = fetch('/api/nodes')
       .then((response) => {
         if (!response.ok) throw new Error('Failed to fetch nodes');
@@ -84,17 +89,23 @@ export default function Home() {
         setNodesError(err.message);
       });
 
-    await Promise.all([servicesPromise, nodesPromise]);
-    const elapsed = performance.now() - start;
-    setFetchTime(elapsed);
-    setLoading(false);
-  };
+    // Fetch services data using the hook's refetch function
+    const servicesPromise = refetchServices();
+
+    try {
+      await Promise.all([nodesPromise, servicesPromise]);
+      const elapsed = performance.now() - start;
+      setFetchTime(elapsed);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [refetchServices]);
 
   React.useEffect(() => {
     // Auto-load data on component mount
     fetchKubernetesData();
     setHasLoaded(true);
-  }, []);
+  }, [fetchKubernetesData]);
 
   return (
     <div className="retro-8bit-app">
@@ -102,8 +113,8 @@ export default function Home() {
       <EnvironmentBanner envType={envType} />
       <h1 className="retro-title">K8s Service Table</h1>
       {hasLoaded && (
-        <Button onClick={fetchKubernetesData} disabled={loading}>
-          {loading ? 'Loading...' : 'Refresh'}
+        <Button onClick={fetchKubernetesData} disabled={refreshing}>
+          {refreshing ? 'Loading...' : 'Refresh'}
         </Button>
       )}
       {nodesError && <Error>Nodes error: {nodesError}</Error>}
@@ -115,53 +126,24 @@ export default function Home() {
         </ClusterSummary>
       )}
       {error && <Error>{error}</Error>}
-      <div className="retro-table-container">
-        <table className="retro-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Namespace</th>
-              <th>Type</th>
-              <th>ClusterIP</th>
-              <th>Ports</th>
-              <th>Link</th>
-            </tr>
-          </thead>
-          <tbody>
-            {services.length === 0 && !loading ? (
-              <tr>
-                <td colSpan="6" style={{ textAlign: 'center' }}>
-                  No services loaded
-                </td>
-              </tr>
-            ) : (
-              services.map((svc, idx) => (
-                <tr key={svc.metadata.name + idx}>
-                  <td>{svc.metadata.labels?.['app.kubernetes.io/name'] || svc.metadata.name}</td>
-                  <td>{svc.metadata.namespace}</td>
-                  <td>{svc.spec.type}</td>
-                  <td>{svc.spec.clusterIP}</td>
-                  <td>
-                    {svc.spec.ports.map((p, i) => (
-                      <span
-                        key={i}
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2em' }}
-                      >
-                        {p.port}/{p.protocol}
-                        {p.nodePort ? ` (NodePort: ${p.nodePort})` : ''}
-                        {i < svc.spec.ports.length - 1 ? ', ' : ''}
-                      </span>
-                    ))}
-                  </td>
-                  <td>
-                    <ServiceLink service={svc} nodes={nodes} />
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+      {(availableNamespaces.length > 0 || availableTypes.length > 0) && (
+        <FilterButton
+          showFilters={showFilters}
+          onClick={() => setShowFilters(!showFilters)}
+          disabled={refreshing}
+        />
+      )}
+      {showFilters && (
+        <ServiceFilters
+          availableNamespaces={availableNamespaces}
+          availableTypes={availableTypes}
+          filters={filters}
+          setFilter={setFilter}
+          clearFilters={clearFilters}
+          getFilterStats={getFilterStats}
+        />
+      )}
+      <ServicesTable services={filteredServices} nodes={nodes} loading={loading} />
       <FetchTime fetchTime={fetchTime} />
     </div>
   );
