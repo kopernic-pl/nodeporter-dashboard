@@ -7,6 +7,7 @@ import ClusterSummary from '../components/ClusterSummary';
 import ServicesTable from '../components/ServicesTable';
 import ServiceFilters from '../components/ServiceFilters';
 import FilterButton from '../components/FilterButton';
+import FilterIndicator from '../components/FilterIndicator';
 import { useServices } from '../hooks/useServices';
 import { useServiceFilters } from '../hooks/useServiceFilters';
 
@@ -131,6 +132,12 @@ export default function Home() {
           showFilters={showFilters}
           onClick={() => setShowFilters(!showFilters)}
           disabled={refreshing}
+        />
+      )}
+      {!showFilters && (
+        <FilterIndicator
+          stats={getFilterStats()}
+          onClearFilters={clearFilters}
         />
       )}
       {showFilters && (
