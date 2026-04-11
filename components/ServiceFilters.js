@@ -1,8 +1,8 @@
 import React from 'react';
 
 /**
- * Basic filter UI component to demonstrate the filtering API
- * This is a simple implementation - can be enhanced with better styling
+ * Filter UI component for namespace and service type filtering
+ * Filters are applied automatically when checkboxes are clicked
  */
 const ServiceFilters = ({
   availableNamespaces,
@@ -28,10 +28,6 @@ const ServiceFilters = ({
       ? currentTypes.filter((t) => t !== type)
       : [...currentTypes, type];
     setFilter('types', newTypes);
-  };
-
-  const handleSearchChange = (e) => {
-    setFilter('searchText', e.target.value);
   };
 
   if (availableNamespaces.length === 0 && availableTypes.length === 0) {
@@ -69,20 +65,6 @@ const ServiceFilters = ({
             </button>
           )}
         </div>
-      </div>
-
-      {/* Text Search */}
-      <div style={{ marginBottom: '15px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-          Search Service Names:
-        </label>
-        <input
-          type="text"
-          value={filters.searchText || ''}
-          onChange={handleSearchChange}
-          placeholder="Search by service name..."
-          style={{ width: '300px', padding: '5px' }}
-        />
       </div>
 
       {/* Namespace Filters */}

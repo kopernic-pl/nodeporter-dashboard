@@ -5,12 +5,22 @@ import Button from '../components/Button';
 import Error from '../components/Error';
 import ClusterSummary from '../components/ClusterSummary';
 import ServicesTable from '../components/ServicesTable';
+import ServiceFilters from '../components/ServiceFilters';
+import FilterButton from '../components/FilterButton';
 import { useServices } from '../hooks/useServices';
 import { useServiceFilters } from '../hooks/useServiceFilters';
 
 export default function Home() {
   const { services, loading, error, refetch: refetchServices } = useServices();
-  const { filteredServices } = useServiceFilters(services);
+  const {
+    filteredServices,
+    availableNamespaces,
+    availableTypes,
+    filters,
+    setFilter,
+    clearFilters,
+    getFilterStats,
+  } = useServiceFilters(services);
   const [nodes, setNodes] = useState([]);
   const [nodeSummary, setNodeSummary] = useState(null);
   const [nodesError, setNodesError] = useState(null);
@@ -18,6 +28,7 @@ export default function Home() {
   const [envType, setEnvType] = useState(null);
   const [hasLoaded, setHasLoaded] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
 
   React.useEffect(() => {
     fetch('/api/envtype')
@@ -115,6 +126,23 @@ export default function Home() {
         </ClusterSummary>
       )}
       {error && <Error>{error}</Error>}
+      {(availableNamespaces.length > 0 || availableTypes.length > 0) && (
+        <FilterButton
+          showFilters={showFilters}
+          onClick={() => setShowFilters(!showFilters)}
+          disabled={refreshing}
+        />
+      )}
+      {showFilters && (
+        <ServiceFilters
+          availableNamespaces={availableNamespaces}
+          availableTypes={availableTypes}
+          filters={filters}
+          setFilter={setFilter}
+          clearFilters={clearFilters}
+          getFilterStats={getFilterStats}
+        />
+      )}
       <ServicesTable services={filteredServices} nodes={nodes} loading={loading} />
       <FetchTime fetchTime={fetchTime} />
     </div>
