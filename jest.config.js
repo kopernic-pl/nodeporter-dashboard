@@ -16,8 +16,8 @@ module.exports = {
       branches: 70,
       functions: 70,
       lines: 70,
-      statements: 70
-    }
+      statements: 70,
+    },
   },
   collectCoverageFrom: [
     'components/**/*.{js,jsx}',
@@ -32,6 +32,6 @@ module.exports = {
     '!jest.setup.js',
     '!babel.config.jest.js',
     '!next.config.mjs',
-    '!eslint.config.mjs'
-  ]
+    '!eslint.config.mjs',
+  ],
 };
