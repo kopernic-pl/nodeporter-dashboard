@@ -186,7 +186,7 @@ describe('Home page', () => {
     fireEvent.click(refreshButton);
 
     // Should show loading state
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    expect(screen.getAllByText('Loading...')).toHaveLength(2);
     expect(refreshButton).toBeDisabled();
   });
 

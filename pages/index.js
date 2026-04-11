@@ -126,7 +126,7 @@ export default function Home() {
         </ClusterSummary>
       )}
       {error && <Error>{error}</Error>}
-      {(availableNamespaces.length > 0 || availableTypes.length > 0) && (
+{(availableNamespaces.length > 0 || availableTypes.length > 0) && (
         <FilterButton
           showFilters={showFilters}
           onClick={() => setShowFilters(!showFilters)}
