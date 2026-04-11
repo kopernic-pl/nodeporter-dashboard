@@ -23,6 +23,9 @@
     "lint:helm": "command -v helm >/dev/null 2>&1 && helm lint ./charts/nodeporter || echo 'Helm not installed, skipping helm lint' && exit 0",
     "lint:md": "markdownlint '**/*.md' --ignore node_modules --disable MD013",
     "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:coverage:watch": "jest --coverage --watch",
+    "test:coverage:open": "open coverage/lcov-report/index.html",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "spellcheck": "cspell --exclude node_modules '**/*.{js,jsx,ts,tsx,md}'"

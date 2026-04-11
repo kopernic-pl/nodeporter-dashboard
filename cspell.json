@@ -1,5 +1,6 @@
 {
   "version": "0.2",
+  "ignorePaths": ["coverage/**", "coverage/lcov-report/**"],
   "words": [
     "nodeporter",
     "kopernic",

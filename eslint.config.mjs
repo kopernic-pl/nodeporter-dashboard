@@ -54,6 +54,6 @@ const eslintConfig = [
 
 export default eslintConfig.concat([
   {
-    ignores: ['**/node_modules/**', '**/.next/**'],
+    ignores: ['**/node_modules/**', '**/.next/**', '**/coverage/**'],
   },
 ]);
