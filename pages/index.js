@@ -134,12 +134,7 @@ export default function Home() {
           disabled={refreshing}
         />
       )}
-      {!showFilters && (
-        <FilterIndicator
-          stats={getFilterStats()}
-          onClearFilters={clearFilters}
-        />
-      )}
+      {!showFilters && <FilterIndicator stats={getFilterStats()} onClearFilters={clearFilters} />}
       {showFilters && (
         <ServiceFilters
           availableNamespaces={availableNamespaces}

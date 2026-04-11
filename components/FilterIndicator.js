@@ -23,7 +23,8 @@ const IndicatorBadge = styled.div`
   animation: pulse 2s infinite;
 
   @keyframes pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {

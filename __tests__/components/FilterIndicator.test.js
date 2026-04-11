@@ -8,11 +8,13 @@ jest.mock('../../components/FilterIndicator', () => {
     if (!stats.hasActiveFilters) {
       return null;
     }
-    
+
     return (
       <div data-testid="filter-indicator">
         <span data-testid="filtered-badge">FILTERED</span>
-        <span data-testid="filtered-count">{stats.filteredCount} / {stats.totalServices}</span>
+        <span data-testid="filtered-count">
+          {stats.filteredCount} / {stats.totalServices}
+        </span>
         {onClearFilters && (
           <button data-testid="clear-button" onClick={onClearFilters}>
             CLEAR
@@ -21,7 +23,7 @@ jest.mock('../../components/FilterIndicator', () => {
       </div>
     );
   };
-  
+
   MockFilterIndicator.displayName = 'FilterIndicator';
   return MockFilterIndicator;
 });
@@ -46,7 +48,7 @@ describe('FilterIndicator', () => {
   describe('when filters are active', () => {
     it('renders the indicator badge', () => {
       render(<FilterIndicator stats={mockStats} onClearFilters={mockClearFilters} />);
-      
+
       const badge = screen.getByTestId('filtered-badge');
       expect(badge).toBeInTheDocument();
       expect(badge).toHaveTextContent('FILTERED');
@@ -54,7 +56,7 @@ describe('FilterIndicator', () => {
 
     it('displays the correct filter count', () => {
       render(<FilterIndicator stats={mockStats} onClearFilters={mockClearFilters} />);
-      
+
       const count = screen.getByTestId('filtered-count');
       expect(count).toBeInTheDocument();
       expect(count).toHaveTextContent('3 / 10');
@@ -62,7 +64,7 @@ describe('FilterIndicator', () => {
 
     it('renders the clear button when onClearFilters is provided', () => {
       render(<FilterIndicator stats={mockStats} onClearFilters={mockClearFilters} />);
-      
+
       const clearButton = screen.getByTestId('clear-button');
       expect(clearButton).toBeInTheDocument();
       expect(clearButton).toHaveTextContent('CLEAR');
@@ -70,16 +72,16 @@ describe('FilterIndicator', () => {
 
     it('calls onClearFilters when clear button is clicked', () => {
       render(<FilterIndicator stats={mockStats} onClearFilters={mockClearFilters} />);
-      
+
       const clearButton = screen.getByTestId('clear-button');
       fireEvent.click(clearButton);
-      
+
       expect(mockClearFilters).toHaveBeenCalledTimes(1);
     });
 
     it('does not render clear button when onClearFilters is not provided', () => {
       render(<FilterIndicator stats={mockStats} />);
-      
+
       const clearButton = screen.queryByTestId('clear-button');
       expect(clearButton).not.toBeInTheDocument();
     });
@@ -90,9 +92,9 @@ describe('FilterIndicator', () => {
         filteredCount: 7,
         totalServices: 15,
       };
-      
+
       render(<FilterIndicator stats={customStats} onClearFilters={mockClearFilters} />);
-      
+
       const count = screen.getByTestId('filtered-count');
       expect(count).toHaveTextContent('7 / 15');
     });
@@ -103,9 +105,9 @@ describe('FilterIndicator', () => {
         filteredCount: 1,
         totalServices: 5,
       };
-      
+
       render(<FilterIndicator stats={singleStats} onClearFilters={mockClearFilters} />);
-      
+
       const count = screen.getByTestId('filtered-count');
       expect(count).toHaveTextContent('1 / 5');
     });
@@ -116,9 +118,9 @@ describe('FilterIndicator', () => {
         filteredCount: 8,
         totalServices: 8,
       };
-      
+
       render(<FilterIndicator stats={allStats} onClearFilters={mockClearFilters} />);
-      
+
       const count = screen.getByTestId('filtered-count');
       expect(count).toHaveTextContent('8 / 8');
     });
@@ -137,7 +139,7 @@ describe('FilterIndicator', () => {
       const { container } = render(
         <FilterIndicator stats={inactiveStats} onClearFilters={mockClearFilters} />
       );
-      
+
       expect(container.firstChild).toBeNull();
     });
 
@@ -151,7 +153,7 @@ describe('FilterIndicator', () => {
       };
 
       render(<FilterIndicator stats={inactiveStats} onClearFilters={mockClearFilters} />);
-      
+
       const badge = screen.queryByTestId('filtered-badge');
       expect(badge).not.toBeInTheDocument();
     });
@@ -166,7 +168,7 @@ describe('FilterIndicator', () => {
       };
 
       render(<FilterIndicator stats={inactiveStats} onClearFilters={mockClearFilters} />);
-      
+
       const count = screen.queryByTestId('filtered-count');
       expect(count).not.toBeInTheDocument();
     });
@@ -183,10 +185,10 @@ describe('FilterIndicator', () => {
       };
 
       render(<FilterIndicator stats={zeroStats} onClearFilters={mockClearFilters} />);
-      
+
       const badge = screen.getByTestId('filtered-badge');
       const count = screen.getByTestId('filtered-count');
-      
+
       expect(badge).toBeInTheDocument();
       expect(count).toHaveTextContent('0 / 0');
     });
@@ -201,10 +203,10 @@ describe('FilterIndicator', () => {
       };
 
       render(<FilterIndicator stats={zeroFilteredStats} onClearFilters={mockClearFilters} />);
-      
+
       const badge = screen.getByTestId('filtered-badge');
       const count = screen.getByTestId('filtered-count');
-      
+
       expect(badge).toBeInTheDocument();
       expect(count).toHaveTextContent('0 / 10');
     });
@@ -219,7 +221,7 @@ describe('FilterIndicator', () => {
       };
 
       render(<FilterIndicator stats={largeStats} onClearFilters={mockClearFilters} />);
-      
+
       const count = screen.getByTestId('filtered-count');
       expect(count).toHaveTextContent('1234 / 5678');
     });
@@ -228,10 +230,10 @@ describe('FilterIndicator', () => {
   describe('component structure', () => {
     it('renders all elements when filters are active', () => {
       render(<FilterIndicator stats={mockStats} onClearFilters={mockClearFilters} />);
-      
+
       const container = screen.getByTestId('filter-indicator');
       expect(container).toBeInTheDocument();
-      
+
       // Check that badge, count, and clear button are all present
       expect(screen.getByTestId('filtered-badge')).toBeInTheDocument();
       expect(screen.getByTestId('filtered-count')).toBeInTheDocument();
