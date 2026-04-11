@@ -6,9 +6,11 @@ import Error from '../components/Error';
 import ClusterSummary from '../components/ClusterSummary';
 import ServicesTable from '../components/ServicesTable';
 import { useServices } from '../hooks/useServices';
+import { useServiceFilters } from '../hooks/useServiceFilters';
 
 export default function Home() {
   const { services, loading, error, refetch: refetchServices } = useServices();
+  const { filteredServices } = useServiceFilters(services);
   const [nodes, setNodes] = useState([]);
   const [nodeSummary, setNodeSummary] = useState(null);
   const [nodesError, setNodesError] = useState(null);
@@ -113,7 +115,7 @@ export default function Home() {
         </ClusterSummary>
       )}
       {error && <Error>{error}</Error>}
-      <ServicesTable services={services} nodes={nodes} loading={loading} />
+      <ServicesTable services={filteredServices} nodes={nodes} loading={loading} />
       <FetchTime fetchTime={fetchTime} />
     </div>
   );
