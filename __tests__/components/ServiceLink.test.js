@@ -13,33 +13,33 @@ describe('ServiceLink', () => {
   const mockService = {
     spec: {
       type: 'LoadBalancer',
-      ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }]
+      ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }],
     },
     status: {
       loadBalancer: {
-        ingress: [{ ip: '192.168.1.100' }]
-      }
-    }
+        ingress: [{ ip: '192.168.1.100' }],
+      },
+    },
   };
 
   const mockNodes = [
     {
       addresses: [
         { type: 'InternalIP', address: '10.0.0.1' },
-        { type: 'ExternalIP', address: '203.0.113.1' }
-      ]
-    }
+        { type: 'ExternalIP', address: '203.0.113.1' },
+      ],
+    },
   ];
 
   it('renders LoadBalancer link with IP', () => {
     render(<ServiceLink service={mockService} nodes={mockNodes} />);
-    
+
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', 'http://192.168.1.100:30080');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
     expect(link).toHaveAttribute('title', 'Open LoadBalancer: http://192.168.1.100:30080');
-    
+
     const icon = screen.getByTestId('external-link-icon');
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveAttribute('data-size', '16');
@@ -50,13 +50,13 @@ describe('ServiceLink', () => {
       ...mockService,
       status: {
         loadBalancer: {
-          ingress: [{ hostname: 'lb.example.com' }]
-        }
-      }
+          ingress: [{ hostname: 'lb.example.com' }],
+        },
+      },
     };
 
     render(<ServiceLink service={serviceWithHostname} nodes={mockNodes} />);
-    
+
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', 'http://lb.example.com:30080');
   });
@@ -66,12 +66,12 @@ describe('ServiceLink', () => {
       ...mockService,
       spec: {
         ...mockService.spec,
-        ports: [{ port: 443, nodePort: 30443, targetPort: 8443 }]
-      }
+        ports: [{ port: 443, nodePort: 30443, targetPort: 8443 }],
+      },
     };
 
     render(<ServiceLink service={serviceWithHttps} nodes={mockNodes} />);
-    
+
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', 'https://192.168.1.100:30443');
   });
@@ -81,12 +81,12 @@ describe('ServiceLink', () => {
       ...mockService,
       spec: {
         type: 'LoadBalancer',
-        ports: []
-      }
+        ports: [],
+      },
     };
 
     render(<ServiceLink service={serviceWithoutPort} nodes={mockNodes} />);
-    
+
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', 'http://192.168.1.100');
   });
@@ -95,12 +95,12 @@ describe('ServiceLink', () => {
     const nodePortService = {
       spec: {
         type: 'NodePort',
-        ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }]
-      }
+        ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }],
+      },
     };
 
     render(<ServiceLink service={nodePortService} nodes={mockNodes} />);
-    
+
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', 'http://10.0.0.1:30080');
     expect(link).toHaveAttribute('title', 'Open NodePort: http://10.0.0.1:30080');
@@ -110,12 +110,12 @@ describe('ServiceLink', () => {
     const nodePortService = {
       spec: {
         type: 'NodePort',
-        ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }]
-      }
+        ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }],
+      },
     };
 
     render(<ServiceLink service={nodePortService} nodes={[]} />);
-    
+
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 
@@ -123,20 +123,18 @@ describe('ServiceLink', () => {
     const nodePortService = {
       spec: {
         type: 'NodePort',
-        ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }]
-      }
+        ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }],
+      },
     };
 
     const nodesWithoutInternalIP = [
       {
-        addresses: [
-          { type: 'ExternalIP', address: '203.0.113.1' }
-        ]
-      }
+        addresses: [{ type: 'ExternalIP', address: '203.0.113.1' }],
+      },
     ];
 
     render(<ServiceLink service={nodePortService} nodes={nodesWithoutInternalIP} />);
-    
+
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 
@@ -144,12 +142,12 @@ describe('ServiceLink', () => {
     const serviceWithoutNodePort = {
       spec: {
         type: 'NodePort',
-        ports: [{ port: 80, targetPort: 8080 }]
-      }
+        ports: [{ port: 80, targetPort: 8080 }],
+      },
     };
 
     render(<ServiceLink service={serviceWithoutNodePort} nodes={mockNodes} />);
-    
+
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 
@@ -157,17 +155,17 @@ describe('ServiceLink', () => {
     const serviceWithoutIngress = {
       spec: {
         type: 'LoadBalancer',
-        ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }]
+        ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }],
       },
       status: {
         loadBalancer: {
-          ingress: []
-        }
-      }
+          ingress: [],
+        },
+      },
     };
 
     render(<ServiceLink service={serviceWithoutIngress} nodes={mockNodes} />);
-    
+
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 
@@ -175,17 +173,17 @@ describe('ServiceLink', () => {
     const serviceWithEmptyIngress = {
       spec: {
         type: 'LoadBalancer',
-        ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }]
+        ports: [{ port: 80, nodePort: 30080, targetPort: 8080 }],
       },
       status: {
         loadBalancer: {
-          ingress: [{}]
-        }
-      }
+          ingress: [{}],
+        },
+      },
     };
 
     render(<ServiceLink service={serviceWithEmptyIngress} nodes={mockNodes} />);
-    
+
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 
@@ -193,18 +191,18 @@ describe('ServiceLink', () => {
     const unsupportedService = {
       spec: {
         type: 'ClusterIP',
-        ports: [{ port: 80, targetPort: 8080 }]
-      }
+        ports: [{ port: 80, targetPort: 8080 }],
+      },
     };
 
     render(<ServiceLink service={unsupportedService} nodes={mockNodes} />);
-    
+
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 
   it('handles missing nodes prop gracefully', () => {
     render(<ServiceLink service={mockService} />);
-    
+
     // Should still work for LoadBalancer type
     const link = screen.getByRole('link');
     expect(link).toHaveAttribute('href', 'http://192.168.1.100:30080');

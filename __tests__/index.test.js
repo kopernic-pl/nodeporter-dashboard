@@ -50,17 +50,17 @@ describe('Home page', () => {
         metadata: {
           name: 'test-service',
           namespace: 'default',
-          labels: { 'app.kubernetes.io/name': 'test-app' }
+          labels: { 'app.kubernetes.io/name': 'test-app' },
         },
         spec: {
           type: 'ClusterIP',
           clusterIP: '10.96.0.1',
           ports: [
             { port: 80, protocol: 'TCP', nodePort: 30080 },
-            { port: 443, protocol: 'TCP' }
-          ]
-        }
-      }
+            { port: 443, protocol: 'TCP' },
+          ],
+        },
+      },
     ];
 
     const mockNodes = [
@@ -68,16 +68,16 @@ describe('Home page', () => {
         metadata: { name: 'node-1' },
         capacity: {
           cpu: '4',
-          memory: '16384Mi'
-        }
+          memory: '16384Mi',
+        },
       },
       {
         metadata: { name: 'node-2' },
         capacity: {
           cpu: '2000m',
-          memory: '8Gi'
-        }
-      }
+          memory: '8Gi',
+        },
+      },
     ];
 
     fetch.resetMocks();
@@ -106,16 +106,16 @@ describe('Home page', () => {
         metadata: { name: 'node-1' },
         capacity: {
           cpu: '4',
-          memory: '16384Mi'
-        }
+          memory: '16384Mi',
+        },
       },
       {
         metadata: { name: 'node-2' },
         capacity: {
           cpu: '2000m',
-          memory: '8Gi'
-        }
-      }
+          memory: '8Gi',
+        },
+      },
     ];
 
     fetch.resetMocks();
@@ -139,7 +139,7 @@ describe('Home page', () => {
 
   it('handles nodes error and displays error message', async () => {
     const nodesError = new Error('Failed to fetch nodes');
-    
+
     fetch.resetMocks();
     fetch
       .mockResponseOnce(JSON.stringify({ envType: 'local' }))
@@ -166,12 +166,22 @@ describe('Home page', () => {
 
     // Wait for initial load to complete
     const refreshButton = await screen.findByRole('button', { name: /refresh/i });
-    
+
     // Mock slow response to test loading state
     fetch.resetMocks();
     fetch.mockResponseOnce(JSON.stringify({ envType: 'local' }));
-    fetch.mockImplementationOnce(() => new Promise(resolve => setTimeout(() => resolve({ ok: true, json: () => Promise.resolve([]) }), 100)));
-    fetch.mockImplementationOnce(() => new Promise(resolve => setTimeout(() => resolve({ ok: true, json: () => Promise.resolve([]) }), 100)));
+    fetch.mockImplementationOnce(
+      () =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ ok: true, json: () => Promise.resolve([]) }), 100)
+        )
+    );
+    fetch.mockImplementationOnce(
+      () =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ ok: true, json: () => Promise.resolve([]) }), 100)
+        )
+    );
 
     fireEvent.click(refreshButton);
 
@@ -190,9 +200,12 @@ describe('Home page', () => {
     render(<Home />);
 
     // Wait for fetch time to appear
-    await waitFor(() => {
-      expect(screen.getByText(/Fetch time:/)).toBeInTheDocument();
-    }, { timeout: 2000 });
+    await waitFor(
+      () => {
+        expect(screen.getByText(/Fetch time:/)).toBeInTheDocument();
+      },
+      { timeout: 2000 }
+    );
   });
 
   it('handles envType fetch error gracefully', async () => {
@@ -216,16 +229,16 @@ describe('Home page', () => {
         metadata: { name: 'node-1' },
         capacity: {
           cpu: '1000m',
-          memory: '16384Ki'
-        }
+          memory: '16384Ki',
+        },
       },
       {
         metadata: { name: 'node-2' },
         capacity: {
           cpu: '2',
-          memory: '16777216' // bytes
-        }
-      }
+          memory: '16777216', // bytes
+        },
+      },
     ];
 
     fetch.resetMocks();
@@ -250,12 +263,12 @@ describe('Home page', () => {
     const mockNodes = [
       {
         metadata: { name: 'node-1' },
-        capacity: {}
+        capacity: {},
       },
       {
         metadata: { name: 'node-2' },
-        capacity: null
-      }
+        capacity: null,
+      },
     ];
 
     fetch.resetMocks();
@@ -280,14 +293,14 @@ describe('Home page', () => {
       {
         metadata: {
           name: 'plain-service',
-          namespace: 'default'
+          namespace: 'default',
         },
         spec: {
           type: 'ClusterIP',
           clusterIP: '10.96.0.1',
-          ports: [{ port: 80, protocol: 'TCP' }]
-        }
-      }
+          ports: [{ port: 80, protocol: 'TCP' }],
+        },
+      },
     ];
 
     fetch.resetMocks();

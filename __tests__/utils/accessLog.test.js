@@ -14,7 +14,7 @@ describe('accessLog', () => {
       url: '/test',
       headers: {
         'user-agent': 'test-agent',
-        'referer': 'http://example.com',
+        referer: 'http://example.com',
       },
       socket: {
         remoteAddress: '127.0.0.1',

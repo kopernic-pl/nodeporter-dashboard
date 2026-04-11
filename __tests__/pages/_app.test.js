@@ -81,7 +81,10 @@ describe('MyApp', () => {
 
     const githubLink = screen.getByRole('link', { name: 'GitHub' });
     expect(githubLink).toBeInTheDocument();
-    expect(githubLink).toHaveAttribute('href', 'https://github.com/kopernic-pl/nodeporter-dashboard');
+    expect(githubLink).toHaveAttribute(
+      'href',
+      'https://github.com/kopernic-pl/nodeporter-dashboard'
+    );
     expect(githubLink).toHaveAttribute('target', '_blank');
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer');
   });
@@ -102,7 +105,7 @@ describe('MyApp', () => {
   it('calls reportWebVitals when useReportWebVitals callback is executed', () => {
     const { useReportWebVitals } = require('next/web-vitals');
     const mockMetric = { name: 'LCP', value: 2000 };
-    
+
     useReportWebVitals.mockImplementation((callback) => {
       callback(mockMetric);
     });
@@ -125,33 +128,32 @@ describe('reportWebVitals', () => {
 
   it('can be called with a metric object', () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-    
+
     const metric = { name: 'FCP', value: 1000 };
-    
+
     expect(() => {
       reportWebVitals(metric);
     }).not.toThrow();
-    
+
     consoleSpy.mockRestore();
   });
 
   it('handles different metric objects', () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
-    
+
     const metrics = [
       { name: 'FCP', value: 1000 },
       { name: 'LCP', value: 2000 },
       { name: 'CLS', value: 0.1 },
-      { name: 'FID', value: 100 }
+      { name: 'FID', value: 100 },
     ];
-    
-    metrics.forEach(metric => {
+
+    metrics.forEach((metric) => {
       expect(() => {
         reportWebVitals(metric);
       }).not.toThrow();
     });
-    
+
     consoleSpy.mockRestore();
   });
-
-  });
+});

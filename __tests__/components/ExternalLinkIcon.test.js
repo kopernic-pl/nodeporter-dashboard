@@ -23,7 +23,7 @@ afterAll(() => {
 describe('ExternalLinkIcon', () => {
   it('renders with default size', () => {
     render(<ExternalLinkIcon />);
-    
+
     const svg = document.querySelector('svg');
     expect(svg).toBeInTheDocument();
     expect(svg).toHaveAttribute('width', '16');
@@ -35,7 +35,7 @@ describe('ExternalLinkIcon', () => {
 
   it('renders with custom size', () => {
     render(<ExternalLinkIcon size={24} />);
-    
+
     const svg = document.querySelector('svg');
     expect(svg).toBeInTheDocument();
     expect(svg).toHaveAttribute('width', '24');
@@ -44,10 +44,10 @@ describe('ExternalLinkIcon', () => {
 
   it('contains the correct SVG elements', () => {
     render(<ExternalLinkIcon />);
-    
+
     const svg = document.querySelector('svg');
     expect(svg).toBeInTheDocument();
-    
+
     // Check for path elements
     const paths = svg.querySelectorAll('path');
     expect(paths).toHaveLength(1);
@@ -55,7 +55,7 @@ describe('ExternalLinkIcon', () => {
     expect(paths[0]).toHaveAttribute('stroke-width', '2');
     expect(paths[0]).toHaveAttribute('stroke-linecap', 'round');
     expect(paths[0]).toHaveAttribute('stroke-linejoin', 'round');
-    
+
     // Check for rect element
     const rect = svg.querySelector('rect');
     expect(rect).toBeInTheDocument();
@@ -69,23 +69,23 @@ describe('ExternalLinkIcon', () => {
 
   it('has correct CSS styles and classes', () => {
     render(<ExternalLinkIcon />);
-    
+
     const svg = document.querySelector('svg');
     expect(svg).toBeInTheDocument();
-    
+
     // Check CSS variables
     expect(svg).toHaveStyle({
       '--icon-stroke': 'var(--retro-text)',
       '--icon-hover': 'var(--retro-accent1)',
     });
-    
+
     // Check class
     expect(svg).toHaveClass('external-link-icon');
   });
 
   it('contains styled-jsx style tag', () => {
     render(<ExternalLinkIcon />);
-    
+
     // Check that a style tag exists (styled-jsx should inject it)
     const styleTags = document.querySelectorAll('style');
     expect(styleTags.length).toBeGreaterThanOrEqual(0);
@@ -93,7 +93,7 @@ describe('ExternalLinkIcon', () => {
 
   it('has correct namespace and attributes', () => {
     render(<ExternalLinkIcon />);
-    
+
     const svg = document.querySelector('svg');
     expect(svg).toBeInTheDocument();
     expect(svg).toHaveAttribute('xmlns', 'http://www.w3.org/2000/svg');
