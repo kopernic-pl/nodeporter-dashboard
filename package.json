@@ -65,7 +65,7 @@
     "babel-jest": "30.4.1",
     "babel-plugin-styled-components": "2.3.0",
     "cspell": "10.1.1",
-    "eslint": "10.0.1",
+    "eslint": "10.0.3",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "17.11.0",
     "identity-obj-proxy": "3.0.0",
