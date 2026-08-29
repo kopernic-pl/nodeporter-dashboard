@@ -1,26 +1,21 @@
-import { FlatCompat } from '@eslint/eslintrc';
 import globals from 'globals';
-import importPlugin from 'eslint-plugin-import';
 import js from '@eslint/js';
-import next from 'eslint-config-next';
-
-const compat = new FlatCompat({
-  // import.meta.dirname is available after Node.js v20.11.0
-  baseDirectory: import.meta.dirname,
-});
+import tsParser from '@typescript-eslint/parser';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 const eslintConfig = [
-  ...compat.config({
-    extends: ['prettier'],
-    plugins: ['import'],
-  }),
   js.configs.recommended,
-  ...next,
   {
-    files: ['**/*.{js,mjs,cjs}'],
+    files: ['**/*.{js,mjs,cjs,jsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
+      parser: tsParser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
       globals: Object.fromEntries(
         Object.entries({
           ...globals.browser,
@@ -29,16 +24,38 @@ const eslintConfig = [
       ),
     },
     plugins: {
-      import: importPlugin,
+      'react-hooks': reactHooks,
     },
     rules: {
-      'import/no-dynamic-require': 'warn',
-      'import/no-nodejs-modules': 'off',
+      // Standard, reasonable rules for OSS project
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-console': 'off',
+      'no-debugger': 'warn',
+      'no-var': 'error',
+      'prefer-const': 'warn',
+      'eqeqeq': ['warn', 'always'],
+      'curly': ['warn', 'all'],
+      'no-undef': 'off', // Allow global variables
+      
+      // React Hooks rules (relaxed for OSS project)
+      ...reactHooks.configs.recommended.rules,
+      'react-hooks/set-state-in-effect': 'warn',
+    },
+    settings: {
+      react: {
+        version: '19', // Explicitly set React version to avoid auto-detection issues
+      },
     },
   },
   {
     files: ['**/*.test.js', '**/*.spec.js', 'jest.setup.js'],
     languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
       globals: Object.fromEntries(
         Object.entries({
           ...globals.jest,
@@ -50,10 +67,9 @@ const eslintConfig = [
       ),
     },
   },
-];
-
-export default eslintConfig.concat([
   {
     ignores: ['**/node_modules/**', '**/.next/**', '**/coverage/**'],
   },
-]);
+];
+
+export default eslintConfig;

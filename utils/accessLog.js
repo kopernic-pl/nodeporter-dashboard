@@ -30,5 +30,5 @@ export default function accessLog(req, res, next) {
     );
   });
 
-  if (next) next();
+  if (next) {next();}
 }
