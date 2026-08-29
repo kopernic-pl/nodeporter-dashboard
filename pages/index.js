@@ -47,7 +47,7 @@ export default function Home() {
     // Fetch nodes data only (services are handled by useServices hook)
     const nodesPromise = fetch('/api/nodes')
       .then((response) => {
-        if (!response.ok) throw new Error('Failed to fetch nodes');
+        if (!response.ok) {throw new Error('Failed to fetch nodes');}
         return response.json();
       })
       .then((nodesData) => {
@@ -59,8 +59,8 @@ export default function Home() {
         nodesData.forEach((node) => {
           // CPU is in cores (as string, e.g. "4" or "2000m")
           // Memory is in bytes (as string, e.g. "16383752Ki")
-          let cpuVal = node.capacity && node.capacity.cpu ? node.capacity.cpu : '0';
-          let memVal = node.capacity && node.capacity.memory ? node.capacity.memory : '0';
+          const cpuVal = node.capacity && node.capacity.cpu ? node.capacity.cpu : '0';
+          const memVal = node.capacity && node.capacity.memory ? node.capacity.memory : '0';
           // Convert cpu to millicores
           if (cpuVal.endsWith('m')) {
             totalCPU += parseInt(cpuVal);
@@ -104,8 +104,11 @@ export default function Home() {
 
   React.useEffect(() => {
     // Auto-load data on component mount
-    fetchKubernetesData();
-    setHasLoaded(true);
+    const loadData = async () => {
+      await fetchKubernetesData();
+      setHasLoaded(true);
+    };
+    loadData();
   }, [fetchKubernetesData]);
 
   return (

@@ -35,12 +35,12 @@ function AutoHide({ children }) {
     return () => clearTimeout(timer);
   }, []);
 
-  if (!visible) return null;
+  if (!visible) {return null;}
   return children;
 }
 
 export default function FetchTime({ fetchTime }) {
-  if (fetchTime === null) return null;
+  if (fetchTime === null) {return null;}
 
   return (
     <AutoHide key={fetchTime}>

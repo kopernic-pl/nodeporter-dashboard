@@ -16,7 +16,7 @@ export const useServiceFilters = (services = []) => {
    * All filters are combined with AND logic
    */
   const filteredServices = useMemo(() => {
-    if (!Array.isArray(services)) return [];
+    if (!Array.isArray(services)) {return [];}
 
     return services.filter((service) => {
       // Namespace filter
@@ -54,7 +54,7 @@ export const useServiceFilters = (services = []) => {
    * Get available namespaces from services
    */
   const availableNamespaces = useMemo(() => {
-    if (!Array.isArray(services)) return [];
+    if (!Array.isArray(services)) {return [];}
     const namespaces = new Set();
     services.forEach((service) => {
       if (service.metadata?.namespace) {
@@ -68,7 +68,7 @@ export const useServiceFilters = (services = []) => {
    * Get available service types from services
    */
   const availableTypes = useMemo(() => {
-    if (!Array.isArray(services)) return [];
+    if (!Array.isArray(services)) {return [];}
     const types = new Set();
     services.forEach((service) => {
       if (service.spec?.type) {
