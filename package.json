@@ -64,7 +64,7 @@
     "@typescript-eslint/parser": "^8.68.0",
     "babel-jest": "30.5.0",
     "babel-plugin-styled-components": "2.3.0",
-    "cspell": "10.2.0",
+    "cspell": "10.2.2",
     "eslint": "10.9.1",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "17.11.0",
