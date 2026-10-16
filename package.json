@@ -60,7 +60,7 @@
     "@testing-library/dom": "10.4.2",
     "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.3",
-    "@testing-library/user-event": "14.6.7",
+    "@testing-library/user-event": "14.6.8",
     "@typescript-eslint/parser": "^8.68.0",
     "babel-jest": "30.5.2",
     "babel-plugin-styled-components": "2.3.0",
