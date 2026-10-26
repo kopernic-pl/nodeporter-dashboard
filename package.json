@@ -63,7 +63,7 @@
     "@testing-library/user-event": "14.6.8",
     "@typescript-eslint/parser": "^8.68.0",
     "babel-jest": "30.5.2",
-    "babel-plugin-styled-components": "2.3.0",
+    "babel-plugin-styled-components": "2.3.1",
     "cspell": "10.4.0",
     "eslint": "10.13.0",
     "eslint-plugin-react-hooks": "^7.1.1",
